@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Course Enrollment - TranscendIN</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Premium Interactive Enrollment Styles */
+        :root {
+            --primary-blue: #0052CC;
+            --primary-orange: #FF6B35;
+            --primary-white: #FFFFFF;
+            --dark-text: #1a1a1a;
+            --light-text: #666666;
+            --light-bg: #f8f9fa;
+            --border-color: #e0e0e0;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-sm: 0 2px 8px rgba(0, 82, 204, 0.1);
+            --shadow-md: 0 8px 24px rgba(0, 82, 204, 0.15);
+            --shadow-lg: 0 20px 48px rgba(0, 82, 204, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark-text);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .navbar-logo i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .navbar-nav a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .navbar-nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-orange));
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Container */
+        .enrollment-container {
+            margin-top: 70px;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .enrollment-hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .enrollment-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .enrollment-hero p {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .stat-item .label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Course Catalog Section */
+        .catalog-section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 30px;
+            border: 2px solid var(--border-color);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .filter-control:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-control select {
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Course Grid */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .course-card:nth-child(1) { animation-delay: 0.05s; }
+        .course-card:nth-child(2) { animation-delay: 0.1s; }
+        .course-card:nth-child(3) { animation-delay: 0.15s; }
+        .course-card:nth-child(n+4) { animation-delay: 0.2s; }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        .course-image i {
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 107, 53, 0.95);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-category {
+            display: inline-block;
+            background: var(--light-bg);
+            color: var(--primary-blue);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-text);
+            line-height: 1.3;
+        }
+
+        .course-description {
+            font-size: 0.95rem;
+            color: var(--light-text);
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-bg);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .meta-item i {
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .course-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .course-price small {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .view-details-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--primary-blue), #0041a0);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-details-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.3);
+        }
+
+        .view-details-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Modal/Details Section */
+        .course-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .course-details-modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 100px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 0.4s ease;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            color: white;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .modal-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: white;
+            background: rgba(255,255,255,0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: var(--transition-smooth);
+        }
+
+        .close-modal:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .modal-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .detail-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-section h3 i {
+            font-size: 1.8rem;
+        }
+
+        .detail-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--light-text);
+        }
+
+        .detail-list {
+            list-style: none;
+        }
+
+        .detail-list li {
+            padding: 10px 0;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .detail-list i {
+            color: var(--primary-orange);
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .instructor-card {
+            background: var(--light-bg);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .instructor-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .instructor-name {
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .instructor-title {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        .instructor-info {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .pricing-header h3 {
+            font-size: 2rem;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+
+        .pricing-header p {
+            color: var(--light-text);
+            font-size: 1.1rem;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-blue);
+        }
+
+        .pricing-card.best-value {
+            border-color: var(--primary-orange);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.best-value:hover {
+            transform: scale(1.05) translateY(-15px);
+        }
+
+        .best-value-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--primary-orange), #ff8c42);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .pricing-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 20px;
+        }
+
+        .pricing-original {
+            font-size: 0.9rem;
+            color: var(--light-text);
+            margin-bottom: 8px;
+            text-decoration: line-through;
+        }
+
+        .pricing-amount {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .pricing-amount small {
+            font-size: 0.9rem;
+            display: block;
+            color: var(--light-text);
+        }
+
+        .pricing-description {
+            font-size: 0.95rem;
+            color: var(--light-text);
+            margin-bottom: 25px;
+            padding: 15px 0;
+            border-top: 2px solid var(--light-bg);
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            display: flex;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--light-text);
+        }
+
+        .pricing-features i {
+            color: var(--primary-orange);
+            margin-top: 2px;
+        }
+
+        .pricing-actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        .btn-enroll {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary-blue), #0041a0);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-enroll:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 12px 20px;
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .course-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.best-value {
+                transform: scale(1);
+            }
+
+            .pricing-card.best-value:hover {
+                transform: translateY(-15px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-nav {
+                display: none;
+            }
+
+            .enrollment-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .course-stats {
+                gap: 20px;
+            }
+
+            .stat-item .number {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            .filter-control {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-header {
+                padding: 25px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .pricing-section {
+                padding: 20px;
+            }
+
+            .pricing-header h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 0 15px;
+            }
+
+            .navbar-logo {
+                font-size: 1.4rem;
+            }
+
+            .enrollment-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .course-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .filter-control {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+            }
+
+            .modal-content {
+                border-radius: 15px;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .pricing-amount {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">
+                <i class="fas fa-graduation-cap"></i>
+                TranscendIN
+            </a>
+            <ul class="navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="all-courses.html">All Courses</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="enrollment-container">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="enrollment-hero">
+                <h1>Transform Your Career</h1>
+                <p>Enroll in world-class professional training courses</p>
+            </section>
+
+            <!-- Catalog Section -->
+            <section class="catalog-section">
+                <div class="section-header">
+                    <h2>Available Courses</h2>
+                    <div class="filter-group">
+                        <select class="filter-control" id="courseFilter">
+                            <option value="">All Courses</option>
+                            <!-- Course names will be populated by JavaScript -->
+                        </select>
+                        <select class="filter-control" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="technical">Technical</option>
+                            <option value="business">Business</option>
+                            <option value="professional">Professional</option>
+                            <option value="azure">Azure</option>
+                            <option value="leadership">Leadership</option>
+                            <option value="customer-service">Customer Service</option>
+                            <option value="sales">Sales</option>
+                        </select>
+                        <select class="filter-control" id="durationFilter">
+                            <option value="">All Durations</option>
+                            <option value="mini">Mini (0.5 days)</option>
+                            <option value="1day">1 Day</option>
+                            <option value="2day">2 Days</option>
+                            <option value="3day">3 Days</option>
+                            <option value="4day">4 Days</option>
+                            <option value="5day">5 Days</option>
+                            <option value="6day">6 Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Course Grid -->
+                <div class="course-grid" id="courseGrid">
+                    <!-- Courses will be populated by JavaScript -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Course Details Modal -->
+    <div class="course-details-modal" id="courseModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <h2 id="modalTitle">Course Title</h2>
+                    <p id="modalDescription">Course description</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="details-grid">
+                    <div class="detail-section">
+                        <h3><i class="fas fa-book"></i> Course Overview</h3>
+                        <div class="detail-content" id="modalOverview"></div>
+                    </div>
+                    <div class="detail-section">
+                        <h3><i class="fas fa-list-check"></i> Learning Outcomes</h3>
+                        <ul class="detail-list" id="modalOutcomes"></ul>
+                    </div>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-section">
+                        <h3><i class="fas fa-graduation-cap"></i> Course Details</h3>
+                        <div class="detail-content">
+                            <ul class="detail-list">
+                                <li><i class="fas fa-clock"></i> <strong>Duration:</strong> <span id="modalDuration">N/A</span></li>
+                                <li><i class="fas fa-layer-group"></i> <strong>Category:</strong> <span id="modalCategory">N/A</span></li>
+                                <li><i class="fas fa-certificate"></i> <strong>Certificate:</strong> Included</li>
+                                <li><i class="fas fa-star"></i> <strong>Rating:</strong> <span id="modalRating">N/A</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Comprehensive Course Database (All 137 Courses)
+        const coursesDatabase = [
+            {id: 1, name: "10 Soft Skills You Need", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 101, featured: true, description: "Professional training in 10 Soft Skills You Need", icon: "fa-book"},
+            {id: 2, name: "Absence Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 102, featured: true, description: "Professional training in Absence Management", icon: "fa-users"},
+            {id: 3, name: "Access 2013 Expert", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 103, featured: true, description: "Professional training in Access 2013 Expert", icon: "fa-book"},
+            {id: 4, name: "Effective Vendor Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 104, featured: true, description: "Professional training in Effective Vendor Management", icon: "fa-users"},
+            {id: 5, name: "Business Finance Basics", category: "business", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 105, featured: true, description: "Professional training in Business Finance Basics", icon: "fa-chart-line"},
+            {id: 6, name: "Customer Service Essentials", category: "sales", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 106, featured: true, description: "Professional training in Customer Service Essentials", icon: "fa-book"},
+            {id: 7, name: "Professional Development Essentials", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 107, featured: true, description: "Professional training in Professional Development Essentials", icon: "fa-code"},
+            {id: 8, name: "Essential Coaching Skills for Managers", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 108, featured: true, description: "Professional training in Essential Coaching Skills for Managers", icon: "fa-book"},
+            {id: 9, name: "Career Planning", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 109, featured: true, description: "Professional training in Career Planning", icon: "fa-book"},
+            {id: 10, name: "Teamwork Skills: Communicating Effectively in Groups", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 110, featured: true, description: "Professional training in Teamwork Skills: Communicating Effectively in Groups", icon: "fa-users"},
+            {id: 11, name: "Account Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 111, featured: true, description: "Professional training in Account Management", icon: "fa-users"},
+            {id: 12, name: "Agile & Scrum", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 112, featured: true, description: "Professional training in Agile & Scrum", icon: "fa-tasks"},
+            {id: 13, name: "Agile For Executives", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 113, featured: true, description: "Professional training in Agile For Executives", icon: "fa-tasks"},
+            {id: 14, name: "AgileSHIFT", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 114, featured: true, description: "Professional training in AgileSHIFT", icon: "fa-tasks"},
+            {id: 15, name: "Big Data Overview", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 115, featured: true, description: "Professional training in Big Data Overview", icon: "fa-chart-line"},
+            {id: 16, name: "Big Data Strategy", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 116, featured: true, description: "Professional training in Big Data Strategy", icon: "fa-chart-line"},
+            {id: 17, name: "Business Case Writing", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 117, featured: true, description: "Professional training in Business Case Writing", icon: "fa-comments"},
+            {id: 18, name: "Business Ethics", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 118, featured: true, description: "Professional training in Business Ethics", icon: "fa-book"},
+            {id: 19, name: "Business Etiquette", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 119, featured: true, description: "Professional training in Business Etiquette", icon: "fa-book"},
+            {id: 20, name: "Business Networking", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 120, featured: true, description: "Professional training in Business Networking", icon: "fa-book"},
+            {id: 21, name: "Business Presentations", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 121, featured: true, description: "Professional training in Business Presentations", icon: "fa-comments"},
+            {id: 22, name: "Business Succession Planning", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 122, featured: true, description: "Professional training in Business Succession Planning", icon: "fa-book"},
+            {id: 23, name: "Business Writing", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 123, featured: true, description: "Professional training in Business Writing", icon: "fa-comments"},
+            {id: 24, name: "Coaching at Work", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 124, featured: true, description: "Professional training in Coaching at Work", icon: "fa-book"},
+            {id: 25, name: "COBIT 5 And ITIL", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 125, featured: true, description: "Professional training in COBIT 5 And ITIL", icon: "fa-book"},
+            {id: 26, name: "Combining ITIL and COBIT for Service Management Improvement", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 126, featured: true, description: "Professional training in Combining ITIL and COBIT for Service Management Improvement", icon: "fa-users"},
+            {id: 27, name: "Communication Skills", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 127, featured: true, description: "Professional training in Communication Skills", icon: "fa-comments"},
+            {id: 28, name: "Communication Strategies", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 128, featured: true, description: "Professional training in Communication Strategies", icon: "fa-comments"},
+            {id: 29, name: "Conflict Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 129, featured: true, description: "Professional training in Conflict Management", icon: "fa-users"},
+            {id: 30, name: "Crisis Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 130, featured: true, description: "Professional training in Crisis Management", icon: "fa-users"},
+            {id: 31, name: "Cyber Security Overview", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 131, featured: false, description: "Professional training in Cyber Security Overview", icon: "fa-shield"},
+            {id: 32, name: "DevOps And ITSM", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 132, featured: false, description: "Professional training in DevOps And ITSM", icon: "fa-code"},
+            {id: 33, name: "DevOps Awareness", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 133, featured: false, description: "Professional training in DevOps Awareness", icon: "fa-code"},
+            {id: 34, name: "Effective Change Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 134, featured: false, description: "Professional training in Effective Change Management", icon: "fa-users"},
+            {id: 35, name: "Elements Of Risk Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 135, featured: false, description: "Professional training in Elements Of Risk Management", icon: "fa-users"},
+            {id: 36, name: "Emotional Intelligence", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 136, featured: false, description: "Professional training in Emotional Intelligence", icon: "fa-book"},
+            {id: 37, name: "Employee Engagement", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 137, featured: false, description: "Professional training in Employee Engagement", icon: "fa-book"},
+            {id: 38, name: "Essential Management Skills", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 138, featured: false, description: "Professional training in Essential Management Skills", icon: "fa-users"},
+            {id: 39, name: "Event Planning", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 139, featured: false, description: "Professional training in Event Planning", icon: "fa-book"},
+            {id: 40, name: "Excel 2007 Advanced", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 140, featured: false, description: "Professional training in Excel 2007 Advanced", icon: "fa-chart-line"},
+            {id: 41, name: "Excel Data Analysis in Finance", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 141, featured: false, description: "Professional training in Excel Data Analysis in Finance", icon: "fa-chart-line"},
+            {id: 42, name: "Excel Super User", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 142, featured: false, description: "Professional training in Excel Super User", icon: "fa-chart-line"},
+            {id: 43, name: "Excel VBA", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 143, featured: false, description: "Professional training in Excel VBA", icon: "fa-chart-line"},
+            {id: 44, name: "High-Powered Excel for Finance", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 144, featured: false, description: "Professional training in High-Powered Excel for Finance", icon: "fa-chart-line"},
+            {id: 45, name: "Human Resource Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 145, featured: false, description: "Professional training in Human Resource Management", icon: "fa-users"},
+            {id: 46, name: "Internet Marketing Fundamentals", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 146, featured: false, description: "Professional training in Internet Marketing Fundamentals", icon: "fa-book"},
+            {id: 47, name: "Internet of Things - Business Perspectives", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 147, featured: false, description: "Professional training in Internet of Things - Business Perspectives", icon: "fa-book"},
+            {id: 48, name: "Interview Skills", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 148, featured: false, description: "Professional training in Interview Skills", icon: "fa-book"},
+            {id: 49, name: "Introduction To Agile", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 149, featured: false, description: "Professional training in Introduction To Agile", icon: "fa-tasks"},
+            {id: 50, name: "Introduction To Software Test Automation", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 150, featured: false, description: "Professional training in Introduction To Software Test Automation", icon: "fa-code"},
+            {id: 51, name: "Introduction To Web Of Things", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 151, featured: false, description: "Professional training in Introduction To Web Of Things", icon: "fa-book"},
+            {id: 52, name: "ITIL 4 Specialist: High Velocity IT", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 152, featured: false, description: "Professional training in ITIL 4 Specialist: High Velocity IT", icon: "fa-book"},
+            {id: 53, name: "ITIL Foundation", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 153, featured: false, description: "Professional training in ITIL Foundation", icon: "fa-book"},
+            {id: 54, name: "Knowledge Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 154, featured: false, description: "Professional training in Knowledge Management", icon: "fa-users"},
+            {id: 55, name: "Leading Effective Teams", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 155, featured: false, description: "Professional training in Leading Effective Teams", icon: "fa-users"},
+            {id: 56, name: "Manager Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 156, featured: false, description: "Professional training in Manager Management", icon: "fa-users"},
+            {id: 57, name: "Managing a Virtual Team", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 157, featured: false, description: "Professional training in Managing a Virtual Team", icon: "fa-users"},
+            {id: 58, name: "Managing Performance", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 158, featured: false, description: "Professional training in Managing Performance", icon: "fa-book"},
+            {id: 59, name: "Marketing Essentials", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 159, featured: false, description: "Professional training in Marketing Essentials", icon: "fa-book"},
+            {id: 60, name: "Mastering in DAX and Data Modeling", category: "business", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 160, featured: false, description: "Professional training in Mastering in DAX and Data Modeling", icon: "fa-chart-line"},
+            {id: 61, name: "Maximising your Excel Productivity", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 161, featured: false, description: "Professional training in Maximising your Excel Productivity", icon: "fa-chart-line"},
+            {id: 62, name: "Negotiation Skills - Expert", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 162, featured: false, description: "Professional training in Negotiation Skills - Expert", icon: "fa-book"},
+            {id: 63, name: "Negotiation Skills - Professional", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 163, featured: false, description: "Professional training in Negotiation Skills - Professional", icon: "fa-book"},
+            {id: 64, name: "ONF-Certified SDN Associate (OCSA)", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 164, featured: false, description: "Professional training in ONF-Certified SDN Associate (OCSA)", icon: "fa-book"},
+            {id: 65, name: "Organizational Skills", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 165, featured: false, description: "Professional training in Organizational Skills", icon: "fa-book"},
+            {id: 66, name: "P3O Practitioner", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 166, featured: false, description: "Professional training in P3O Practitioner", icon: "fa-book"},
+            {id: 67, name: "Performance Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 167, featured: false, description: "Professional training in Performance Management", icon: "fa-users"},
+            {id: 68, name: "Personal Branding", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 168, featured: false, description: "Professional training in Personal Branding", icon: "fa-book"},
+            {id: 69, name: "Power BI for Business Users", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 169, featured: false, description: "Professional training in Power BI for Business Users", icon: "fa-book"},
+            {id: 70, name: "Power BI for Report Developers", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 170, featured: false, description: "Professional training in Power BI for Report Developers", icon: "fa-code"},
+            {id: 71, name: "Power Query (Get & Transform) for Excel and Power BI Desktop", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 171, featured: false, description: "Professional training in Power Query (Get & Transform) for Excel and Power BI Desktop", icon: "fa-chart-line"},
+            {id: 72, name: "Practical Sales Skills", category: "sales", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 172, featured: false, description: "Professional training in Practical Sales Skills", icon: "fa-handshake"},
+            {id: 73, name: "Preparing for Job Interviews", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 173, featured: false, description: "Professional training in Preparing for Job Interviews", icon: "fa-book"},
+            {id: 74, name: "Presentation Skills", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 174, featured: false, description: "Professional training in Presentation Skills", icon: "fa-comments"},
+            {id: 75, name: "Presentation Skills – Expert", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 175, featured: false, description: "Professional training in Presentation Skills – Expert", icon: "fa-comments"},
+            {id: 76, name: "Presentation Skills – Professional", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 176, featured: false, description: "Professional training in Presentation Skills – Professional", icon: "fa-comments"},
+            {id: 77, name: "Proposal Writing", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 177, featured: false, description: "Professional training in Proposal Writing", icon: "fa-comments"},
+            {id: 78, name: "Public Speaking", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 178, featured: false, description: "Professional training in Public Speaking", icon: "fa-book"},
+            {id: 79, name: "Quality Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 179, featured: false, description: "Professional training in Quality Management", icon: "fa-users"},
+            {id: 80, name: "Recruitment Skills", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 180, featured: false, description: "Professional training in Recruitment Skills", icon: "fa-book"},
+            {id: 81, name: "Report Writing", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 181, featured: false, description: "Professional training in Report Writing", icon: "fa-comments"},
+            {id: 82, name: "Risk Assessment", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 182, featured: false, description: "Professional training in Risk Assessment", icon: "fa-book"},
+            {id: 83, name: "Risk Assessment and Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 183, featured: false, description: "Professional training in Risk Assessment and Management", icon: "fa-users"},
+            {id: 84, name: "SDN Overview", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 184, featured: false, description: "Professional training in SDN Overview", icon: "fa-book"},
+            {id: 85, name: "Software Testing Essentials", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 185, featured: false, description: "Professional training in Software Testing Essentials", icon: "fa-code"},
+            {id: 86, name: "Software Testing Essentials For Developers", category: "technical", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 186, featured: false, description: "Professional training in Software Testing Essentials For Developers", icon: "fa-code"},
+            {id: 87, name: "Stakeholder Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 187, featured: false, description: "Professional training in Stakeholder Management", icon: "fa-users"},
+            {id: 88, name: "Stress Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 188, featured: false, description: "Professional training in Stress Management", icon: "fa-users"},
+            {id: 89, name: "Supply Chain Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 189, featured: false, description: "Professional training in Supply Chain Management", icon: "fa-users"},
+            {id: 90, name: "Team Kanban Practitioner", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.4, reviews: 190, featured: false, description: "Professional training in Team Kanban Practitioner", icon: "fa-users"},
+            {id: 91, name: "Time Management", category: "leadership", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.5, reviews: 191, featured: false, description: "Professional training in Time Management", icon: "fa-users"},
+            {id: 92, name: "Train-The-Trainer", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.6, reviews: 192, featured: false, description: "Professional training in Train-The-Trainer", icon: "fa-book"},
+            {id: 93, name: "Wellness", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.7, reviews: 193, featured: false, description: "Professional training in Wellness", icon: "fa-book"},
+            {id: 94, name: "Workplace Reflective Practice", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.8, reviews: 194, featured: false, description: "Professional training in Workplace Reflective Practice", icon: "fa-book"},
+            {id: 95, name: "Writing a CV", category: "professional", duration: 1.0, standardPrice: 695, earlyBirdPrice: 545, liveVirtualStd: 545, liveVirtualEB: 445, rating: 4.9, reviews: 195, featured: false, description: "Professional training in Writing a CV", icon: "fa-comments"},
+            {id: 96, name: "Agile For Product Owner", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 196, featured: false, description: "Professional training in Agile For Product Owner", icon: "fa-tasks"},
+            {id: 97, name: "Agile Scrum Master", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 197, featured: false, description: "Professional training in Agile Scrum Master", icon: "fa-tasks"},
+            {id: 98, name: "AgileScrum Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 198, featured: false, description: "Professional training in AgileScrum Foundation", icon: "fa-tasks"},
+            {id: 99, name: "Big Data Bootcamp", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 199, featured: false, description: "Professional training in Big Data Bootcamp", icon: "fa-chart-line"},
+            {id: 100, name: "Business Process Analysis & Design", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 200, featured: false, description: "Professional training in Business Process Analysis & Design", icon: "fa-book"},
+            {id: 101, name: "CCC - Blockchain Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 201, featured: false, description: "Professional training in CCC - Blockchain Foundation", icon: "fa-book"},
+            {id: 102, name: "CCC-Big Data Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 202, featured: false, description: "Professional training in CCC-Big Data Foundation", icon: "fa-chart-line"},
+            {id: 103, name: "CCC-Cloud Technology Associate", category: "azure", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 203, featured: false, description: "Professional training in CCC-Cloud Technology Associate", icon: "fa-cloud"},
+            {id: 104, name: "Change Management Practitioner", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 204, featured: false, description: "Professional training in Change Management Practitioner", icon: "fa-users"},
+            {id: 105, name: "Cloud Essentials", category: "azure", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 205, featured: false, description: "Professional training in Cloud Essentials", icon: "fa-cloud"},
+            {id: 106, name: "COBIT 5 Assessor", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 206, featured: false, description: "Professional training in COBIT 5 Assessor", icon: "fa-book"},
+            {id: 107, name: "Construction Project Manager", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 207, featured: false, description: "Professional training in Construction Project Manager", icon: "fa-tasks"},
+            {id: 108, name: "Cyber Security", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 208, featured: false, description: "Professional training in Cyber Security", icon: "fa-shield"},
+            {id: 109, name: "DASA - DevOps Product Owner", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 209, featured: false, description: "Professional training in DASA - DevOps Product Owner", icon: "fa-code"},
+            {id: 110, name: "DASA - DevOps Professional Enable And Scale - Pro", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 210, featured: false, description: "Professional training in DASA - DevOps Professional Enable And Scale - Pro", icon: "fa-code"},
+            {id: 111, name: "DBCM - Dynamic Business Case Management", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 211, featured: false, description: "Professional training in DBCM - Dynamic Business Case Management", icon: "fa-users"},
+            {id: 112, name: "DevOps Practitioner", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 212, featured: false, description: "Professional training in DevOps Practitioner", icon: "fa-code"},
+            {id: 113, name: "EXIN - ITSM-ISO/IEC 20000 Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 213, featured: false, description: "Professional training in EXIN - ITSM-ISO/IEC 20000 Foundation", icon: "fa-book"},
+            {id: 114, name: "Financial and Basic Accounting Principles for Project Managers", category: "business", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 214, featured: false, description: "Professional training in Financial and Basic Accounting Principles for Project Managers", icon: "fa-tasks"},
+            {id: 115, name: "Financial Modelling In Excel", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 215, featured: false, description: "Professional training in Financial Modelling In Excel", icon: "fa-chart-line"},
+            {id: 116, name: "From Digital Strategy To Implementation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 216, featured: false, description: "Professional training in From Digital Strategy To Implementation", icon: "fa-book"},
+            {id: 117, name: "Fundamentals of SDLC", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 217, featured: false, description: "Professional training in Fundamentals of SDLC", icon: "fa-book"},
+            {id: 118, name: "Fundamentals Of Software Testing", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 218, featured: false, description: "Professional training in Fundamentals Of Software Testing", icon: "fa-code"},
+            {id: 119, name: "HDI Customer Service Representative", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 219, featured: false, description: "Professional training in HDI Customer Service Representative", icon: "fa-book"},
+            {id: 120, name: "HDI Desktop Support Technician", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 220, featured: false, description: "Professional training in HDI Desktop Support Technician", icon: "fa-book"},
+            {id: 121, name: "HDI Support Center Analyst", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 221, featured: false, description: "Professional training in HDI Support Center Analyst", icon: "fa-book"},
+            {id: 122, name: "HDI Support Center Team Lead", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 222, featured: false, description: "Professional training in HDI Support Center Team Lead", icon: "fa-users"},
+            {id: 123, name: "HDI Technical Support Professional", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 223, featured: false, description: "Professional training in HDI Technical Support Professional", icon: "fa-book"},
+            {id: 124, name: "Implementing the NIST Cybersecurity Framework Using COBIT 5", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 224, featured: false, description: "Professional training in Implementing the NIST Cybersecurity Framework Using COBIT 5", icon: "fa-shield"},
+            {id: 125, name: "Integrating Enterprise Architecture And Solution Architecture", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 225, featured: false, description: "Professional training in Integrating Enterprise Architecture And Solution Architecture", icon: "fa-book"},
+            {id: 126, name: "Introduction To Data Analysis", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 226, featured: false, description: "Professional training in Introduction To Data Analysis", icon: "fa-chart-line"},
+            {id: 127, name: "ISTQB Foundation Extension Agile Tester", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 227, featured: false, description: "Professional training in ISTQB Foundation Extension Agile Tester", icon: "fa-tasks"},
+            {id: 128, name: "ITIL 4 Foundation - Pro", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 228, featured: false, description: "Professional training in ITIL 4 Foundation - Pro", icon: "fa-book"},
+            {id: 129, name: "ITIL - Managing Across The Lifecycle (MALC)", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 229, featured: false, description: "Professional training in ITIL - Managing Across The Lifecycle (MALC)", icon: "fa-book"},
+            {id: 130, name: "ITIL - Service Operation (SO)", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 230, featured: false, description: "Professional training in ITIL - Service Operation (SO)", icon: "fa-book"},
+            {id: 131, name: "ITIL - Service Strategy (SS)", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 231, featured: false, description: "Professional training in ITIL - Service Strategy (SS)", icon: "fa-book"},
+            {id: 132, name: "Leading SAFe 5.0 Certification", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 232, featured: false, description: "Professional training in Leading SAFe 5.0 Certification", icon: "fa-book"},
+            {id: 133, name: "Lean IT Value Stream Mapping - Mike Orzen Signature Course", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 233, featured: false, description: "Professional training in Lean IT Value Stream Mapping - Mike Orzen Signature Course", icon: "fa-book"},
+            {id: 134, name: "Lean Six Sigma Black Belt", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 234, featured: false, description: "Professional training in Lean Six Sigma Black Belt", icon: "fa-book"},
+            {id: 135, name: "LITA Lean IT Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 235, featured: false, description: "Professional training in LITA Lean IT Foundation", icon: "fa-book"},
+            {id: 136, name: "Management Of Portfolios - Practitioner", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 236, featured: false, description: "Professional training in Management Of Portfolios - Practitioner", icon: "fa-users"},
+            {id: 137, name: "Management Of Risk (M_o_R) Practitioner", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 237, featured: false, description: "Professional training in Management Of Risk (M_o_R) Practitioner", icon: "fa-users"},
+            {id: 138, name: "Management Of Risk Foundation (M_o_R)", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 238, featured: false, description: "Professional training in Management Of Risk Foundation (M_o_R)", icon: "fa-users"},
+            {id: 139, name: "Management Of Value (MoV) Foundation", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 239, featured: false, description: "Professional training in Management Of Value (MoV) Foundation", icon: "fa-users"},
+            {id: 140, name: "Management Of Value (MoV) Practitioner", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 240, featured: false, description: "Professional training in Management Of Value (MoV) Practitioner", icon: "fa-users"},
+            {id: 141, name: "Managing Benefits Practitioner", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 241, featured: false, description: "Professional training in Managing Benefits Practitioner", icon: "fa-book"},
+            {id: 142, name: "Managing Successful Programmes - MSP Advanced Practitioner", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 242, featured: false, description: "Professional training in Managing Successful Programmes - MSP Advanced Practitioner", icon: "fa-book"},
+            {id: 143, name: "Managing Successful Programmes - MSP Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 243, featured: false, description: "Professional training in Managing Successful Programmes - MSP Foundation", icon: "fa-book"},
+            {id: 144, name: "Managing Successful Programmes - MSP Practitioner", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 244, featured: false, description: "Professional training in Managing Successful Programmes - MSP Practitioner", icon: "fa-book"},
+            {id: 145, name: "Microsoft Power BI", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 245, featured: false, description: "Professional training in Microsoft Power BI", icon: "fa-book"},
+            {id: 146, name: "Microsoft Power BI Comprehensive Training", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 246, featured: false, description: "Professional training in Microsoft Power BI Comprehensive Training", icon: "fa-book"},
+            {id: 147, name: "Microsoft Power BI Dashboard and Data Analysis", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 247, featured: false, description: "Professional training in Microsoft Power BI Dashboard and Data Analysis", icon: "fa-chart-line"},
+            {id: 148, name: "Microsoft Power Query and Power Pivot for Excel", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 248, featured: false, description: "Professional training in Microsoft Power Query and Power Pivot for Excel", icon: "fa-chart-line"},
+            {id: 149, name: "Microsoft Project 2013", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 249, featured: false, description: "Professional training in Microsoft Project 2013", icon: "fa-tasks"},
+            {id: 150, name: "ONF-Certified SDN Engineer Certification (OCSE)", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 250, featured: false, description: "Professional training in ONF-Certified SDN Engineer Certification (OCSE)", icon: "fa-book"},
+            {id: 151, name: "P3O Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 251, featured: false, description: "Professional training in P3O Foundation", icon: "fa-book"},
+            {id: 152, name: "Practical DevOps & Continuous Delivery", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 252, featured: false, description: "Professional training in Practical DevOps & Continuous Delivery", icon: "fa-code"},
+            {id: 153, name: "Problem Management Professional", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 253, featured: false, description: "Professional training in Problem Management Professional", icon: "fa-users"},
+            {id: 154, name: "Project Integration Management", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 254, featured: false, description: "Professional training in Project Integration Management", icon: "fa-users"},
+            {id: 155, name: "Project Management Basics", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 255, featured: false, description: "Professional training in Project Management Basics", icon: "fa-users"},
+            {id: 156, name: "Project Manager and Business Analyst Role Collaboration", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 256, featured: false, description: "Professional training in Project Manager and Business Analyst Role Collaboration", icon: "fa-tasks"},
+            {id: 157, name: "RESILIA Practitioner", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 257, featured: false, description: "Professional training in RESILIA Practitioner", icon: "fa-book"},
+            {id: 158, name: "Risk Based Testing", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 258, featured: false, description: "Professional training in Risk Based Testing", icon: "fa-book"},
+            {id: 159, name: "SAFe 5.0 Advanced Scrum Master with SASM Certification", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 259, featured: false, description: "Professional training in SAFe 5.0 Advanced Scrum Master with SASM Certification", icon: "fa-book"},
+            {id: 160, name: "SAFe DevOps", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 260, featured: false, description: "Professional training in SAFe DevOps", icon: "fa-code"},
+            {id: 161, name: "SAFe for Architects", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 261, featured: false, description: "Professional training in SAFe for Architects", icon: "fa-book"},
+            {id: 162, name: "SAFe For Teams", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 262, featured: false, description: "Professional training in SAFe For Teams", icon: "fa-users"},
+            {id: 163, name: "SAFe Product Owner/Product Manager", category: "leadership", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 263, featured: false, description: "Professional training in SAFe Product Owner/Product Manager", icon: "fa-book"},
+            {id: 164, name: "SAFe Scrum Master", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 264, featured: false, description: "Professional training in SAFe Scrum Master", icon: "fa-book"},
+            {id: 165, name: "Sales Presentation Mastery", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 265, featured: false, description: "Professional training in Sales Presentation Mastery", icon: "fa-handshake"},
+            {id: 166, name: "SECO - Data Protection Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 266, featured: false, description: "Professional training in SECO - Data Protection Foundation", icon: "fa-chart-line"},
+            {id: 167, name: "SECO - IT-Security Foundation", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 267, featured: false, description: "Professional training in SECO - IT-Security Foundation", icon: "fa-shield"},
+            {id: 168, name: "SECO - Secure Programming Foundation", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 268, featured: false, description: "Professional training in SECO - Secure Programming Foundation", icon: "fa-book"},
+            {id: 169, name: "SQL Server \"Rookie to Rockstar\"", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 269, featured: false, description: "Professional training in SQL Server \"Rookie to Rockstar\"", icon: "fa-book"},
+            {id: 170, name: "TIPA Lead Assessor", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 270, featured: false, description: "Professional training in TIPA Lead Assessor", icon: "fa-book"},
+            {id: 171, name: "Virtualization Essentials", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 271, featured: false, description: "Professional training in Virtualization Essentials", icon: "fa-book"},
+            {id: 172, name: "Advanced Android Security", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 272, featured: false, description: "Professional training in Advanced Android Security", icon: "fa-shield"},
+            {id: 173, name: "Advanced Java and Web Application Security", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 273, featured: false, description: "Professional training in Advanced Java and Web Application Security", icon: "fa-shield"},
+            {id: 174, name: "Advanced Practical Project Management", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 274, featured: false, description: "Professional training in Advanced Practical Project Management", icon: "fa-users"},
+            {id: 175, name: "Agile Bootcamp", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 275, featured: false, description: "Professional training in Agile Bootcamp", icon: "fa-tasks"},
+            {id: 176, name: "Agile Project Management Foundation (AgilePM)", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 276, featured: false, description: "Professional training in Agile Project Management Foundation (AgilePM)", icon: "fa-users"},
+            {id: 177, name: "CCC-Professional Cloud Administrator(PCA)", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 277, featured: false, description: "Professional training in CCC-Professional Cloud Administrator(PCA)", icon: "fa-cloud"},
+            {id: 178, name: "CCC-Professional Cloud Developer (PCD)", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 278, featured: false, description: "Professional training in CCC-Professional Cloud Developer (PCD)", icon: "fa-code"},
+            {id: 179, name: "CCC-Professional Cloud Security Manager", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 279, featured: false, description: "Professional training in CCC-Professional Cloud Security Manager", icon: "fa-shield"},
+            {id: 180, name: "CCC-Professional Cloud Service Manager(PCSM)", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 280, featured: false, description: "Professional training in CCC-Professional Cloud Service Manager(PCSM)", icon: "fa-cloud"},
+            {id: 181, name: "CCC-Professional Cloud Solutions Architect(PCSA)", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 281, featured: false, description: "Professional training in CCC-Professional Cloud Solutions Architect(PCSA)", icon: "fa-cloud"},
+            {id: 182, name: "Change Management Foundation", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 282, featured: false, description: "Professional training in Change Management Foundation", icon: "fa-users"},
+            {id: 183, name: "COBIT 5 Foundation", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 283, featured: false, description: "Professional training in COBIT 5 Foundation", icon: "fa-book"},
+            {id: 184, name: "COBIT 5 Implementation", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 284, featured: false, description: "Professional training in COBIT 5 Implementation", icon: "fa-book"},
+            {id: 185, name: "DASA - DevOps Fundamentals", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 285, featured: false, description: "Professional training in DASA - DevOps Fundamentals", icon: "fa-code"},
+            {id: 186, name: "Data Analysis Bootcamp", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 286, featured: false, description: "Professional training in Data Analysis Bootcamp", icon: "fa-chart-line"},
+            {id: 187, name: "Devops Implementation Bootcamp", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 287, featured: false, description: "Professional training in Devops Implementation Bootcamp", icon: "fa-code"},
+            {id: 188, name: "Foundation Certificate In OpenStack Software", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 288, featured: false, description: "Professional training in Foundation Certificate In OpenStack Software", icon: "fa-code"},
+            {id: 189, name: "Getting Started With Enterprise Architecture", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 289, featured: false, description: "Professional training in Getting Started With Enterprise Architecture", icon: "fa-book"},
+            {id: 190, name: "HDI Desktop Support Manager", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 290, featured: false, description: "Professional training in HDI Desktop Support Manager", icon: "fa-book"},
+            {id: 191, name: "HDI KCS Foundation", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 291, featured: false, description: "Professional training in HDI KCS Foundation", icon: "fa-book"},
+            {id: 192, name: "HDI Support Center Director", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 292, featured: false, description: "Professional training in HDI Support Center Director", icon: "fa-book"},
+            {id: 193, name: "HDI Support Center Manager", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 293, featured: false, description: "Professional training in HDI Support Center Manager", icon: "fa-book"},
+            {id: 194, name: "IPMA - C", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 294, featured: false, description: "Professional training in IPMA - C", icon: "fa-book"},
+            {id: 195, name: "IPMA - D", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 295, featured: false, description: "Professional training in IPMA - D", icon: "fa-book"},
+            {id: 196, name: "ISTQB Advanced - Technical Test Analyst", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 296, featured: false, description: "Professional training in ISTQB Advanced - Technical Test Analyst", icon: "fa-book"},
+            {id: 197, name: "ISTQB/BCS Software Testing Foundation", category: "technical", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 297, featured: false, description: "Professional training in ISTQB/BCS Software Testing Foundation", icon: "fa-code"},
+            {id: 198, name: "ITIL - Continual Service Improvement (CSI)", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 298, featured: false, description: "Professional training in ITIL - Continual Service Improvement (CSI)", icon: "fa-book"},
+            {id: 199, name: "ITIL - Practitioner Pro", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 299, featured: false, description: "Professional training in ITIL - Practitioner Pro", icon: "fa-book"},
+            {id: 200, name: "ITIL - Service Design (SD)", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 300, featured: false, description: "Professional training in ITIL - Service Design (SD)", icon: "fa-book"},
+            {id: 201, name: "ITIL - Service Transition (ST)", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 301, featured: false, description: "Professional training in ITIL - Service Transition (ST)", icon: "fa-book"},
+            {id: 202, name: "ITIL 4 Specialist: Create", category: "professional", duration: 1, standardPrice: 3, earlyBirdPrice: 1795, liveVirtualStd: 1645, liveVirtualEB: 1595, rating: 4.8, reviews: 302, featured: false, description: "Professional training in ITIL 4 Specialist: Create", icon: "fa-book"},
+            {id: 203, name: "ITIL 4 Specialist: Drive Stakeholder Value", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 303, featured: false, description: "Professional training in ITIL 4 Specialist: Drive Stakeholder Value", icon: "fa-book"},
+            {id: 204, name: "ITIL V3 Foundation", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 304, featured: false, description: "Professional training in ITIL V3 Foundation", icon: "fa-book"},
+            {id: 205, name: "ITIL V3 Foundation - Premium", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 305, featured: false, description: "Professional training in ITIL V3 Foundation - Premium", icon: "fa-book"},
+            {id: 206, name: "ITIL V3 Foundation + Cloud Introduction", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 306, featured: false, description: "Professional training in ITIL V3 Foundation + Cloud Introduction", icon: "fa-cloud"},
+            {id: 207, name: "ITIL - Planning", category: "professional", duration: 1, standardPrice: 3, earlyBirdPrice: 1795, liveVirtualStd: 1645, liveVirtualEB: 1595, rating: 4.7, reviews: 307, featured: false, description: "Professional training in ITIL - Planning", icon: "fa-book"},
+            {id: 208, name: "Lean Six Sigma Green Belt", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 308, featured: false, description: "Professional training in Lean Six Sigma Green Belt", icon: "fa-book"},
+            {id: 209, name: "LITA Lean IT Kaizen", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 309, featured: false, description: "Professional training in LITA Lean IT Kaizen", icon: "fa-book"},
+            {id: 210, name: "LITA Lean IT Leadership", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 310, featured: false, description: "Professional training in LITA Lean IT Leadership", icon: "fa-users"},
+            {id: 211, name: "Management Of Portfolios - Foundation", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 311, featured: false, description: "Professional training in Management Of Portfolios - Foundation", icon: "fa-users"},
+            {id: 212, name: "Management Of Portfolios - Foundation & Practitioner", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 312, featured: false, description: "Professional training in Management Of Portfolios - Foundation & Practitioner", icon: "fa-users"},
+            {id: 213, name: "Managing Multiple Projects For BA's - Prioritization And Time Management", category: "leadership", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 313, featured: false, description: "Professional training in Managing Multiple Projects For BA's - Prioritization And Time Management", icon: "fa-users"},
+            {id: 214, name: "P3O Foundation & Practitioner", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 314, featured: false, description: "Professional training in P3O Foundation & Practitioner", icon: "fa-book"},
+            {id: 215, name: "PM-BA Role Collaboration", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 315, featured: false, description: "Professional training in PM-BA Role Collaboration", icon: "fa-book"},
+            {id: 216, name: "PMI Agile Certified Practitioner(ACP)", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 316, featured: false, description: "Professional training in PMI Agile Certified Practitioner(ACP)", icon: "fa-tasks"},
+            {id: 217, name: "PMI-CAPM", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 317, featured: false, description: "Professional training in PMI-CAPM", icon: "fa-book"},
+            {id: 218, name: "PMI-RMP", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.6, reviews: 318, featured: false, description: "Professional training in PMI-RMP", icon: "fa-book"},
+            {id: 219, name: "PRINCE2 Agile Practitioner", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.7, reviews: 319, featured: false, description: "Professional training in PRINCE2 Agile Practitioner", icon: "fa-tasks"},
+            {id: 220, name: "Professional Skills Bootcamp", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 320, featured: false, description: "Professional training in Professional Skills Bootcamp", icon: "fa-book"},
+            {id: 221, name: "RESILIA Foundation", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 321, featured: false, description: "Professional training in RESILIA Foundation", icon: "fa-book"},
+            {id: 222, name: "TIPA Assessor", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.4, reviews: 322, featured: false, description: "Professional training in TIPA Assessor", icon: "fa-book"},
+            {id: 223, name: "TOGAF 9: Level 2 Certified", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.5, reviews: 323, featured: false, description: "Professional training in TOGAF 9: Level 2 Certified", icon: "fa-book"},
+            {id: 224, name: "Business Analyst Bootcamp", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.6, reviews: 324, featured: false, description: "Professional training in Business Analyst Bootcamp", icon: "fa-book"},
+            {id: 225, name: "Choose Your Own IT (Service) Management Improvement Battles", category: "leadership", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.7, reviews: 325, featured: false, description: "Professional training in Choose Your Own IT (Service) Management Improvement Battles", icon: "fa-users"},
+            {id: 226, name: "Enterprise Architecture 101", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.8, reviews: 326, featured: false, description: "Professional training in Enterprise Architecture 101", icon: "fa-book"},
+            {id: 227, name: "Excel Analytics", category: "technical", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.9, reviews: 327, featured: false, description: "Professional training in Excel Analytics", icon: "fa-chart-line"},
+            {id: 228, name: "Financial Modelling for Mining Companies", category: "business", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.4, reviews: 328, featured: false, description: "Professional training in Financial Modelling for Mining Companies", icon: "fa-book"},
+            {id: 229, name: "Implementing SAFe", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.5, reviews: 329, featured: false, description: "Professional training in Implementing SAFe", icon: "fa-book"},
+            {id: 230, name: "ISTQB Advanced - Test Analyst", category: "technical", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.6, reviews: 330, featured: false, description: "Professional training in ISTQB Advanced - Test Analyst", icon: "fa-book"},
+            {id: 231, name: "ITIL V3 Foundation + CCC-CTA Bootcamp", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.7, reviews: 331, featured: false, description: "Professional training in ITIL V3 Foundation + CCC-CTA Bootcamp", icon: "fa-book"},
+            {id: 232, name: "ITIL - Operational Support And Analysis (OSA)", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.8, reviews: 332, featured: false, description: "Professional training in ITIL - Operational Support And Analysis (OSA)", icon: "fa-book"},
+            {id: 233, name: "ITIL - Release", category: "professional", duration: 1, standardPrice: 4, earlyBirdPrice: 3295, liveVirtualStd: 2995, liveVirtualEB: 2295, rating: 4.9, reviews: 333, featured: false, description: "Professional training in ITIL - Release", icon: "fa-book"},
+            {id: 234, name: "PMP Certification", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.4, reviews: 334, featured: false, description: "Professional training in PMP Certification", icon: "fa-book"},
+            {id: 235, name: "Professional in Business Analysis (PMI-PBA)", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.5, reviews: 335, featured: false, description: "Professional training in Professional in Business Analysis (PMI-PBA)", icon: "fa-book"},
+            {id: 236, name: "Real Estate Financial Modelling", category: "business", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.6, reviews: 336, featured: false, description: "Professional training in Real Estate Financial Modelling", icon: "fa-book"},
+            {id: 237, name: "Technical Writing", category: "professional", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.7, reviews: 337, featured: false, description: "Professional training in Technical Writing", icon: "fa-comments"},
+            {id: 238, name: "Agile Project Management Foundation & Practitioner (AgilePM)", category: "leadership", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.8, reviews: 338, featured: false, description: "Professional training in Agile Project Management Foundation & Practitioner (AgilePM)", icon: "fa-users"},
+            {id: 239, name: "Business Introduction To Cloud", category: "azure", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.9, reviews: 339, featured: false, description: "Professional training in Business Introduction To Cloud", icon: "fa-cloud"},
+            {id: 240, name: "Business Introduction To Open Cloud", category: "azure", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.4, reviews: 340, featured: false, description: "Professional training in Business Introduction To Open Cloud", icon: "fa-cloud"},
+            {id: 241, name: "Certified Lead Penetration Tester", category: "technical", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.5, reviews: 341, featured: false, description: "Professional training in Certified Lead Penetration Tester", icon: "fa-book"},
+            {id: 242, name: "EXIN Information Security Advanced Based on ISO/IEC 27002", category: "technical", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.6, reviews: 342, featured: false, description: "Professional training in EXIN Information Security Advanced Based on ISO/IEC 27002", icon: "fa-shield"},
+            {id: 243, name: "Financial Modelling for Oil & Gas", category: "business", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.7, reviews: 343, featured: false, description: "Professional training in Financial Modelling for Oil & Gas", icon: "fa-book"},
+            {id: 244, name: "ISTQB Advanced - Test Manager", category: "technical", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.8, reviews: 344, featured: false, description: "Professional training in ISTQB Advanced - Test Manager", icon: "fa-book"},
+            {id: 245, name: "ITIL - Service Offerings And Agreements (SOA) - Pro", category: "professional", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.9, reviews: 345, featured: false, description: "Professional training in ITIL - Service Offerings And Agreements (SOA) - Pro", icon: "fa-book"},
+            {id: 246, name: "OpenStack Administration", category: "azure", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.4, reviews: 346, featured: false, description: "Professional training in OpenStack Administration", icon: "fa-book"},
+            {id: 247, name: "Prince2 Foundation and Practitioner Certification Program", category: "professional", duration: 5.0, standardPrice: 3795, earlyBirdPrice: 3495, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.5, reviews: 347, featured: false, description: "Professional training in Prince2 Foundation and Practitioner Certification Program", icon: "fa-book"},
+            {id: 248, name: "ITIL Combined Foundation And Practitioner", category: "professional", duration: 6.0, standardPrice: 4795, earlyBirdPrice: 4295, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.6, reviews: 348, featured: false, description: "Professional training in ITIL Combined Foundation And Practitioner", icon: "fa-book"},
+            {id: 249, name: "Open Cloud Technology Fundamentals", category: "azure", duration: 6.0, standardPrice: 4795, earlyBirdPrice: 4295, liveVirtualStd: 2795, liveVirtualEB: 2295, rating: 4.7, reviews: 349, featured: false, description: "Professional training in Open Cloud Technology Fundamentals", icon: "fa-cloud"},
+            {id: 250, name: "Microsoft Azure Fundamentals (1 - Day)", category: "azure", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 350, featured: false, description: "Professional training in Microsoft Azure Fundamentals (1 - Day)", icon: "fa-cloud"},
+            {id: 251, name: "Designing a DevOps Strategy", category: "technical", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 351, featured: false, description: "Professional training in Designing a DevOps Strategy", icon: "fa-code"},
+            {id: 252, name: "Microsoft Azure AI Fundamentals", category: "azure", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 352, featured: false, description: "Professional training in Microsoft Azure AI Fundamentals", icon: "fa-cloud"},
+            {id: 253, name: "Migrating SQL databases to Azure", category: "azure", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 353, featured: false, description: "Professional training in Migrating SQL databases to Azure", icon: "fa-chart-line"},
+            {id: 254, name: "Microsoft Azure Big Data Analytics Solutions", category: "azure", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 354, featured: false, description: "Professional training in Microsoft Azure Big Data Analytics Solutions", icon: "fa-chart-line"},
+            {id: 255, name: "Microsoft Azure Fundamentals (2 - Day)", category: "azure", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 355, featured: false, description: "Professional training in Microsoft Azure Fundamentals (2 - Day)", icon: "fa-cloud"},
+            {id: 256, name: "Microsoft Azure solutions for AWS developers", category: "azure", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.8, reviews: 356, featured: false, description: "Professional training in Microsoft Azure solutions for AWS developers", icon: "fa-code"},
+            {id: 257, name: "Microsoft Azure Administrator", category: "azure", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.9, reviews: 357, featured: false, description: "Professional training in Microsoft Azure Administrator", icon: "fa-cloud"},
+            {id: 258, name: "Microsoft Azure technologies for AWS architects", category: "azure", duration: 4.0, standardPrice: 3295, earlyBirdPrice: 2995, liveVirtualStd: 2295, liveVirtualEB: 1995, rating: 4.4, reviews: 358, featured: false, description: "Professional training in Microsoft Azure technologies for AWS architects", icon: "fa-cloud"},
+            {id: 259, name: "Anger Management", category: "leadership", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 359, featured: false, description: "Professional training in Anger Management", icon: "fa-users"},
+            {id: 260, name: "Building High Performing Teams", category: "leadership", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 360, featured: false, description: "Professional training in Building High Performing Teams", icon: "fa-users"},
+            {id: 261, name: "Call Control", category: "professional", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 361, featured: false, description: "Professional training in Call Control", icon: "fa-book"},
+            {id: 262, name: "Change Management - Change Matters", category: "leadership", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 362, featured: false, description: "Professional training in Change Management - Change Matters", icon: "fa-users"},
+            {id: 263, name: "Handling Angry and Difficult Callers", category: "professional", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 363, featured: false, description: "Professional training in Handling Angry and Difficult Callers", icon: "fa-book"},
+            {id: 264, name: "Motivating People", category: "professional", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 364, featured: false, description: "Professional training in Motivating People", icon: "fa-book"},
+            {id: 265, name: "Setting Others Up For Success! (Internal Customer Service)", category: "sales", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 365, featured: false, description: "Professional training in Setting Others Up For Success! (Internal Customer Service)", icon: "fa-book"},
+            {id: 266, name: "Telephone Debt Collection", category: "professional", duration: 1.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 366, featured: false, description: "Professional training in Telephone Debt Collection", icon: "fa-book"},
+            {id: 267, name: "Front Line Retail Selling Skills", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 367, featured: false, description: "Professional training in Front Line Retail Selling Skills", icon: "fa-handshake"},
+            {id: 268, name: "Leadership Skills - Lead", category: "leadership", duration: 1, standardPrice: 2, earlyBirdPrice: 1195, liveVirtualStd: 1145, liveVirtualEB: 995, rating: 4.8, reviews: 368, featured: false, description: "Professional training in Leadership Skills - Lead", icon: "fa-users"},
+            {id: 269, name: "Managing People", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 369, featured: false, description: "Professional training in Managing People", icon: "fa-book"},
+            {id: 270, name: "Negotiating for Results", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 370, featured: false, description: "Professional training in Negotiating for Results", icon: "fa-book"},
+            {id: 271, name: "Passionate Retail Experts", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 371, featured: false, description: "Professional training in Passionate Retail Experts", icon: "fa-book"},
+            {id: 272, name: "Pathways to Service Excellence", category: "technical", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.6, reviews: 372, featured: false, description: "Professional training in Pathways to Service Excellence", icon: "fa-chart-line"},
+            {id: 273, name: "Professional Selling Skills", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 373, featured: false, description: "Professional training in Professional Selling Skills", icon: "fa-handshake"},
+            {id: 274, name: "Retail Sales Planning and Forecasting", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 374, featured: false, description: "Professional training in Retail Sales Planning and Forecasting", icon: "fa-handshake"},
+            {id: 275, name: "Sales Management", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.9, reviews: 375, featured: false, description: "Professional training in Sales Management", icon: "fa-handshake"},
+            {id: 276, name: "Sales Territory Planning & Routing", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.4, reviews: 376, featured: false, description: "Professional training in Sales Territory Planning & Routing", icon: "fa-handshake"},
+            {id: 277, name: "Telephone Customer Service - Find a way to say YES!", category: "sales", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.5, reviews: 377, featured: false, description: "Professional training in Telephone Customer Service - Find a way to say YES!", icon: "fa-book"},
+            {id: 278, name: "Vision", category: "professional", duration: 1, standardPrice: 2, earlyBirdPrice: 1195, liveVirtualStd: 1145, liveVirtualEB: 995, rating: 4.6, reviews: 378, featured: false, description: "Professional training in Vision", icon: "fa-book"},
+            {id: 279, name: "Workplace Diversity & Inclusion", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.7, reviews: 379, featured: false, description: "Professional training in Workplace Diversity & Inclusion", icon: "fa-book"},
+            {id: 280, name: "Creative Problem Solving and Decision Making", category: "professional", duration: 2.0, standardPrice: 1195, earlyBirdPrice: 1145, liveVirtualStd: 995, liveVirtualEB: 895, rating: 4.8, reviews: 380, featured: false, description: "Professional training in Creative Problem Solving and Decision Making", icon: "fa-book"},
+            {id: 281, name: "Train-The-Trainer  (3 Days)", category: "professional", duration: 3.0, standardPrice: 1795, earlyBirdPrice: 1645, liveVirtualStd: 1595, liveVirtualEB: 1395, rating: 4.9, reviews: 381, featured: false, description: "Professional training in Train-The-Trainer  (3 Days)", icon: "fa-book"},
+            {id: 282, name: "Professional Business Writing Mini Course", category: "professional", duration: 0.5, standardPrice: 445, earlyBirdPrice: 345, liveVirtualStd: 345, liveVirtualEB: 295, rating: 4.4, reviews: 382, featured: false, description: "Professional training in Professional Business Writing Mini Course", icon: "fa-comments"},
+            {id: 283, name: "Ten Best Practice Customer Service Techniques - Mini Course", category: "sales", duration: 0.5, standardPrice: 445, earlyBirdPrice: 345, liveVirtualStd: 345, liveVirtualEB: 295, rating: 4.5, reviews: 383, featured: false, description: "Professional training in Ten Best Practice Customer Service Techniques - Mini Course", icon: "fa-book"},
+            {id: 284, name: "Sales Forecasting - Mini Course", category: "sales", duration: 0.5, standardPrice: 445, earlyBirdPrice: 345, liveVirtualStd: 345, liveVirtualEB: 295, rating: 4.6, reviews: 384, featured: false, description: "Professional training in Sales Forecasting - Mini Course", icon: "fa-handshake"},
+            {id: 285, name: "Professional Sales Questioning", category: "sales", duration: 1, standardPrice: 0, earlyBirdPrice: 445, liveVirtualStd: 345, liveVirtualEB: 345, rating: 4.7, reviews: 385, featured: false, description: "Professional training in Professional Sales Questioning", icon: "fa-handshake"}
+        ];
+
+        let filteredCourses = [...coursesDatabase];
+        let selectedCourse = null;
+
+        // Course Icons Mapping
+        const categoryIcons = {
+            'technical': 'fa-code',
+            'business': 'fa-briefcase',
+            'professional': 'fa-certificate',
+            'azure': 'fa-cloud',
+            'leadership': 'fa-crown',
+            'customer-service': 'fa-headset',
+            'sales': 'fa-chart-line'
+        };
+
+        function getDurationLabel(duration) {
+            if (duration < 1) return 'Mini (0.5 day)';
+            if (duration === 1) return '1 Day';
+            if (duration === 2) return '2 Days';
+            if (duration === 3) return '3 Days';
+            if (duration === 4) return '4 Days';
+            if (duration === 5) return '5 Days';
+            return '6 Days';
+        }
+
+        function renderCourses() {
+            const grid = document.getElementById('courseGrid');
+            
+            grid.innerHTML = filteredCourses.map((course, index) => `
+                <div class="course-card" style="animation-delay: ${index * 0.05}s">
+                    <div class="course-image">
+                        <i class="fas ${categoryIcons[course.category] || 'fa-book'}"></i>
+                        ${course.featured ? '<span class="course-badge">⭐ Featured</span>' : ''}
+                    </div>
+                    <div class="course-content">
+                        <span class="course-category">${course.category}</span>
+                        <h3 class="course-title">${course.name}</h3>
+                        <p class="course-description">${course.description}</p>
+                        <div class="course-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span class="course-rating">${course.rating} (${course.reviews})</span>
+                            </div>
+                        </div>
+                        <button class="view-details-btn" onclick="openCourseDetails(${course.id})">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openCourseDetails(courseId) {
+            selectedCourse = coursesDatabase.find(c => c.id === courseId);
+            if (!selectedCourse) return;
+
+            // Populate modal header
+            document.getElementById('modalTitle').textContent = selectedCourse.name;
+            document.getElementById('modalDescription').textContent = selectedCourse.description;
+
+            // Populate course details
+            document.getElementById('modalDuration').textContent = getDurationLabel(selectedCourse.duration);
+            document.getElementById('modalCategory').textContent = selectedCourse.category.charAt(0).toUpperCase() + selectedCourse.category.slice(1);
+            document.getElementById('modalRating').textContent = `${selectedCourse.rating} ★ (${selectedCourse.reviews} reviews)`;
+
+            // Course overview
+            document.getElementById('modalOverview').innerHTML = `
+                <p>${selectedCourse.description}</p>
+                <p style="margin-top: 15px; font-size: 0.95rem;">
+                    This comprehensive course is designed for professionals looking to advance their skills in ${selectedCourse.category}. 
+                    Join hundreds of satisfied students who have already transformed their careers with this program.
+                </p>
+            `;
+
+            // Learning outcomes
+            const outcomesList = ['Master core concepts', 'Practical hands-on experience', 'Industry-recognized certification', 'Career advancement opportunities', 'Networking with industry experts'];
+            document.getElementById('modalOutcomes').innerHTML = outcomesList.map(outcome => 
+                `<li><i class="fas fa-check-circle"></i> ${outcome}</li>`
+            ).join('');
+
+            // Show modal
+            document.getElementById('courseModal').classList.add('active');
+        }
+
+        function closeCourseModal() {
+            document.getElementById('courseModal').classList.remove('active');
+        }
+
+        function populateCourseDropdown() {
+            const courseFilter = document.getElementById('courseFilter');
+            coursesDatabase.forEach(course => {
+                const option = document.createElement('option');
+                option.value = course.id;
+                option.textContent = course.name;
+                courseFilter.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const courseId = document.getElementById('courseFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+            const duration = document.getElementById('durationFilter').value;
+
+            filteredCourses = coursesDatabase.filter(course => {
+                const matchCourse = !courseId || course.id === parseInt(courseId);
+                const matchCategory = !category || course.category === category;
+                const matchDuration = !duration || (
+                    (duration === 'mini' && course.duration < 1) ||
+                    (duration === '1day' && course.duration === 1) ||
+                    (duration === '2day' && course.duration === 2) ||
+                    (duration === '3day' && course.duration === 3) ||
+                    (duration === '4day' && course.duration === 4) ||
+                    (duration === '5day' && course.duration === 5) ||
+                    (duration === '6day' && course.duration === 6)
+                );
+                return matchCourse && matchCategory && matchDuration;
+            });
+
+            renderCourses();
+        }
+
+        // Event Listeners
+        populateCourseDropdown();
+        document.getElementById('courseFilter').addEventListener('change', applyFilters);
+        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+        document.getElementById('durationFilter').addEventListener('change', applyFilters);
+        document.getElementById('closeModal').addEventListener('click', closeCourseModal);
+
+        document.getElementById('courseModal').addEventListener('click', (e) => {
+            if (e.target.id === 'courseModal') {
+                closeCourseModal();
+            }
+        });
+
+        // Initial render
+        renderCourses();
+    </script>
+</body>
+</html>

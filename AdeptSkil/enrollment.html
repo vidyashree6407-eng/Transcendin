@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enroll in Course - TranscendIN</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .enrollment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .enrollment-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 82, 204, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .enrollment-summary {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .summary-section h4 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .course-selected {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .course-selected p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .course-selected strong {
+            color: var(--primary-blue);
+        }
+
+        .price-breakdown {
+            font-size: 14px;
+            line-height: 2;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .price-item.total {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            padding-top: 10px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .payment-method {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: var(--primary-blue);
+            background: rgba(0, 82, 204, 0.05);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary-blue);
+            background: rgba(0, 82, 204, 0.1);
+        }
+
+        .payment-method i {
+            font-size: 24px;
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .payment-method span {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .guarantee-badge {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .guarantee-badge i {
+            color: #4caf50;
+            margin-right: 8px;
+        }
+
+        .agreement-checkbox {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+
+        .agreement-checkbox input {
+            width: auto;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        .agreement-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            background: #e8f5e9;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #4caf50;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-message i {
+            font-size: 48px;
+            color: #4caf50;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .enrollment-container {
+                grid-template-columns: 1fr;
+            }
+
+            .enrollment-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .enrollment-form {
+                padding: 20px;
+            }
+
+            .enrollment-summary {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i> TranscendIN
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="all-courses.html" class="nav-link">Courses</a></li>
+                <li class="nav-item"><a href="enrollment-interactive.html" class="nav-link" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-background">
+        <div class="hero-content">
+            <h1>Complete Your Enrollment</h1>
+            <p>Secure your spot and begin your learning journey with TranscendIN</p>
+        </div>
+    </section>
+
+    <!-- Enrollment Section -->
+    <section class="container" style="margin-top: 60px; margin-bottom: 80px;">
+        <div id="enrollmentForm" class="enrollment-container">
+            <!-- Enrollment Form -->
+            <form class="enrollment-form" id="enrollForm">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="IN">India</option>
+                                <option value="CA">Canada</option>
+                                <option value="AU">Australia</option>
+                                <option value="SG">Singapore</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="timezone">Timezone *</label>
+                            <select id="timezone" name="timezone" required>
+                                <option value="">Select Timezone</option>
+                                <option value="UTC-5">Eastern Time (ET)</option>
+                                <option value="UTC-6">Central Time (CT)</option>
+                                <option value="UTC-7">Mountain Time (MT)</option>
+                                <option value="UTC-8">Pacific Time (PT)</option>
+                                <option value="UTC+0">GMT</option>
+                                <option value="UTC+1">CET</option>
+                                <option value="UTC+5:30">IST</option>
+                                <option value="UTC+8">SGT</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Selection -->
+                <div class="form-section">
+                    <h3><i class="fas fa-book"></i> Select Your Course</h3>
+                    <div class="form-group">
+                        <label for="course">Course *</label>
+                        <select id="course" name="course" required>
+                            <option value="">Select a course...</option>
+                            <option value="Business Finance Basics - $695">Business Finance Basics - $695</option>
+                            <option value="Cyber Security Overview - $695">Cyber Security Overview - $695</option>
+                            <option value="Agile Bootcamp - $1195">Agile Bootcamp - $1195</option>
+                            <option value="Business Analyst Bootcamp - $1195">Business Analyst Bootcamp - $1195</option>
+                            <option value="PMP Certification - $1795">PMP Certification - $1795</option>
+                            <option value="Azure Fundamentals - $895">Azure Fundamentals - $895</option>
+                            <option value="Python Programming - $1195">Python Programming - $1195</option>
+                            <option value="Leadership Skills - $1795">Leadership Skills - $1795</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="courseFormat">Course Format *</label>
+                        <select id="courseFormat" name="courseFormat" required>
+                            <option value="">Select format...</option>
+                            <option value="standard">Standard ($695)</option>
+                            <option value="early-bird">Early Bird ($545)</option>
+                            <option value="live-virtual">Live Virtual ($545)</option>
+                            <option value="live-virtual-eb">Live Virtual Early Bird ($445)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate">Preferred Start Date *</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+                </div>
+
+                <!-- Professional Background -->
+                <div class="form-section">
+                    <h3><i class="fas fa-briefcase"></i> Professional Background</h3>
+                    <div class="form-group">
+                        <label for="company">Company/Organization</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" name="jobTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Years of Experience *</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select...</option>
+                            <option value="0-1">0-1 years</option>
+                            <option value="1-3">1-3 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+">10+ years</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <h3><i class="fas fa-comment"></i> Why are you taking this course?</h3>
+                    <div class="form-group">
+                        <textarea id="motivation" name="motivation" rows="4" placeholder="Tell us about your learning goals..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Agreements -->
+                <div class="form-section">
+                    <div class="agreement-checkbox">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
+                    </div>
+                    <div class="agreement-checkbox">
+                        <input type="checkbox" id="marketing" name="marketing">
+                        <label for="marketing">Send me updates about new courses and learning tips</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Complete Enrollment & Proceed to Payment</button>
+            </form>
+
+            <!-- Order Summary -->
+            <div class="enrollment-summary">
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Enrollment Successful!</h3>
+                    <p>Welcome to TranscendIN! Your course access has been activated. Check your email for login credentials and course materials.</p>
+                    <button class="btn-primary" onclick="window.location.href='dashboard.html'" style="margin-top: 20px;">Go to Dashboard</button>
+                </div>
+
+                <div id="summaryContent">
+                    <div class="summary-section">
+                        <h4><i class="fas fa-book"></i> Selected Course</h4>
+                        <div class="course-selected">
+                            <p><strong>Course:</strong> <span id="summaryCourseName">Select a course</span></p>
+                            <p><strong>Format:</strong> <span id="summaryFormat">Select format</span></p>
+                            <p><strong>Start Date:</strong> <span id="summaryDate">Not selected</span></p>
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h4><i class="fas fa-credit-card"></i> Payment Method</h4>
+                        <div class="payment-methods">
+                            <div class="payment-method active" data-method="credit-card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit Card</span>
+                            </div>
+                            <div class="payment-method" data-method="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </div>
+                            <div class="payment-method" data-method="bank-transfer">
+                                <i class="fas fa-university"></i>
+                                <span>Bank Transfer</span>
+                            </div>
+                            <div class="payment-method" data-method="installment">
+                                <i class="fas fa-calendar"></i>
+                                <span>Installment</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-section">
+                        <h4><i class="fas fa-receipt"></i> Price Breakdown</h4>
+                        <div class="price-breakdown">
+                            <div class="price-item">
+                                <span>Course Fee:</span>
+                                <span id="priceCourse">$0.00</span>
+                            </div>
+                            <div class="price-item">
+                                <span>Tax:</span>
+                                <span id="priceTax">$0.00</span>
+                            </div>
+                            <div class="price-item total">
+                                <span>Total:</span>
+                                <span id="priceTotal">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="guarantee-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <strong>30-Day Money-Back Guarantee</strong><br>
+                        Not satisfied? Get a full refund within 30 days, no questions asked.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>TranscendIN</h4>
+                <p>Empowering careers through personalized learning.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="all-courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TranscendIN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('enrollForm');
+            const courseSelect = document.getElementById('course');
+            const formatSelect = document.getElementById('courseFormat');
+            const dateSelect = document.getElementById('startDate');
+            const paymentMethods = document.querySelectorAll('.payment-method');
+
+            // Update summary when form changes
+            function updateSummary() {
+                document.getElementById('summaryCourseName').textContent = courseSelect.value || 'Select a course';
+                document.getElementById('summaryFormat').textContent = formatSelect.value ? formatSelect.options[formatSelect.selectedIndex].text : 'Select format';
+                document.getElementById('summaryDate').textContent = dateSelect.value || 'Not selected';
+                
+                // Calculate price
+                const priceMap = {
+                    'standard': 695,
+                    'early-bird': 545,
+                    'live-virtual': 545,
+                    'live-virtual-eb': 445
+                };
+                
+                const price = priceMap[formatSelect.value] || 0;
+                const tax = Math.round(price * 0.1);
+                const total = price + tax;
+                
+                document.getElementById('priceCourse').textContent = '$' + price.toFixed(2);
+                document.getElementById('priceTax').textContent = '$' + tax.toFixed(2);
+                document.getElementById('priceTotal').textContent = '$' + total.toFixed(2);
+            }
+
+            courseSelect.addEventListener('change', updateSummary);
+            formatSelect.addEventListener('change', updateSummary);
+            dateSelect.addEventListener('change', updateSummary);
+
+            // Payment method selection
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                document.getElementById('enrollmentForm').innerHTML = '';
+                document.getElementById('successMessage').classList.add('show');
+            });
+
+            updateSummary();
+        });
+    </script>
+</body>
+</html>
