@@ -285,3 +285,4 @@ const coursesDatabase = [
             {id: 284, name: "Sales Forecasting - Mini Course", category: "sales", duration: 0.5, standardPrice: 445, earlyBirdPrice: 345, liveVirtualStd: 345, liveVirtualEB: 295, rating: 4.6, reviews: 384, featured: false, description: "Professional training in Sales Forecasting - Mini Course", icon: "fa-handshake"},
             {id: 285, name: "Professional Sales Questioning", category: "sales", duration: 1, standardPrice: 0, earlyBirdPrice: 445, liveVirtualStd: 345, liveVirtualEB: 345, rating: 4.7, reviews: 385, featured: false, description: "Professional training in Professional Sales Questioning", icon: "fa-handshake"}
 ];
+window.coursesDatabase = coursesDatabase;
