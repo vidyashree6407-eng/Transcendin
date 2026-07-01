@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TranscendIN</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .about-hero {
+            background: var(--light-bg);
+            padding: 100px 0;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            padding: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+        }
+
+        .about-visual {
+            background: var(--gradient-blue-orange);
+            height: 400px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-size: 4rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 80px 0;
+            background: var(--primary-white);
+        }
+
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+            transition: var(--transition-ease);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            background: var(--primary-white);
+            box-shadow: 0 15px 40px rgba(0, 82, 204, 0.15);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            margin-bottom: 0.8rem;
+            color: var(--dark-text);
+        }
+
+        .stats-section {
+            background: var(--gradient-blue-orange);
+            color: var(--primary-white);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-block h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-white);
+        }
+
+        .stat-block p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .team-section {
+            padding: 80px 0;
+            background: var(--light-bg);
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .team-member {
+            background: var(--primary-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: var(--transition-ease);
+            text-align: center;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 82, 204, 0.2);
+        }
+
+        .team-member-image {
+            width: 100%;
+            height: 250px;
+            background: var(--gradient-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-white);
+        }
+
+        .team-member-info {
+            padding: 2rem;
+        }
+
+        .team-member h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .team-role {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p {
+            font-size: 0.95rem;
+            color: var(--light-text);
+        }
+
+        .timeline {
+            padding: 80px 0;
+            background: var(--primary-white);
+        }
+
+        .timeline h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-items {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            animation: slideInLeft 0.6s ease-out backwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-blue-orange);
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-white);
+            font-weight: 700;
+            position: relative;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: var(--border-color);
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item:last-child .timeline-dot::after {
+            display: none;
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-year {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content p {
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-visual {
+                height: 300px;
+            }
+
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .stat-block h3 {
+                font-size: 2rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="logo">
+                    <img src="assets/images/logo.png" alt="TranscendIN logo">
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="all-courses.html">Courses</a></li>
+                    <li><a href="enrollment-interactive.html" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About TranscendIN</h1>
+            <p>Revolutionizing education through personalized, live instructor-led learning experiences for the modern world.</p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="about-content" style="padding: 80px 0;">
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>TranscendIN was founded with a simple yet powerful vision: to make world-class education accessible to everyone, everywhere. We believed that technology and passionate instructors could transform the learning experience.</p>
+                <p>Starting as a small startup in 2020, we've grown to serve thousands of students and professionals across 150+ countries. Our commitment to quality, personalization, and real results has never wavered.</p>
+                <p>Today, TranscendIN is the leading platform for live, one-on-one instructor-led courses, connecting ambitious learners with expert educators who are passionate about their craft.</p>
+            </div>
+            <div class="about-visual">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section style="padding: 80px 0; background: var(--primary-white);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem;">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion for Learning</h3>
+                    <p>We believe that education is transformative. Our instructors are passionate educators who love sharing knowledge and helping students succeed.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We maintain the highest standards in everything we do - from course quality to instructor expertise to student support. Excellence is non-negotiable.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Impact</h3>
+                    <p>We're committed to breaking barriers and making quality education accessible to learners worldwide, regardless of geography or background.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Student-Centric</h3>
+                    <p>Every decision we make is guided by what's best for our students. Personalization, flexibility, and support are at the heart of everything we do.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We continually innovate to improve the learning experience through technology, pedagogy, and creative solutions to real educational challenges.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We operate with transparency and honesty. Our commitment to integrity builds trust with students, instructors, and partners alike.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2>By The Numbers</h2>
+            <div class="stats-grid">
+                <div class="stat-block">
+                    <h3>5,000+</h3>
+                    <p>Active Students</p>
+                </div>
+                <div class="stat-block">
+                    <h3>200+</h3>
+                    <p>Expert Instructors</p>
+                </div>
+                <div class="stat-block">
+                    <h3>50+</h3>
+                    <p>Courses Available</p>
+                </div>
+                <div class="stat-block">
+                    <h3>150+</h3>
+                    <p>Countries Served</p>
+                </div>
+                <div class="stat-block">
+                    <h3>92%</h3>
+                    <p>Goal Achievement Rate</p>
+                </div>
+                <div class="stat-block">
+                    <h3>4.8/5</h3>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2>Leadership Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <h3>Aisha Patel</h3>
+                        <p class="team-role">Founder & CEO</p>
+                        <p>Former education technology leader with 15 years of experience building innovative learning platforms.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <h3>David Chen</h3>
+                        <p class="team-role">CTO</p>
+                        <p>Tech visionary who leads our platform development. Expert in scaling systems for millions of users worldwide.</p>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-member-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="team-member-info">
+                        <h3>Maria Rodriguez</h3>
+                        <p class="team-role">Head of Instructors</p>
+                        <p>Manages our network of expert instructors. Passionate about connecting the right teachers with eager students.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section style="padding: 80px 0; background: var(--light-bg);">
+        <div class="container" style="text-align: center;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Our Mission</h2>
+            <p style="font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 2;">
+                To democratize access to world-class education by connecting ambitious learners with passionate expert instructors, enabling transformation through personalized, live learning experiences that unlock human potential and create meaningful career and personal growth.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join Our Learning Community</h2>
+                <p>Start your transformation today with TranscendIN</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary btn-large">Browse Courses</button>
+                    <button class="btn btn-secondary btn-large">Schedule a Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>TranscendIN</h4>
+                    <p>Transcending potential through learning.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Courses</h4>
+                    <ul>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">AI & ML</a></li>
+                        <li><a href="#">Data Science</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Instructors</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TranscendIN. All rights reserved. | Empowering Global Learning</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
