@@ -1,0 +1,160 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.container {
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.site-header {
+  border-bottom: 1px solid #e2e8f0;
+  background: #ffffff;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  max-height: 44px;
+  width: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #475569;
+}
+
+.nav-links a:hover {
+  color: #0f172a;
+}
+
+.hero {
+  padding: 4rem 0;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.05;
+}
+
+.hero p {
+  margin-top: 1rem;
+  max-width: 34rem;
+  color: #475569;
+  line-height: 1.75;
+}
+
+.tagline {
+  margin-top: 0.75rem;
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.hero-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.6rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.button.primary {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.button.secondary {
+  background: #f8fafc;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.section-alt {
+  background: #f1f5f9;
+}
+
+.section h2,
+.footer h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.section p,
+.footer p {
+  color: #475569;
+  line-height: 1.75;
+}
+
+.services-list {
+  list-style: none;
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.services-list li {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.footer {
+  padding: 4rem 0;
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.footer p {
+  margin-top: 0.75rem;
+}

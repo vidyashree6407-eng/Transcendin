@@ -1,0 +1,11 @@
+{
+  "name": "transcendin",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "open": "start index.html"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
