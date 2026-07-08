@@ -4,8 +4,12 @@
   "version": "0.1.0",
   "scripts": {
     "start": "python -m http.server 8000",
-    "open": "start index.html"
+    "open": "start index.html",
+    "server": "node server.js"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.3"
+  }
 }

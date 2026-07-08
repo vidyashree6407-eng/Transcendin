@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Courses - TranscendIN | 200+ Expert-Led Online Courses</title>
+    <meta http-equiv="refresh" content="0; url=courses.html">
+    <script>
+        window.location.replace('courses.html');
+    </script>
+    <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -436,11 +441,14 @@
     </style>
 </head>
 <body>
+    <div class="top-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="6">Call <a href="tel:+16466248608">+1 646-624-8608</a> | Email <a href="mailto:info@transcendin.com">info@transcendin.com</a> | Transcending potential through learning</marquee>
+    </div>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="navbar-content">
-                                <div class="logo">`r`n                    <img src="assets/images/logo.png" alt="TranscendIN logo">`r`n                </div>
+                                <div class="logo"><a href="index.html" aria-label="Go to homepage"><img src="assets/images/logo.png" alt="TranscendIN logo"></a></div>
                 <div class="nav-toggle" id="navToggle">
                     <span></span>
                     <span></span>
@@ -451,7 +459,6 @@
                     <li><a href="all-courses.html" class="active">All Courses</a></li>
                     <li><a href="enrollment-interactive.html" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
@@ -556,7 +563,7 @@
                 <p>Start learning from industry experts today with our personalized 1-on-1 courses</p>
                 <div class="cta-buttons">
                     <button class="btn btn-primary btn-large" onclick="document.getElementById('searchInput').scrollIntoView({behavior: 'smooth'});">Browse All Courses</button>
-                    <button class="btn btn-secondary btn-large">Schedule a Free Consultation</button>
+                    <a href="tel:+16466248608" class="btn btn-secondary btn-large">Schedule a Call</a>
                 </div>
             </div>
         </div>
@@ -567,45 +574,57 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>TranscendIN</h4>
-                    <p>Transcending potential through learning.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="index.html" class="footer-brand-logo" aria-label="TranscendIN Home">
+                        <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    </a>
+                    <h4><a href="index.html">TranscendIN</a></h4>
+<p>Transforming careers through expert-led professional training.</p>
+                                        <div class="social-links">
+                        <a aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Courses</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">AI & ML</a></li>
-                        <li><a href="#">Data Science</a></li>
-                        <li><a href="#">Digital Marketing</a></li>
+                        <li><a href="index.html">&rarr; Home</a></li>
+                        <li><a href="about.html">&rarr; About Us</a></li>
+                        <li><a href="courses.html">&rarr; Courses</a></li>
+                        <li><a href="contact.html">&rarr; Contact</a></li>
+                        <li><a href="enrollment.html">&rarr; Enrollment</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Company</h4>
+                    <h4>Popular Courses</h4>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Instructors</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="courses.html#leadership">&rarr; Leadership</a></li>
+                        <li><a href="courses.html#soft-skills">&rarr; Soft Skills</a></li>
+                        <li><a href="courses.html#agile">&rarr; Agile</a></li>
+                        <li><a href="courses.html#cloud">&rarr; Cloud &amp; DevOps</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="footer-contact-item">
+                        <h5>Email</h5>
+                        <p><a href="mailto:info@transcendin.com">info@transcendin.com</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <h5>Phone</h5>
+                        <p><a href="tel:+16466248608">+1 (646) 624-8608</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <h5>Support</h5>
+                        <p>24/7 Available</p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 TranscendIN. All rights reserved. | Empowering Global Learning</p>
+                <p>&copy; 2026 TranscendIN. All rights reserved. | Transcending potential through learning</p>
             </div>
         </div>
     </footer>
@@ -897,372 +916,6 @@
         document.getElementById('searchInput').addEventListener('input', applyFilters);
         document.getElementById('categoryFilter').addEventListener('change', applyFilters);
         document.getElementById('durationFilter').addEventListener('change', applyFilters);
-        document.getElementById('priceFilter').addEventListener('change', applyFilters);
-        document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
-
-        // Initial render
-        renderCourses();
-    </script>
-
-    <!-- Add styles for pricing display -->
-    <style>
-        .pricing-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: var(--light-bg);
-            border-radius: 10px;
-        }
-
-        .price-tier {
-            text-align: center;
-            padding: 0.8rem;
-            border-radius: 8px;
-            background: white;
-            transition: var(--transition-smooth);
-        }
-
-        .price-tier.highlight {
-            background: linear-gradient(135deg, #FF6B35 0%, #FFB347 100%);
-            color: white;
-        }
-
-        .price-tier small {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            opacity: 0.8;
-        }
-
-        .price-tier .price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .price-tier.highlight small,
-        .price-tier.highlight .price {
-            color: white;
-        }
-
-        @media (max-width: 768px) {
-            .pricing-section {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                                <div class="logo">`r`n                    <img src="assets/images/logo.png" alt="TranscendIN logo">`r`n                </div>
-                <div class="nav-toggle" id="navToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="all-courses.html" class="active">All Courses</a></li>
-                    <li><a href="enrollment-interactive.html" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="courses-header">
-        <div class="container">
-            <h1>Explore All 137+ Professional Courses</h1>
-            <p>Browse our comprehensive catalog with flexible pricing: Standard, Early Bird, and Live Virtual options</p>
-            <div class="courses-hero-stats">
-                <div class="hero-stat">
-                    <span class="hero-stat-number">137+</span>
-                    <span class="hero-stat-label">Expert Courses</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">$295-$4,795</span>
-                    <span class="hero-stat-label">Flexible Pricing</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">4 Options</span>
-                    <span class="hero-stat-label">Standard, Early Bird, Live Virtual</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">1-6 Days</span>
-                    <span class="hero-stat-label">Course Duration</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses Section -->
-    <section class="courses-container">
-        <div class="container">
-            <!-- Filters -->
-            <div class="courses-controls">
-                <div class="search-wrapper">
-                    <label>Search Courses</label>
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-input" id="searchInput" placeholder="Search by course name...">
-                </div>
-                
-                <div class="filter-group">
-                    <label>Category</label>
-                    <select class="filter-dropdown" id="categoryFilter">
-                        <option value="">All Categories</option>
-                        <option value="technical">Technical & IT</option>
-                        <option value="business">Business</option>
-                        <option value="professional">Professional Skills</option>
-                        <option value="leadership">Leadership</option>
-                        <option value="azure">Microsoft Azure</option>
-                        <option value="sales">Sales</option>
-                        <option value="customer-service">Customer Service</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Duration</label>
-                    <select class="filter-dropdown" id="durationFilter">
-                        <option value="">All Durations</option>
-                        <option value="mini">Mini (5 hrs)</option>
-                        <option value="1day">1 Day</option>
-                        <option value="2day">2 Days</option>
-                        <option value="3day">3 Days</option>
-                        <option value="4day">4 Days</option>
-                        <option value="5day">5 Days</option>
-                        <option value="6day">6 Days</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Max Price</label>
-                    <select class="filter-dropdown" id="priceFilter">
-                        <option value="">All Prices</option>
-                        <option value="445">Under $500</option>
-                        <option value="1195">Under $1,200</option>
-                        <option value="1795">Under $1,800</option>
-                        <option value="3295">Under $3,300</option>
-                        <option value="5000">All Prices</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Results Info -->
-            <div class="results-info">
-                <div class="results-text">
-                    Showing <strong id="courseCount">0</strong> courses
-                </div>
-                <button class="clear-filters" id="clearFilters" style="display: none;">Clear All Filters</button>
-            </div>
-
-            <!-- Courses Grid -->
-            <div class="courses-grid" id="coursesGrid">
-                <div class="no-results">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <h3>Loading courses...</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Advance Your Skills?</h2>
-                <p>Enroll in our comprehensive professional training programs and transform your career</p>
-                <div class="cta-buttons">
-                    <button class="btn btn-primary btn-large" onclick="document.getElementById('searchInput').scrollIntoView({behavior: 'smooth'});">Browse All Courses</button>
-                    <button class="btn btn-secondary btn-large">Schedule a Consultation</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>TranscendIN</h4>
-                    <p>Empowering professionals worldwide with cutting-edge training courses.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Training</h4>
-                    <ul>
-                        <li><a href="#">All Courses</a></li>
-                        <li><a href="#">Technical</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Professional</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Instructors</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 TranscendIN. All rights reserved. | Professional Training Excellence</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="assets/js/script.js"></script>
-            {id: 32, name: "English Pronunciation Master", category: "languages", level: "beginner", price: 249, rating: 4.8, reviews: 1876, weeks: 8, description: "Perfect your English pronunciation"},
-            {id: 33, name: "Mandarin Chinese Basics", category: "languages", level: "beginner", price: 329, rating: 4.6, reviews: 876, weeks: 12, description: "Speaking, reading, writing Mandarin"},
-            {id: 34, name: "French Conversation", category: "languages", level: "intermediate", price: 319, rating: 4.7, reviews: 654, weeks: 10, description: "Conversational French fluency"},
-            {id: 35, name: "German Business Language", category: "languages", level: "intermediate", price: 339, rating: 4.6, reviews: 543, weeks: 10, description: "Professional German communication"},
-            {id: 36, name: "Japanese Language Essentials", category: "languages", level: "beginner", price: 349, rating: 4.7, reviews: 432, weeks: 12, description: "Hiragana, Katakana, basic conversations"},
-            
-            // PERSONAL DEVELOPMENT
-            {id: 37, name: "Professional Communication", category: "personal", level: "beginner", price: 299, rating: 4.8, reviews: 1567, weeks: 6, featured: true, description: "Public speaking and presentations"},
-            {id: 38, name: "Emotional Intelligence Mastery", category: "personal", level: "intermediate", price: 349, rating: 4.7, reviews: 987, weeks: 7, description: "EQ development and relationships"},
-            {id: 39, name: "Mindfulness & Meditation", category: "personal", level: "beginner", price: 199, rating: 4.9, reviews: 2345, weeks: 4, description: "Stress relief and mental wellness"},
-            {id: 40, name: "Time Management & Productivity", category: "personal", level: "beginner", price: 249, rating: 4.8, reviews: 1456, weeks: 5, description: "Get more done in less time"},
-            {id: 41, name: "Career Transition Guide", category: "personal", level: "intermediate", price: 379, rating: 4.6, reviews: 765, weeks: 8, description: "Switch careers successfully"},
-            {id: 42, name: "Executive Coaching", category: "personal", level: "advanced", price: 799, rating: 4.9, reviews: 432, weeks: 12, description: "1-on-1 executive development"},
-            {id: 43, name: "Negotiation Mastery", category: "personal", level: "intermediate", price: 369, rating: 4.7, reviews: 654, weeks: 6, description: "Win-win negotiation strategies"},
-            {id: 44, name: "Personal Finance Planning", category: "personal", level: "beginner", price: 279, rating: 4.8, reviews: 1234, weeks: 6, description: "Budgeting, investing, wealth building"},
-            
-            // SCIENCE & MATHEMATICS
-            {id: 45, name: "Statistics Fundamentals", category: "science", level: "beginner", price: 349, rating: 4.7, reviews: 876, weeks: 8, featured: true, description: "Probability, distributions, hypothesis testing"},
-            {id: 46, name: "Calculus for Professionals", category: "science", level: "intermediate", price: 399, rating: 4.6, reviews: 654, weeks: 10, description: "Limits, derivatives, integrals"},
-            {id: 47, name: "Linear Algebra Essentials", category: "science", level: "intermediate", price: 379, rating: 4.5, reviews: 543, weeks: 8, description: "Matrices, vectors, eigenvalues"},
-            {id: 48, name: "Physics for Beginners", category: "science", level: "beginner", price: 329, rating: 4.6, reviews: 432, weeks: 10, description: "Mechanics, waves, electricity"},
-            {id: 49, name: "Chemistry Fundamentals", category: "science", level: "beginner", price: 319, rating: 4.5, reviews: 321, weeks: 10, description: "Atomic structure, reactions, organic chemistry"},
-            {id: 50, name: "Environmental Science", category: "science", level: "beginner", price: 299, rating: 4.4, reviews: 210, weeks: 8, description: "Climate change, ecosystems, sustainability"}
-        ];
-
-        let filteredCourses = [...coursesDatabase];
-
-        function renderCourses() {
-            const grid = document.getElementById('coursesGrid');
-            const countDisplay = document.getElementById('courseCount');
-
-            if (filteredCourses.length === 0) {
-                grid.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search"></i>
-                        <h3>No courses found</h3>
-                        <p>Try adjusting your filters or search terms</p>
-                    </div>
-                `;
-                countDisplay.textContent = '0';
-                return;
-            }
-
-            countDisplay.textContent = filteredCourses.length;
-
-            grid.innerHTML = filteredCourses.map((course, index) => {
-                const categoryClass = `cat-${course.category}`;
-                const featuredHTML = course.featured ? '<span class="badge featured">⭐ FEATURED</span>' : '';
-                
-                return `
-                    <div class="course-card" style="animation-delay: ${index * 0.05}s">
-                        <div class="course-header ${categoryClass}">
-                            <div class="course-badges">
-                                <span class="badge">${course.level.charAt(0).toUpperCase() + course.level.slice(1)}</span>
-                                ${featuredHTML}
-                            </div>
-                            <span class="badge price-badge">$${course.price}</span>
-                        </div>
-                        <div class="course-info">
-                            <h3 class="course-title">${course.name}</h3>
-                            <p class="course-desc">${course.description}</p>
-                            <div class="course-meta">
-                                <div class="meta-item">
-                                    <i class="fas fa-clock"></i>
-                                    ${course.weeks} weeks
-                                </div>
-                                <div class="meta-item">
-                                    <i class="fas fa-user"></i>
-                                    1-on-1
-                                </div>
-                                <div class="meta-item course-rating">
-                                    <i class="fas fa-star"></i>
-                                    ${course.rating} (${course.reviews})
-                                </div>
-                            </div>
-                            <div class="course-footer">
-                                <span class="price">$${course.price}</span>
-                                <button class="enroll-btn" onclick="alert('Enrollment coming soon!')">Enroll Now</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const level = document.getElementById('difficultyFilter').value;
-            const maxPrice = document.getElementById('priceFilter').value;
-
-            filteredCourses = coursesDatabase.filter(course => {
-                const matchSearch = course.name.toLowerCase().includes(searchTerm) ||
-                                   course.description.toLowerCase().includes(searchTerm);
-                const matchCategory = !category || course.category === category;
-                const matchLevel = !level || course.level === level;
-                const matchPrice = !maxPrice || course.price <= parseInt(maxPrice);
-
-                return matchSearch && matchCategory && matchLevel && matchPrice;
-            });
-
-            renderCourses();
-            updateClearButton();
-        }
-
-        function updateClearButton() {
-            const btn = document.getElementById('clearFilters');
-            const hasFilters = document.getElementById('searchInput').value ||
-                             document.getElementById('categoryFilter').value ||
-                             document.getElementById('difficultyFilter').value ||
-                             document.getElementById('priceFilter').value;
-            btn.style.display = hasFilters ? 'block' : 'none';
-        }
-
-        function clearAllFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('categoryFilter').value = '';
-            document.getElementById('difficultyFilter').value = '';
-            document.getElementById('priceFilter').value = '';
-            applyFilters();
-        }
-
-        // Event Listeners
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-        document.getElementById('difficultyFilter').addEventListener('change', applyFilters);
         document.getElementById('priceFilter').addEventListener('change', applyFilters);
         document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
 

@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TranscendIN - Live, One-on-One Instructor-Led Courses</title>
+    <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="homepage">
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="navbar-content">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    <a href="index.html" aria-label="Go to homepage">
+                        <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    </a>
                 </div>
                 <div class="nav-toggle" id="navToggle">
                     <span></span>
@@ -22,15 +25,23 @@
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home">Home</a></li>
-                    <li><a href="all-courses.html">All Courses</a></li>
-                    <li><a href="enrollment-interactive.html" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="enrollment-interactive.html" class="nav-accent">Enroll Now</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="top-bar">
+        <marquee class="announcement-marquee" behavior="alternate" direction="left" scrollamount="2">
+            <span class="announcement-lead">Transcending potential through learning</span>
+            <span class="announcement-divider">•</span>
+            <a href="tel:+16466248608" class="announcement-phone">+1 646-624-8608</a>
+            <span class="announcement-divider">•</span>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@transcendin.com" class="announcement-email" target="_blank" rel="noopener noreferrer">info@transcendin.com</a>
+        </marquee>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -41,39 +52,33 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Learn Directly from <span class="highlight">Expert Instructors</span></h1>
-                    <p>Master new skills with personalized, live one-on-one coaching sessions. Achieve your goals faster with expert guidance tailored to your pace and learning style.</p>
+                    <h1>Build Real Skills with <span class="highlight">Mentor-Led Clarity</span></h1>
+                    <p>Start today, build job-ready confidence with every session, and turn your ambition into measurable career progress.</p>
                     <div class="hero-buttons">
                         <button class="btn btn-primary" id="discoverBtn">Discover Courses</button>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">5,000+</span>
-                            <span class="stat-label">Active Students</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">200+</span>
-                            <span class="stat-label">Expert Instructors</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Live Courses</span>
-                        </div>
                     </div>
                 </div>
                 <div class="hero-visual">
                     <div class="card-stack">
                         <div class="card card-1">
-                            <div class="card-icon">📱</div>
-                            <h3>Web Development</h3>
+                            <div class="card-icon"><i class="fas fa-chess-king"></i></div>
+                            <h3>Leadership &amp; Managerial Excellence</h3>
+                            <p class="card-subtitle">Executive presence, team leadership, and decision confidence.</p>
                         </div>
                         <div class="card card-2">
-                            <div class="card-icon">🤖</div>
-                            <h3>AI & Machine Learning</h3>
+                            <div class="card-icon"><i class="fas fa-robot"></i></div>
+                            <h3>AI and Machine Learning</h3>
+                            <p class="card-subtitle">Hands-on model building, automation, and applied AI workflows.</p>
                         </div>
                         <div class="card card-3">
-                            <div class="card-icon">💼</div>
-                            <h3>Business Strategy</h3>
+                            <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>Business Growth &amp; Strategic Marketing</h3>
+                            <p class="card-subtitle">Market positioning, growth strategy, and performance marketing.</p>
+                        </div>
+                        <div class="card card-4">
+                            <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                            <h3>Career Development Skills</h3>
+                            <p class="card-subtitle">Interview mastery, communication impact, and career momentum.</p>
                         </div>
                     </div>
                 </div>
@@ -190,74 +195,15 @@
         </div>
     </section>
 
-    <!-- Instructors Section -->
-    <section class="instructors" id="instructors">
-        <div class="container">
-            <div class="section-header">
-                <h2>Learn from Top Industry Experts</h2>
-                <p>Our instructors bring real-world experience and passion for teaching</p>
-            </div>
-            <div class="instructors-grid">
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <div class="image-placeholder-instructor">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                    <h3>Dr. Emily Chen</h3>
-                    <p class="specialty">AI & Machine Learning Expert</p>
-                    <p class="bio">15+ years in AI research and development. PhD from Stanford. Published author and speaker at major tech conferences.</p>
-                    <div class="instructor-badges">
-                        <span class="badge">Python</span>
-                        <span class="badge">TensorFlow</span>
-                        <span class="badge">Deep Learning</span>
-                    </div>
-                </div>
-
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <div class="image-placeholder-instructor">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                    <h3>Marcus Rodriguez</h3>
-                    <p class="specialty">Web Development Specialist</p>
-                    <p class="bio">Founded 3 startups. 12 years of full-stack development. Mentor to 500+ developers worldwide.</p>
-                    <div class="instructor-badges">
-                        <span class="badge">React</span>
-                        <span class="badge">Node.js</span>
-                        <span class="badge">Full Stack</span>
-                    </div>
-                </div>
-
-                <div class="instructor-card">
-                    <div class="instructor-image">
-                        <div class="image-placeholder-instructor">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                    <h3>Victoria Thompson</h3>
-                    <p class="specialty">Business Strategy Leader</p>
-                    <p class="bio">Former VP at Fortune 500 company. Executive coach for C-level leaders. 18 years of strategic planning experience.</p>
-                    <div class="instructor-badges">
-                        <span class="badge">Leadership</span>
-                        <span class="badge">Strategy</span>
-                        <span class="badge">Growth</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Transform Your Career?</h2>
-                <p>Join thousands of successful learners. Start your journey with TranscendIN today.</p>
+                <h2>Ready to build the next step in your career?</h2>
+                <p>Choose the course path that fits your goals and schedule so every lesson has real impact.</p>
                 <div class="cta-buttons">
-                    <button class="btn btn-primary btn-large">Start Free Trial</button>
-                    <button class="btn btn-secondary btn-large">Schedule a Call</button>
+                    <a href="courses.html" class="btn btn-primary btn-large">Explore Courses</a>
+                    <a href="tel:+16466248608" class="btn btn-secondary btn-large">Schedule a Call</a>
                 </div>
             </div>
         </div>
@@ -268,45 +214,57 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>TranscendIN</h4>
-                    <p>Transcending potential through learning.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="index.html" class="footer-brand-logo" aria-label="TranscendIN Home">
+                        <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    </a>
+                    <h4><a href="index.html">TranscendIN</a></h4>
+<p>Transforming careers through expert-led professional training.</p>
+                                        <div class="social-links">
+                        <a aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Courses</h4>
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">AI & ML</a></li>
-                        <li><a href="#">Data Science</a></li>
-                        <li><a href="#">Digital Marketing</a></li>
+                        <li><a href="index.html">&rarr; Home</a></li>
+                        <li><a href="about.html">&rarr; About Us</a></li>
+                        <li><a href="courses.html">&rarr; Courses</a></li>
+                        <li><a href="contact.html">&rarr; Contact</a></li>
+                        <li><a href="enrollment.html">&rarr; Enrollment</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Company</h4>
+                    <h4>Popular Courses</h4>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Instructors</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
+                        <li><a href="courses.html#leadership">&rarr; Leadership</a></li>
+                        <li><a href="courses.html#soft-skills">&rarr; Soft Skills</a></li>
+                        <li><a href="courses.html#agile">&rarr; Agile</a></li>
+                        <li><a href="courses.html#cloud">&rarr; Cloud &amp; DevOps</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
+                    <h4>Get In Touch</h4>
+                    <div class="footer-contact-item">
+                        <h5>Email</h5>
+                        <p><a href="mailto:info@transcendin.com">info@transcendin.com</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <h5>Phone</h5>
+                        <p><a href="tel:+16466248608">+1 (646) 624-8608</a></p>
+                    </div>
+                    <div class="footer-contact-item">
+                        <h5>Support</h5>
+                        <p>24/7 Available</p>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 TranscendIN. All rights reserved. | Empowering Global Learning</p>
+                <p>&copy; 2026 TranscendIN. All rights reserved. | Transcending potential through learning</p>
             </div>
         </div>
     </footer>
