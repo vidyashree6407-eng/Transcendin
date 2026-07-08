@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Courses — Starter Template</title>
+  <link rel="icon" href="favicon.jpg">
+  <!-- 1) Main stylesheet (trimmed) -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- 2) Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="" crossorigin="anonymous">
+  <!-- small head tweaks that should override main CSS if needed -->
+  <style>
+    .navbar-search-box:focus-within { box-shadow: 0 0 0 3px rgba(102,126,234,0.12); }
+    .nav-logo img { max-height:48px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar courses-navbar">
+    <div class="nav-container">
+      <a class="nav-logo" href="index.html"><img src="images/Logo with full name.png" alt="logo"></a>
+
+      <form id="exactCourseSearch" class="navbar-search-box" onsubmit="return navigateToCourse();">
+        <input id="exactSearchInput" type="search" placeholder="Search exact course title" aria-label="Search course">
+        <button class="header-search-btn" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+
+      <div class="nav-menu">
+        <button id="navToggle">Menu</button>
+        <ul class="dropdown-menu">
+          <li><a href="#">All courses</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="courses-section">
+    <h2 style="color:#667eea">Featured Courses</h2>
+
+    <div class="courses-grid" id="coursesGrid">
+      <article class="course-card" data-category="programming">
+        <div class="course-image"><i class="fa fa-code fa-2x"></i></div>
+        <div class="course-content">
+          <div class="course-category">Programming</div>
+          <h3 class="course-title">Intro to JavaScript</h3>
+          <p class="course-description">Basics of JS, DOM, and events.</p>
+        </div>
+        <div class="course-footer"><button class="enroll-btn" onclick="enrollCourse('Intro to JavaScript')">Enroll</button></div>
+      </article>
+
+      <article class="course-card" data-category="design">
+        <div class="course-image"><i class="fa fa-pen-nib fa-2x"></i></div>
+        <div class="course-content">
+          <div class="course-category">Design</div>
+          <h3 class="course-title">UX Fundamentals</h3>
+          <p class="course-description">User-centred design and testing.</p>
+        </div>
+        <div class="course-footer"><button class="enroll-btn" onclick="enrollCourse('UX Fundamentals')">Enroll</button></div>
+      </article>
+
+      <article class="course-card" data-category="marketing">
+        <div class="course-image"><i class="fa fa-bullhorn fa-2x"></i></div>
+        <div class="course-content">
+          <div class="course-category">Marketing</div>
+          <h3 class="course-title">Digital Marketing 101</h3>
+          <p class="course-description">SEO, ads, and analytics basics.</p>
+        </div>
+        <div class="course-footer"><button class="enroll-btn" onclick="enrollCourse('Digital Marketing 101')">Enroll</button></div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="quick-links" style="background:linear-gradient(90deg,#667eea,#764ba2);color:#fff;padding:2rem;">
+    <div class="container">
+      <h3>Quick links & CTA</h3>
+      <a href="enrollment_with_fees.html" class="cta">View Enrollment Options</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">© Example</div>
+    <button id="backToTop" title="Back to top">↑</button>
+  </footer>
+
+  <!-- core script placeholders: keep script.js first if you have a global file -->
+  <script>
+    function generateSlug(text){ return String(text||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+    function navigateToCourse(){
+      var q = document.getElementById('exactSearchInput').value.trim();
+      if(!q) return false;
+      var slug = generateSlug(q);
+      // naive exact-match: find a course-title element equal to query
+      var cards = document.querySelectorAll('.course-card');
+      for(var i=0;i<cards.length;i++){
+        var title = cards[i].querySelector('.course-title').textContent.trim();
+        if(title.toLowerCase() === q.toLowerCase()){
+          cards[i].scrollIntoView({behavior:'smooth', block:'center'});
+          cards[i].classList.add('course-highlight');
+          setTimeout(function(card){ return function(){ card.classList.remove('course-highlight'); }; }(cards[i]),2000);
+          return false; // prevent form submit
+        }
+      }
+      // fallback: navigate to search results page
+      window.location.href = 'courses.html?search='+encodeURIComponent(q);
+      return false;
+    }
+
+    function enrollCourse(courseName){
+      var url = 'enrollment_with_fees.html?course='+encodeURIComponent(courseName);
+      window.location.href = url;
+    }
+
+    // Back-to-top behavior
+    var back = document.getElementById('backToTop');
+    window.addEventListener('scroll', function(){
+      if(window.scrollY>300) back.classList.add('show'); else back.classList.remove('show');
+    });
+    back.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+  </script>
+
+</body>
+</html>
