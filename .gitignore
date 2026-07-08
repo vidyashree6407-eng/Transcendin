@@ -1,0 +1,9 @@
+# Ignore nested repo metadata and dependencies
+/Transcendin/.git/
+Transcendin/node_modules/
+node_modules/
+package-lock.json
+gh_index.html
+starter/
+.vscode/
+.DS_Store
