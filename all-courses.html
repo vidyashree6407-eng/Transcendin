@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>All Courses - TranscendIN | 200+ Expert-Led Online Courses</title>
     <meta http-equiv="refresh" content="0; url=courses.html">
     <script>
@@ -10,7 +11,7 @@
     </script>
     <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
         .courses-header {
             padding: 80px 0;
@@ -833,7 +834,7 @@
                             </div>
                         </div>
                         <div class="course-info">
-                            <h3 class="course-title">${course.name}</h3>
+                            <h3 class="course-title">${escapeHtml(course.name)}</h3>
                             <div class="course-meta">
                                 <div class="meta-item">
                                     <i class="fas fa-star"></i>
@@ -855,7 +856,7 @@
                                 </div>
                             </div>
                             <div class="course-footer">
-                                <button class="enroll-btn" onclick="alert('Enrollment: ' + '${course.name}')">Enroll Now</button>
+                                <button class="enroll-btn" onclick="alert('Enrollment: ' + '${escapeHtml(course.name)}')">Enroll Now</button>
                             </div>
                         </div>
                     </div>

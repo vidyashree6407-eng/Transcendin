@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>Contact Us - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
         .contact-hero {
             background: var(--light-bg);
@@ -439,7 +440,7 @@
 
     <!-- WhatsApp Chat Widget -->
     <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-        <a href="https://wa.me/16466248608?text=Hi%20TranscendIN%21%20I%20would%20like%20to%20know%20more%20about%20your%20courses." target="_blank" style="display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #25d366; color: white; border-radius: 50%; font-size: 24px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;" title="Chat with us on WhatsApp">
+        <a href="https://wa.me/16466248608?text=Hi%20TranscendIN%21%20I%20would%20like%20to%20know%20more%20about%20your%20courses." target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: #25d366; color: white; border-radius: 50%; font-size: 24px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: all 0.3s;" title="Chat with us on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
@@ -617,8 +618,9 @@
                 const submitBtn = contactForm.querySelector('button[type="submit"]');
                 if (submitBtn) submitBtn.disabled = true;
 
-                try {
-                    const endpoint = (window.location.origin && window.location.origin !== 'null') ? window.location.origin + '/api/contact' : 'http://localhost:3000/api/contact';
+                    try {
+                    // Use relative endpoint; ensure production is served over HTTPS
+                    const endpoint = '/api/contact';
                     const resp = await fetch(endpoint, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -626,7 +628,15 @@
                     });
                     const data = await resp.json().catch(() => ({}));
                     if (resp.ok && data.ok) {
-                        formMessage.innerHTML = '✓ Thank you — your message was received.' + (data.emailed ? ' We have emailed it to you.' : ' Email not configured yet.');
+                        // Use textContent to avoid inserting untrusted HTML; append a safe check mark
+                        formMessage.textContent = '';
+                        const tick = document.createElement('span');
+                        tick.className = 'success-tick';
+                        tick.textContent = '✓ ';
+                        formMessage.appendChild(tick);
+                        const msg = document.createElement('span');
+                        msg.textContent = (data.message || 'Thank you — your message was received.') + (data.emailed ? ' We have emailed it to you.' : ' Email not configured yet.');
+                        formMessage.appendChild(msg);
                         formMessage.classList.remove('error');
                         formMessage.classList.add('success');
                         contactForm.reset();

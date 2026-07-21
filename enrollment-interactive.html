@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>Premium Course Enrollment - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <style>
         /* Premium Interactive Enrollment Styles */
         :root {
@@ -1346,9 +1347,9 @@
                         ${course.featured ? '<span class="course-badge">⭐ Featured</span>' : ''}
                     </div>
                     <div class="course-content">
-                        <span class="course-category">${course.category}</span>
-                        <h3 class="course-title">${course.name}</h3>
-                        <p class="course-description">${course.description}</p>
+                        <span class="course-category">${escapeHtml(course.category)}</span>
+                        <h3 class="course-title">${escapeHtml(course.name)}</h3>
+                        <p class="course-description">${escapeHtml(course.description)}</p>
                         <div class="course-meta">
                             <div class="meta-item">
                                 <i class="fas fa-star"></i>
@@ -1376,20 +1377,30 @@
             document.getElementById('modalCategory').textContent = selectedCourse.category.charAt(0).toUpperCase() + selectedCourse.category.slice(1);
             document.getElementById('modalRating').textContent = `${selectedCourse.rating} ★ (${selectedCourse.reviews} reviews)`;
 
-            // Course overview
-            document.getElementById('modalOverview').innerHTML = `
-                <p>${selectedCourse.description}</p>
-                <p style="margin-top: 15px; font-size: 0.95rem;">
-                    This comprehensive course is designed for professionals looking to advance their skills in ${selectedCourse.category}. 
-                    Join hundreds of satisfied students who have already transformed their careers with this program.
-                </p>
-            `;
+            // Course overview (safely insert text)
+            const modalOverview = document.getElementById('modalOverview');
+            modalOverview.textContent = '';
+            const p1 = document.createElement('p');
+            p1.textContent = selectedCourse.description || '';
+            const p2 = document.createElement('p');
+            p2.style.marginTop = '15px';
+            p2.style.fontSize = '0.95rem';
+            p2.textContent = `This comprehensive course is designed for professionals looking to advance their skills in ${selectedCourse.category}. Join hundreds of satisfied students who have already transformed their careers with this program.`;
+            modalOverview.appendChild(p1);
+            modalOverview.appendChild(p2);
 
-            // Learning outcomes
+            // Learning outcomes (static, but insert safely)
             const outcomesList = ['Master core concepts', 'Practical hands-on experience', 'Industry-recognized certification', 'Career advancement opportunities', 'Networking with industry experts'];
-            document.getElementById('modalOutcomes').innerHTML = outcomesList.map(outcome => 
-                `<li><i class="fas fa-check-circle"></i> ${outcome}</li>`
-            ).join('');
+            const modalOutcomes = document.getElementById('modalOutcomes');
+            modalOutcomes.textContent = '';
+            outcomesList.forEach(outcome => {
+                const li = document.createElement('li');
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-check-circle';
+                li.appendChild(icon);
+                li.appendChild(document.createTextNode(' ' + outcome));
+                modalOutcomes.appendChild(li);
+            });
 
             // Show modal
             document.getElementById('courseModal').classList.add('active');

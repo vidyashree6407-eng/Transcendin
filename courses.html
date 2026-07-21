@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>All Courses - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20with%20full%20name%20without%20background.png">
     <link rel="stylesheet" href="assets/css/styles.css?v=20260708a">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
         :root{
             --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -833,11 +834,11 @@
 
             card.innerHTML = `
                 <div>
-                    <h3>${course.name}</h3>
-                    <p>${course.description}</p>
+                    <h3>${escapeHtml(course.name)}</h3>
+                    <p>${escapeHtml(course.description)}</p>
                 </div>
                 <div class="card-footer">
-                    <div class="card-badge">${course.categoryLabel}</div>
+                    <div class="card-badge">${escapeHtml(course.categoryLabel)}</div>
                     <div>
                         <button class="card-enroll">Enroll Now</button>
                     </div>
@@ -1007,7 +1008,7 @@
 
                     // category title and description first
                     const header = document.createElement('div');
-                    header.innerHTML = `<h2 id="${cat.key}">${cat.label}</h2><p class="category-desc">${cat.desc || ''}</p>`;
+                    header.innerHTML = `<h2 id="${escapeHtml(cat.key)}">${escapeHtml(cat.label)}</h2><p class="category-desc">${escapeHtml(cat.desc || '')}</p>`;
                     section.appendChild(header);
 
                     // then grid of cards (4 per row)
@@ -1095,8 +1096,8 @@
                 }
             }
 
-            if (!courses.length) {
-                coursesGrid.innerHTML = `<div class="no-results"><h3>Unable to load courses</h3><p>${lastError ? lastError.message : 'No course data found.'}</p></div>`;
+                if (!courses.length) {
+                coursesGrid.innerHTML = `<div class="no-results"><h3>Unable to load courses</h3><p>${escapeHtml(lastError ? lastError.message : 'No course data found.')}</p></div>`;
                 return;
             }
 
@@ -1111,7 +1112,7 @@
 
                 // category title and description first
                 const header = document.createElement('div');
-                header.innerHTML = `<h2 id="${cat.key}">${cat.label}</h2><p class="category-desc">${cat.desc || ''}</p>`;
+                header.innerHTML = `<h2 id="${escapeHtml(cat.key)}">${escapeHtml(cat.label)}</h2><p class="category-desc">${escapeHtml(cat.desc || '')}</p>`;
                 section.appendChild(header);
 
                 // then grid of cards (4 per row)

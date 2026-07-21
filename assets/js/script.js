@@ -6,6 +6,20 @@
 // Mobile Menu Toggle
 // ==========================================
 
+// HTML-escape helper to prevent XSS when inserting untrusted text
+function escapeHtml(unsafe) {
+    if (unsafe === null || unsafe === undefined) return '';
+    return String(unsafe)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+// expose for inline page scripts
+window.escapeHtml = escapeHtml;
+
+
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
