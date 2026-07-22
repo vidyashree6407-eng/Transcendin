@@ -700,9 +700,33 @@ function fetchAndInitCourses(path) {
     });
 }
 
-if (typeof window.coursesDatabase === 'undefined' || !window.coursesDatabase.length) {
-    // attempt to fetch and evaluate the local file
-    fetchAndInitCourses('courses_286.js');
-} else {
-    buildCoursesPanel();
+// Initialize courses panel by trying CSV first; do not auto-request removed JS file.
+function initCoursesFromCSV() {
+    return fetch('c_c.csv').then(r => {
+        if (!r.ok) throw new Error('CSV not found');
+        return r.text();
+    }).then(csvText => {
+        const lines = csvText.trim().split(/\r?\n/).filter(Boolean);
+        const headers = lines.shift().split(',').map(h=>h.trim());
+        const items = lines.map(line => {
+            const cols = line.split(',');
+            const obj = {};
+            headers.forEach((h,i)=> obj[h] = cols[i] ? cols[i].trim() : '');
+            return {
+                name: obj['Course Name'] || obj.name || '',
+                duration: obj['Duration'] || '',
+                description: obj['Short Description'] || obj['Course Name'] || '',
+                category: obj['Category'] || 'General'
+            };
+        });
+        window.coursesDatabase = items;
+        setTimeout(buildCoursesPanel, 40);
+    }).catch(err => {
+        console.warn('Could not load c_c.csv fallback:', err);
+        window.coursesDatabase = window.coursesDatabase || [];
+        setTimeout(buildCoursesPanel, 40);
+    });
 }
+
+// Start using CSV-first initialization (prevents requesting legacy courses_286.js)
+initCoursesFromCSV();
