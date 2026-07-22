@@ -2,18 +2,13 @@
    Vanilla JS, lightweight, accessible, no frameworks
 */
 
-// Configuration
-const COURSES_PER_PAGE = 12;
-
 // Elements
 const coursesGrid = document.getElementById('coursesGrid');
 const filterCategory = document.getElementById('filterCategory');
 const filterLevel = document.getElementById('filterLevel');
 const siteSearch = document.getElementById('siteSearch');
-const loadMoreBtn = document.getElementById('loadMore');
 
 let allCourses = [];
-let visibleCount = 0;
 
 // CSV loader (small, robust parser)
 async function loadCSV(path){
@@ -76,10 +71,10 @@ function createCard(course){
 function escape(str){ return String(str||'').replace(/[&<>"']/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;', '"':'&quot;',"'":'&#39;' })[s]); }
 function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
 
-function applyFiltersAndRender(reset=true){
-  const q = (siteSearch.value||'').toLowerCase();
-  const cat = filterCategory.value;
-  const level = filterLevel.value;
+function applyFiltersAndRender(){
+  const q = (siteSearch && siteSearch.value||'').toLowerCase();
+  const cat = filterCategory ? filterCategory.value : '';
+  const level = filterLevel ? filterLevel.value : '';
   const filtered = allCourses.filter(c=>{
     if(cat && c.category !== cat) return false;
     if(level && c.level !== level) return false;
@@ -88,22 +83,15 @@ function applyFiltersAndRender(reset=true){
     }
     return true;
   });
-  if(reset){ visibleCount=0; coursesGrid.innerHTML=''; }
-  renderSlice(filtered);
-  loadMoreBtn.style.display = (visibleCount < filtered.length) ? '' : 'none';
-}
-
-function renderSlice(list){
-  const slice = list.slice(visibleCount, visibleCount+COURSES_PER_PAGE);
-  slice.forEach(c=>coursesGrid.appendChild(createCard(c)));
-  visibleCount += slice.length;
+  coursesGrid.innerHTML='';
+  // render all matching courses (user requested all 160 visible)
+  filtered.forEach(c=>coursesGrid.appendChild(createCard(c)));
 }
 
 // wire events
-loadMoreBtn && loadMoreBtn.addEventListener('click', ()=> applyFiltersAndRender(false));
-siteSearch && siteSearch.addEventListener('input', debounce(()=>applyFiltersAndRender(true),250));
-filterCategory && filterCategory.addEventListener('change', ()=>applyFiltersAndRender(true));
-filterLevel && filterLevel.addEventListener('change', ()=>applyFiltersAndRender(true));
+siteSearch && siteSearch.addEventListener('input', debounce(()=>applyFiltersAndRender(),250));
+filterCategory && filterCategory.addEventListener('change', ()=>applyFiltersAndRender());
+filterLevel && filterLevel.addEventListener('change', ()=>applyFiltersAndRender());
 
 function debounce(fn, wait){let t; return (...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),wait);};}
 
@@ -113,7 +101,7 @@ async function init(){
     const raw = await loadCSV('c_c.csv');
     allCourses = raw.map(mapCourse);
     renderFilters();
-    applyFiltersAndRender(true);
+    applyFiltersAndRender();
   }catch(err){
     coursesGrid.innerHTML = '<p style="padding:24px;background:#fff;border-radius:12px">Unable to load course data.</p>';
     console.error(err);
