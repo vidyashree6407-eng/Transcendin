@@ -557,12 +557,46 @@ function buildCoursesPanel() {
         });
     }
 
-    // initial render
-    if (categoryKeys.length) renderCoursesForCategory(categoryKeys[0]);
+    // initial render: render all categories and their courses in the right pane
+    function renderAllCategories() {
+        coursesList.innerHTML = '';
+        categoryKeys.forEach(cat => {
+            const section = document.createElement('section');
+            section.className = 'category-section';
+            section.id = 'cat-' + cat;
+            const heading = document.createElement('h5');
+            heading.className = 'category-heading';
+            heading.textContent = cat.replace(/[-_]/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+            section.appendChild(heading);
+            const grid = document.createElement('div');
+            grid.className = 'category-grid';
+            (groups[cat] || []).forEach(course => {
+                const card = document.createElement('div');
+                card.className = 'course-panel-card';
+                const title = document.createElement('h5');
+                title.textContent = course.name;
+                const meta = document.createElement('div');
+                meta.className = 'meta';
+                meta.textContent = (course.duration ? course.duration + ' day(s)' : '') + (course.rating ? ' • ' + course.rating + '⭐' : '');
+                const enroll = document.createElement('a');
+                enroll.className = 'btn-enroll';
+                enroll.href = 'courses.html';
+                enroll.textContent = 'View / Enroll';
+                card.appendChild(title);
+                card.appendChild(meta);
+                card.appendChild(enroll);
+                grid.appendChild(card);
+            });
+            section.appendChild(grid);
+            coursesList.appendChild(section);
+        });
+    }
+
+    if (categoryKeys.length) renderAllCategories();
 
     // open & close handlers
     function openPanel(e) {
-        if (e) e.preventDefault();
+        if (e && e.preventDefault) e.preventDefault();
         panel.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
         trackEvent('ui', 'open_courses_panel', 'homepage');
@@ -573,8 +607,36 @@ function buildCoursesPanel() {
         trackEvent('ui', 'close_courses_panel', 'homepage');
     }
 
+    // open on click (fallback)
     coursesBtn.addEventListener('click', openPanel);
     closeBtn.addEventListener('click', closePanel);
+
+    // Hover behavior: open panel when user hovers over the nav item, close when leaving both nav and panel
+    let hoverTimeout = null;
+    let isOverPanel = false;
+
+    coursesBtn.addEventListener('mouseenter', () => {
+        clearTimeout(hoverTimeout);
+        openPanel();
+    });
+
+    coursesBtn.addEventListener('mouseleave', () => {
+        hoverTimeout = setTimeout(() => {
+            if (!isOverPanel) closePanel();
+        }, 220);
+    });
+
+    panel.addEventListener('mouseenter', () => {
+        isOverPanel = true;
+        clearTimeout(hoverTimeout);
+    });
+
+    panel.addEventListener('mouseleave', () => {
+        isOverPanel = false;
+        hoverTimeout = setTimeout(() => {
+            if (!coursesBtn.matches(':hover')) closePanel();
+        }, 220);
+    });
 
     panel.addEventListener('click', (e) => {
         if (e.target === panel) closePanel();
@@ -586,10 +648,33 @@ function buildCoursesPanel() {
 }
 
 // Load data and init panel (if courses_286.js exists)
-if (typeof window.coursesDatabase === 'undefined') {
-    loadScript('courses_286.js', () => {
-        setTimeout(buildCoursesPanel, 50);
+function fetchAndInitCourses(path) {
+    return fetch(path).then(r => {
+        if (!r.ok) throw new Error('Failed to fetch courses file');
+        return r.text();
+    }).then(code => {
+        try {
+            // evaluate the file inside a function so `const coursesDatabase` becomes available
+            const db = (function(){
+                // eslint-disable-next-line no-eval
+                eval(code + '\n; return typeof coursesDatabase !== "undefined" ? coursesDatabase : (window.coursesDatabase || []);');
+            })();
+            window.coursesDatabase = db || [];
+        } catch (err) {
+            console.error('Error evaluating courses file', err);
+            window.coursesDatabase = window.coursesDatabase || [];
+        }
+        buildCoursesPanel();
+    }).catch(err => {
+        console.warn('Could not load courses data:', err);
+        window.coursesDatabase = window.coursesDatabase || [];
+        buildCoursesPanel();
     });
+}
+
+if (typeof window.coursesDatabase === 'undefined' || !window.coursesDatabase.length) {
+    // attempt to fetch and evaluate the local file
+    fetchAndInitCourses('courses_286.js');
 } else {
     buildCoursesPanel();
 }
