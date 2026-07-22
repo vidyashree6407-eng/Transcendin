@@ -664,11 +664,17 @@ function fetchAndInitCourses(path) {
             console.error('Error evaluating courses file', err);
             window.coursesDatabase = window.coursesDatabase || [];
         }
-        buildCoursesPanel();
+        if (!window.coursesDatabase || !window.coursesDatabase.length) {
+            // fallback to loading via script tag (works for file:// or other restrictions)
+            loadScript(path, () => setTimeout(buildCoursesPanel, 40));
+        } else {
+            buildCoursesPanel();
+        }
     }).catch(err => {
         console.warn('Could not load courses data:', err);
         window.coursesDatabase = window.coursesDatabase || [];
-        buildCoursesPanel();
+        // try loading via script tag as a fallback
+        loadScript(path, () => setTimeout(buildCoursesPanel, 40));
     });
 }
 
