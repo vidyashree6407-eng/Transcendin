@@ -362,6 +362,39 @@
 
         .category-section { margin-bottom: 2.4rem; }
 
+        /* Category header with head image and title */
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin: 0 0 12px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .category-headimg {
+            width: 84px;
+            height: 84px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 28px rgba(6,32,84,0.12);
+            flex: 0 0 auto;
+        }
+
+        .category-title-wrap { text-align: left; }
+        .category-title { font-size: 1.35rem; margin: 0; color: #072d5b; font-weight: 800; }
+        .category-desc { margin: 6px 0 0 0; color: #55718a; text-align: center; }
+
+        /* Make the category grid align consistently */
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: stretch; }
+        @media (max-width: 1100px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 800px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .category-grid { grid-template-columns: 1fr; } }
+
         .course-card-footer {
             display: flex;
             justify-content: space-between;
@@ -798,6 +831,28 @@
             return value || '1 day';
         }
 
+        // Map category keys to simple icons/letters and gradient backgrounds
+        const CATEGORY_HEADS = {
+            'leadership': { text: 'LD', bg: 'linear-gradient(135deg,#0052CC 0%,#0B66D6 100%)' },
+            'soft-skills': { text: 'SS', bg: 'linear-gradient(135deg,#FF6B35 0%,#FF9A56 100%)' },
+            'career': { text: 'CD', bg: 'linear-gradient(135deg,#4FACFE 0%,#00F2FE 100%)' },
+            'project-management': { text: 'PM', bg: 'linear-gradient(135deg,#667EEA 0%,#764BA2 100%)' },
+            'agile': { text: 'AG', bg: 'linear-gradient(135deg,#A8EDEA 0%,#FED6E3 100%)' },
+            'marketing': { text: 'MK', bg: 'linear-gradient(135deg,#F093FB 0%,#F5576C 100%)' },
+            'it-security': { text: 'IT', bg: 'linear-gradient(135deg,#FF9A56 0%,#FF6A88 100%)' },
+            'data': { text: 'DB', bg: 'linear-gradient(135deg,#00C9FF 0%,#92FE9D 100%)' },
+            'software': { text: 'SW', bg: 'linear-gradient(135deg,#9F7AEA 0%,#6EE7B7 100%)' },
+            'cloud': { text: 'CL', bg: 'linear-gradient(135deg,#6EE7B7 0%,#3B82F6 100%)' }
+        };
+
+        function generateCategoryHeader(cat) {
+            const key = cat.key;
+            const head = CATEGORY_HEADS[key] || { text: (cat.label||key).slice(0,2).toUpperCase(), bg: 'linear-gradient(135deg,#667eea,#764ba2)' };
+            const headHtml = `<div class="category-headimg" style="background:${head.bg}">${escapeHtml(head.text)}</div>`;
+            const titleHtml = `<div class="category-title-wrap"><h3 class="category-title">${escapeHtml(cat.label)}</h3><p class="category-desc">${escapeHtml(cat.desc || '')}</p></div>`;
+            return headHtml + titleHtml;
+        }
+
         function mapRawCourse(raw) {
             const name = (raw.name || raw['Course Name'] || '').trim() || 'Untitled Course';
             const duration = raw.duration || raw['Duration'] || '1';
@@ -995,7 +1050,7 @@
         }
 
         async function loadCourses() {
-            if (Array.isArray(window.TRANS_COURSES) && window.TRANS_COURSES.length) {
+                if (Array.isArray(window.TRANS_COURSES) && window.TRANS_COURSES.length) {
                 const immediateCourses = window.TRANS_COURSES.map(mapRawCourse);
                 coursesGrid.innerHTML = '';
                 // Render courses grouped by the user-specified CATEGORY_ORDER
@@ -1005,11 +1060,11 @@
                     if (!group.length) return;
                     const section = document.createElement('div');
                     section.className = 'category-section';
-
-                    // category title and description first
-                    const header = document.createElement('div');
-                    header.innerHTML = `<h2 id="${escapeHtml(cat.key)}">${escapeHtml(cat.label)}</h2><p class="category-desc">${escapeHtml(cat.desc || '')}</p>`;
-                    section.appendChild(header);
+                        // category title and description with head image
+                        const header = document.createElement('div');
+                        header.className = 'category-header';
+                        header.innerHTML = generateCategoryHeader(cat);
+                        section.appendChild(header);
 
                     // then grid of cards (4 per row)
                     const categoryGrid = document.createElement('div');
@@ -1104,16 +1159,17 @@
             coursesGrid.innerHTML = '';
             // Render grouped in order
             coursesGrid.innerHTML = '';
-            CATEGORY_ORDER.forEach(cat => {
+                CATEGORY_ORDER.forEach(cat => {
                 const group = courses.filter(c => c.categoryKey === cat.key);
                 if (!group.length) return;
                 const section = document.createElement('div');
                 section.className = 'category-section';
 
-                // category title and description first
-                const header = document.createElement('div');
-                header.innerHTML = `<h2 id="${escapeHtml(cat.key)}">${escapeHtml(cat.label)}</h2><p class="category-desc">${escapeHtml(cat.desc || '')}</p>`;
-                section.appendChild(header);
+                    // category title and description with head image
+                    const header = document.createElement('div');
+                    header.className = 'category-header';
+                    header.innerHTML = generateCategoryHeader(cat);
+                    section.appendChild(header);
 
                 // then grid of cards (4 per row)
                 const categoryGrid = document.createElement('div');
