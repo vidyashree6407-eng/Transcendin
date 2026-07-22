@@ -142,16 +142,16 @@ let countersStarted = false;
 
 const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting && !countersStarted) {
-            countersStarted = true;
-            
-            // Animate 5000, 200, 50
-            animateCounter(statsElements[0], 5000);
-            animateCounter(statsElements[1], 200);
-            animateCounter(statsElements[2], 50);
-            
-            statsObserver.unobserve(entry.target);
-        }
+            if (entry.isIntersecting && !countersStarted) {
+                countersStarted = true;
+                // Only animate if the elements exist to avoid TypeErrors
+                if (statsElements && statsElements.length) {
+                    if (statsElements[0]) animateCounter(statsElements[0], 5000);
+                    if (statsElements[1]) animateCounter(statsElements[1], 200);
+                    if (statsElements[2]) animateCounter(statsElements[2], 50);
+                }
+                statsObserver.unobserve(entry.target);
+            }
     });
 }, { threshold: 0.5 });
 
@@ -671,8 +671,32 @@ function fetchAndInitCourses(path) {
         setTimeout(buildCoursesPanel, 40);
     }).catch(err => {
         console.warn('Could not load courses data via fetch:', err);
-        // fallback: try loading the file via script tag directly
-        loadScript(path, () => setTimeout(buildCoursesPanel, 80));
+        // fallback: try loading CSV data (c_c.csv) before attempting script tag injection
+        return fetch('c_c.csv').then(r2 => {
+            if (!r2.ok) throw new Error('CSV fallback not found');
+            return r2.text();
+        }).then(csvText => {
+            // simple CSV -> objects parser
+            const lines = csvText.trim().split(/\r?\n/).filter(Boolean);
+            const headers = lines.shift().split(',').map(h=>h.trim());
+            const items = lines.map(line => {
+                const cols = line.split(',');
+                const obj = {};
+                headers.forEach((h,i)=> obj[h] = cols[i] ? cols[i].trim() : '');
+                // map to basic shape expected by panel
+                return {
+                    name: obj['Course Name'] || obj.name || '',
+                    duration: obj['Duration'] || '',
+                    description: obj['Short Description'] || obj['Course Name'] || '',
+                    category: obj['Category'] || 'General'
+                };
+            });
+            window.coursesDatabase = items;
+            setTimeout(buildCoursesPanel, 40);
+        }).catch(() => {
+            // final fallback: try loading the file via script tag directly (will likely 404)
+            loadScript(path, () => setTimeout(buildCoursesPanel, 80));
+        });
     });
 }
 
