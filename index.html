@@ -8,6 +8,16 @@
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+    /* Navbar dropdown for Courses */
+    .nav-menu .nav-item{position:relative}
+    .nav-menu .dropdown-toggle::after{content:" ▾";font-size:0.8rem;margin-left:6px}
+    .dropdown-menu{position:absolute;top:100%;left:0;background:#fff;border:1px solid rgba(11,102,214,0.06);border-radius:10px;box-shadow:0 12px 30px rgba(9,30,66,0.08);min-width:200px;display:none;padding:6px 0;z-index:60}
+    .nav-item.open .dropdown-menu,.nav-item:hover .dropdown-menu{display:block}
+    .dropdown-menu li a{display:block;padding:8px 14px;color:#072d5b;text-decoration:none}
+    .dropdown-menu li a:hover{background:#f1f6ff}
+    @media (max-width:800px){.dropdown-menu{position:static;box-shadow:none;border:none}}
+    </style>
 </head>
 <body class="homepage">
     <!-- Navigation -->
@@ -26,7 +36,13 @@
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#" id="coursesBtn">Courses</a></li>
+                    <li class="nav-item">
+                        <a href="courses.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Courses</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="courses.html">Explore Courses</a></li>
+                            <li><a href="enrollment-interactive.html">Enroll Now</a></li>
+                        </ul>
+                    </li>
                     <li><a href="enrollment-interactive.html" class="nav-accent">Enroll Now</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -71,7 +87,7 @@
                     <h1>Build Real Skills with <span class="highlight">Mentor-Led Clarity</span></h1>
                     <p>Start today, build job-ready confidence with every session, and turn your ambition into measurable career progress.</p>
                     <div class="hero-buttons">
-                        <button class="btn btn-primary" id="discoverBtn">Discover Courses</button>
+                        <a class="btn btn-primary" id="discoverBtn" href="courses.html">Discover Courses</a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -288,5 +304,30 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+        <script>
+        // Dropdown toggle for Courses (accessible click support)
+        (function(){
+            document.addEventListener('click', function(e){
+                const toggle = e.target.closest('.dropdown-toggle');
+                if(toggle){
+                    const li = toggle.parentElement;
+                    const isOpen = li.classList.contains('open');
+                    // close other open
+                    document.querySelectorAll('.nav-item.open').forEach(n=>n.classList.remove('open'));
+                    if(!isOpen) { li.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+                    else { li.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+                    e.preventDefault();
+                    return;
+                }
+                // Click outside closes menus
+                if(!e.target.closest('.nav-item')){
+                    document.querySelectorAll('.nav-item.open').forEach(n=>{
+                        n.classList.remove('open');
+                        const t = n.querySelector('.dropdown-toggle'); if(t) t.setAttribute('aria-expanded','false');
+                    });
+                }
+            });
+        })();
+        </script>
 </body>
 </html>
