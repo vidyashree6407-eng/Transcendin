@@ -699,6 +699,10 @@ body.homepage .top-bar marquee {
     .categories-list { flex-direction: row; }
 }
 
+.category-section { margin-bottom: 18px; }
+.category-heading { font-size: 1.05rem; font-weight: 800; color: var(--primary-blue); margin: 6px 0 10px; }
+.category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+
 .card:hover {
     transform: translateY(-6px);
     box-shadow: 0 18px 34px rgba(9, 32, 84, 0.16);
