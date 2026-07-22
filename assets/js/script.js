@@ -654,27 +654,25 @@ function fetchAndInitCourses(path) {
         return r.text();
     }).then(code => {
         try {
-            // evaluate the file inside a function so `const coursesDatabase` becomes available
-            const db = (function(){
-                // eslint-disable-next-line no-eval
-                eval(code + '\n; return typeof coursesDatabase !== "undefined" ? coursesDatabase : (window.coursesDatabase || []);');
-            })();
-            window.coursesDatabase = db || [];
+            // Transform the fetched file so it assigns to window.coursesDatabase
+            // Replace common declarations: const/let/var coursesDatabase =
+            const transformed = code.replace(/(?:const|let|var)\s+coursesDatabase\s*=\s*/m, 'window.coursesDatabase = ');
+            const s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.textContent = transformed + '\n//# sourceURL=courses_286.injected.js';
+            document.head.appendChild(s);
+            // ensure the global exists
+            window.coursesDatabase = window.coursesDatabase || [];
         } catch (err) {
-            console.error('Error evaluating courses file', err);
+            console.error('Error injecting courses file', err);
             window.coursesDatabase = window.coursesDatabase || [];
         }
-        if (!window.coursesDatabase || !window.coursesDatabase.length) {
-            // fallback to loading via script tag (works for file:// or other restrictions)
-            loadScript(path, () => setTimeout(buildCoursesPanel, 40));
-        } else {
-            buildCoursesPanel();
-        }
+        // build panel after a short delay to ensure script executed
+        setTimeout(buildCoursesPanel, 40);
     }).catch(err => {
-        console.warn('Could not load courses data:', err);
-        window.coursesDatabase = window.coursesDatabase || [];
-        // try loading via script tag as a fallback
-        loadScript(path, () => setTimeout(buildCoursesPanel, 40));
+        console.warn('Could not load courses data via fetch:', err);
+        // fallback: try loading the file via script tag directly
+        loadScript(path, () => setTimeout(buildCoursesPanel, 80));
     });
 }
 
