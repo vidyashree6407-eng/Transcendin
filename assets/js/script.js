@@ -475,3 +475,121 @@ console.log('%cLearning from the best instructors, one-on-one. 📚', 'font-size
 // ==========================================
 
 console.log('TranscendIN JavaScript loaded successfully!');
+
+// ==========================================
+// Interactive Courses Panel (Categories -> Courses)
+// Loads `courses_286.js` dynamically and builds a two-column panel.
+// ==========================================
+
+function loadScript(src, cb) {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = cb;
+    s.onerror = cb;
+    document.head.appendChild(s);
+}
+
+function buildCoursesPanel() {
+    // Ensure DOM elements exist
+    const coursesBtn = document.getElementById('coursesBtn');
+    const panel = document.getElementById('coursesPanel');
+    const closeBtn = document.getElementById('closeCoursesPanel');
+    const categoriesList = document.getElementById('coursesCategories');
+    const coursesList = document.getElementById('coursesList');
+
+    if (!coursesBtn || !panel || !categoriesList || !coursesList) return;
+
+    // Group courses by category using the global coursesDatabase if available
+    const db = window.coursesDatabase || [];
+    const groups = {};
+    db.forEach(c => {
+        const cat = (c.category || 'other').toString().trim();
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push(c);
+    });
+
+    // Create a sorted list of categories (human friendly)
+    const categoryKeys = Object.keys(groups).sort();
+
+    // Render categories
+    categoriesList.innerHTML = '';
+    categoryKeys.forEach((key, idx) => {
+        const li = document.createElement('li');
+        li.textContent = key.replace(/[-_]/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+        li.dataset.cat = key;
+        if (idx === 0) li.classList.add('active');
+        li.addEventListener('click', () => {
+            categoriesList.querySelectorAll('li').forEach(x => x.classList.remove('active'));
+            li.classList.add('active');
+            renderCoursesForCategory(key);
+        });
+        categoriesList.appendChild(li);
+    });
+
+    function renderCoursesForCategory(catKey) {
+        const items = groups[catKey] || [];
+        coursesList.innerHTML = '';
+        if (!items.length) {
+            coursesList.innerHTML = '<p>No courses available in this category.</p>';
+            return;
+        }
+        items.forEach(course => {
+            const card = document.createElement('div');
+            card.className = 'course-panel-card';
+            const title = document.createElement('h5');
+            title.textContent = course.name;
+            const meta = document.createElement('div');
+            meta.className = 'meta';
+            meta.textContent = (course.duration ? course.duration + ' day(s)' : '') + (course.rating ? ' • ' + course.rating + '⭐' : '');
+            const desc = document.createElement('div');
+            desc.className = 'desc';
+            desc.textContent = course.description || '';
+            const enroll = document.createElement('a');
+            enroll.className = 'btn-enroll';
+            enroll.href = 'courses.html';
+            enroll.textContent = 'View / Enroll';
+
+            card.appendChild(title);
+            card.appendChild(meta);
+            if (course.description) card.appendChild(desc);
+            card.appendChild(enroll);
+            coursesList.appendChild(card);
+        });
+    }
+
+    // initial render
+    if (categoryKeys.length) renderCoursesForCategory(categoryKeys[0]);
+
+    // open & close handlers
+    function openPanel(e) {
+        if (e) e.preventDefault();
+        panel.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        trackEvent('ui', 'open_courses_panel', 'homepage');
+    }
+    function closePanel() {
+        panel.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        trackEvent('ui', 'close_courses_panel', 'homepage');
+    }
+
+    coursesBtn.addEventListener('click', openPanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    panel.addEventListener('click', (e) => {
+        if (e.target === panel) closePanel();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closePanel();
+    });
+}
+
+// Load data and init panel (if courses_286.js exists)
+if (typeof window.coursesDatabase === 'undefined') {
+    loadScript('courses_286.js', () => {
+        setTimeout(buildCoursesPanel, 50);
+    });
+} else {
+    buildCoursesPanel();
+}

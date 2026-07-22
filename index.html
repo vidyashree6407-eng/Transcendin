@@ -26,7 +26,7 @@
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home">Home</a></li>
-                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="#" id="coursesBtn">Courses</a></li>
                     <li><a href="enrollment-interactive.html" class="nav-accent">Enroll Now</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -42,6 +42,21 @@
             <span class="announcement-divider">•</span>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=info@transcendin.com" class="announcement-email" target="_blank" rel="noopener noreferrer"><i class="fas fa-envelope" aria-hidden="true"></i>&nbsp;info@transcendin.com</a>
         </marquee>
+    </div>
+
+    <!-- Courses Panel (interactive categories -> courses) -->
+    <div id="coursesPanel" class="courses-panel" aria-hidden="true">
+        <div class="courses-panel-inner">
+            <button id="closeCoursesPanel" class="courses-panel-close" aria-label="Close courses panel">×</button>
+            <div class="courses-panel-left">
+                <h4 class="panel-title">Course Categories</h4>
+                <ul id="coursesCategories" class="categories-list" role="list"></ul>
+            </div>
+            <div class="courses-panel-right">
+                <h4 class="panel-title">Courses</h4>
+                <div id="coursesList" class="courses-list" role="list"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Hero Section -->
