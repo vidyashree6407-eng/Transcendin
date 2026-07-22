@@ -390,10 +390,49 @@
         .category-desc { margin: 6px 0 0 0; color: #55718a; text-align: center; }
 
         /* Make the category grid align consistently */
-        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: stretch; }
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; align-items: stretch; }
         @media (max-width: 1100px) { .category-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 800px) { .category-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 480px) { .category-grid { grid-template-columns: 1fr; } }
+
+        /* Global course list grid used by JS when rendering all cards */
+        .course-list-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            align-items: stretch;
+        }
+        @media (max-width: 1100px) { .course-list-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 800px) { .course-list-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .course-list-grid { grid-template-columns: 1fr; } }
+
+        /* Course card visuals */
+        .course-card {
+            background: var(--primary-white);
+            border: 1px solid rgba(12,58,128,0.06);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+            box-shadow: 0 6px 14px rgba(11,66,214,0.06);
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 40px rgba(6,32,84,0.14);
+        }
+
+        .course-card h3 { font-size: 1.05rem; margin: 0 0 6px 0; color: #072d5b; line-height: 1.2; }
+        .course-card .card-meta { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-weight:700; color:#0c3a80; }
+        .course-card .card-desc { color:#425a6b; margin: 0 0 12px 0; font-size:0.95rem; line-height:1.35; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+
+        .card-footer { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; }
+        .card-badge { background: #f6fbff; border: 1px solid #e6f0ff; color: #08346a; padding:6px 8px; border-radius:8px; font-weight:800; font-size:0.8rem; }
+        .card-enroll { background: linear-gradient(180deg,#0b66d6,#0649b2); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:700; }
+        .card-duration { font-size:0.9rem; color:#334a61; background:transparent; padding:6px 0; }
 
         .course-card-footer {
             display: flex;
@@ -889,14 +928,13 @@
 
             card.innerHTML = `
                 <div>
+                    <div class="card-meta"><span class="card-badge">${escapeHtml(course.categoryLabel)}</span><span class="card-duration">${escapeHtml(formatDuration(course.duration))}</span></div>
                     <h3>${escapeHtml(course.name)}</h3>
-                    <p>${escapeHtml(course.description)}</p>
+                    <p class="card-desc">${escapeHtml(course.description)}</p>
                 </div>
                 <div class="card-footer">
-                    <div class="card-badge">${escapeHtml(course.categoryLabel)}</div>
-                    <div>
-                        <button class="card-enroll">Enroll Now</button>
-                    </div>
+                    <div></div>
+                    <div><button class="card-enroll">Enroll Now</button></div>
                 </div>
             `;
 
