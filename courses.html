@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explore Our Courses - TranscendIN</title>
+    <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
+    <link rel="stylesheet" href="courses.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Navigation (kept identical to site) -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="index.html" aria-label="Go to homepage">
+                        <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    </a>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html" class="active">Courses</a></li>
+                    <li><a href="enrollment-interactive.html" class="nav-accent">Enroll Now</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="courses-hero">
+        <div class="container hero-inner">
+            <div class="hero-copy">
+                <h1>Explore Our Courses</h1>
+                <p class="lead">Curated, instructor-led courses designed for enterprise teams and professionals. Filter, search and discover learning paths that scale with your organisation.</p>
+            </div>
+            <div class="hero-search-wrap">
+                <div class="search-sticky" id="searchSticky">
+                    <div class="search-controls">
+                        <div class="search-field">
+                            <label for="siteSearch" class="sr-only">Search courses</label>
+                            <input id="siteSearch" type="search" placeholder="Search courses, skills, or keywords" aria-label="Search courses">
+                            <button id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="filters">
+                            <select id="filterCategory" aria-label="Filter by category">
+                                <option value="">All categories</option>
+                            </select>
+                            <select id="filterLevel" aria-label="Filter by level">
+                                <option value="">All levels</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-grid" id="main">
+        <section aria-labelledby="resultsHeading" class="results-section">
+            <h2 id="resultsHeading" class="sr-only">Course results</h2>
+            <div id="coursesGrid" class="courses-grid" role="list" aria-live="polite"></div>
+
+            <div class="load-more-wrap">
+                <button id="loadMore" class="btn-primary-outline">Load More</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (kept unchanged) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand-logo" aria-label="TranscendIN Home">
+                        <img src="assets/images/logo.png" alt="TranscendIN logo">
+                    </a>
+                    <h4><a href="index.html">TranscendIN</a></h4>
+                    <p>Transforming careers through expert-led professional training.</p>
+                    <div class="social-links">
+                        <a aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="enrollment.html">Enrollment</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get In Touch</h4>
+                    <div class="footer-contact-item"><h5>Email</h5><p><a href="mailto:info@transcendin.com">info@transcendin.com</a></p></div>
+                    <div class="footer-contact-item"><h5>Phone</h5><p><a href="tel:+16466248608">+1 (646) 624-8608</a></p></div>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 TranscendIN. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="courses.js" defer></script>
+</body>
+</html>
