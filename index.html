@@ -28,12 +28,14 @@
                 </div>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home">Home</a></li>
-                    <li class="nav-item">
-                        <a href="courses.html" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Courses</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="courses.html">Explore Courses</a></li>
-                            <li><a href="enrollment-interactive.html">Enroll Now</a></li>
-                        </ul>
+                    <li class="nav-item nav-mega">
+                        <button id="allCoursesBtn" class="nav-link" aria-haspopup="true" aria-expanded="false">All Courses</button>
+                        <div id="megaMenu" class="mega-menu" aria-hidden="true">
+                            <div class="mega-menu-inner">
+                                <div class="mega-left" id="megaCategories" role="list"></div>
+                                <div class="mega-right" id="megaCourses" role="region" aria-live="polite"></div>
+                            </div>
+                        </div>
                     </li>
                     <li><a href="enrollment-interactive.html" class="nav-accent">Enroll Now</a></li>
                     <li><a href="about.html">About</a></li>

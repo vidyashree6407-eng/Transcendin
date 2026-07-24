@@ -1,0 +1,216 @@
+{
+  "categories": [
+    {
+      "id": "leadership",
+      "title": "Leadership & Managerial Excellence",
+      "courses": [
+        "Account Management",
+        "Absence Management",
+        "Conflict Management Training",
+        "Crisis Management - Business Perspective",
+        "Effective Vendor Management",
+        "Employee Engagement",
+        "Essential Management Skills",
+        "Human Resource Management Training",
+        "Leading Effective Teams",
+        "Manager Management Training",
+        "Supply Chain Management",
+        "Managing a Virtual Team",
+        "Managing Performance",
+        "Performance Management",
+        "Problem Management Professional",
+        "Risk Assessment and Management",
+        "Risk Assessment Training",
+        "Change Management - Change Matters",
+        "Motivating People",
+        "Building High Performing Teams",
+        "Leadership Skills - Lead, Motivate & Inspire"
+      ]
+    },
+    {
+      "id": "career",
+      "title": "Career Development Skills",
+      "courses": [
+        "10 Essential Soft Skills",
+        "Coaching at Work",
+        "Emotional Intelligence Training",
+        "Event Planning Training",
+        "Essential Coaching Skills for Managers",
+        "Customer Service Essentials",
+        "Interview Skills",
+        "Organizational Skills Training",
+        "Professional Development Essentials",
+        "Professional Skills Bootcamp",
+        "Proposal Writing",
+        "Recruitment Skills",
+        "Report Writing",
+        "Stakeholder Management",
+        "Train-The-Trainer",
+        "Workplace Reflective Practice",
+        "Writing a CV",
+        "Telephone Customer Service - Find a way to say YES!",
+        "Passionate Retail Experts",
+        "Pathways to Service Excellence",
+        "Telephone Debt Collection",
+        "Call Control"
+      ]
+    },
+    {
+      "id": "soft-skills",
+      "title": "Soft Skills",
+      "courses": [
+        "Communication Skills Training",
+        "Career Planning",
+        "Communication Strategies Training",
+        "Knowledge Management Training",
+        "Negotiation Skills – Expert",
+        "Negotiation Skills – Professional",
+        "Personal Branding",
+        "Preparing for Job Interviews",
+        "Presentation Skills",
+        "Presentation Skills – Expert",
+        "Presentation Skills – Professional",
+        "Public Speaking",
+        "Time Management",
+        "Teamwork Skills: Communicating Effectively in Groups",
+        "Stress Management",
+        "Wellness",
+        "Anger Management",
+        "Handling Angry and Difficult Callers",
+        "Setting Others Up For Success! (Internal Customer Service)",
+        "Managing People",
+        "Negotiating for Results",
+        "Vision, Energy & Passion To Serve",
+        "Workplace Diversity & Inclusion",
+        "Creative Problem Solving and Decision Making"
+      ]
+    },
+    {
+      "id": "project-management",
+      "title": "Project Management",
+      "courses": [
+        "PMP® Certification Training",
+        "Microsoft Project 2013",
+        "Effective Change Management",
+        "Elements of Risk Management",
+        "Change Management Foundation",
+        "Change Management Practitioner",
+        "Project Integration Management",
+        "Project Management Basics",
+        "Advanced Practical Project Management",
+        "Prince2 Foundation and Practitioner Certification Program"
+      ]
+    },
+    {
+      "id": "business-growth",
+      "title": "Business Growth & Strategic Marketing",
+      "courses": [
+        "Business Case Writing",
+        "Business Ethics & Responsibility",
+        "Business Finance Basics",
+        "Building Professional Business Connections",
+        "Effective Business Presentation Skills",
+        "Strategic Business Succession Planning Training",
+        "Professional Business Writing Training",
+        "Finance & Accounting Essentials for Project Leaders",
+        "Internet Marketing Fundamentals Training",
+        "Core Marketing Strategies",
+        "Practical Sales Skills",
+        "Business Process Improvement & Design Strategies",
+        "Sales Presentation Mastery Training",
+        "Professional Technical Writing Training",
+        "Sales Leadership & Management"
+      ]
+    },
+    {
+      "id": "agile",
+      "title": "Agile Practices & Leadership",
+      "courses": [
+        "Introduction To Agile",
+        "Agile Transformation",
+        "Agile & Scrum Training",
+        "Scrum & Agile Foundation",
+        "Agile Scrum Master",
+        "Agile Strategies for Executives",
+        "Agile Strategies for Product Owner"
+      ]
+    },
+    {
+      "id": "it-security",
+      "title": "IT Security",
+      "courses": [
+        "Cyber Security Training",
+        "Android Security Masterclass",
+        "SECO – IT Security Fundamentals",
+        "Information Security Governance Fundamentals",
+        "Cyber Security Overview",
+        "SECO – Data Protection Foundation",
+        "Java and Web Security Mastery"
+      ]
+    },
+    {
+      "id": "data-powerbi",
+      "title": "Data Management & Power BI",
+      "courses": [
+        "Power BI for Report Developers",
+        "Power BI for Business Users",
+        "Power BI Comprehensive Training",
+        "Power BI Dashboard and Data Analysis",
+        "Big Data Bootcamp",
+        "Big Data Overview",
+        "Big Data Strategy",
+        "Data Analysis Bootcamp",
+        "CCC-Big Data Foundation"
+      ]
+    },
+    {
+      "id": "software-innovation",
+      "title": "Software Innovation & Emerging Technologies",
+      "courses": [
+        "Software Testing Fundamentals",
+        "Software Testing Essentials",
+        "Software Testing Skills for Developers"
+      ]
+    },
+    {
+      "id": "cloud-devops",
+      "title": "Cloud Computing & DevOps",
+      "courses": [
+        "Cloud Computing Basics for Business",
+        "Open Cloud Overview for Business",
+        "Open Cloud Technology Foundations",
+        "Cloud Essentials Training",
+        "DevOps Fundamentals",
+        "DevOps Awareness Training",
+        "DevOps Practitioner Skills Training"
+      ]
+    },
+    {
+      "id": "construction",
+      "title": "Construction & Quality Management",
+      "courses": [
+        "Quality Management",
+        "Construction Project Manager"
+      ]
+    },
+    {
+      "id": "azure",
+      "title": "Microsoft Azure",
+      "courses": [
+        "Microsoft Azure Fundamentals",
+        "Azure Essentials for Business Leaders",
+        "Microsoft Azure for Developers",
+        "Microsoft Azure Cloud Overview",
+        "Azure Resource Management & Governance",
+        "Azure Cost Optimization & Billing Management",
+        "Microsoft Azure Developer",
+        "Microsoft Azure Security Engineer",
+        "Data Engineering on Microsoft Azure",
+        "Azure AI & Machine Learning Essentials",
+        "Power BI with Azure Data Sources",
+        "Cloud Migration to Azure",
+        "Azure Infrastructure Design & Best Practices"
+      ]
+    }
+  ]
+}

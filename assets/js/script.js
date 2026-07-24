@@ -734,6 +734,120 @@ function initCoursesFromCSV() {
 // Start using CSV-first initialization (prevents requesting legacy courses_286.js)
 initCoursesFromCSV();
 
+// ==========================================
+// Mega Menu (All Courses) — builds from data/courses-menu.json
+// ==========================================
+function initMegaMenu() {
+    const btn = document.getElementById('allCoursesBtn');
+    const mega = document.getElementById('megaMenu');
+    const catsEl = document.getElementById('megaCategories');
+    const coursesEl = document.getElementById('megaCourses');
+    if (!btn || !mega || !catsEl || !coursesEl) return;
+
+    fetch('data/courses-menu.json').then(r => r.json()).then(data => {
+        const cats = data.categories || [];
+        // render left column
+        catsEl.innerHTML = '';
+        cats.forEach((c, i) => {
+            const div = document.createElement('div');
+            div.className = 'cat-item';
+            div.tabIndex = 0;
+            div.dataset.cat = c.id;
+            div.textContent = c.title;
+            if (i === 0) div.classList.add('active');
+            div.addEventListener('mouseenter', () => activateCategory(c.id));
+            div.addEventListener('focus', () => activateCategory(c.id));
+            div.addEventListener('click', (e) => {
+                // mobile: toggle
+                if (window.innerWidth <= 900) {
+                    const currently = coursesEl.querySelector('.content[data-cat="'+c.id+'"]');
+                    if (currently) {
+                        currently.classList.toggle('show');
+                    } else {
+                        renderCourses(c);
+                        coursesEl.querySelector('.content').classList.add('show');
+                    }
+                    return;
+                }
+            });
+            catsEl.appendChild(div);
+        });
+
+        function activateCategory(catId) {
+            catsEl.querySelectorAll('.cat-item').forEach(x => x.classList.toggle('active', x.dataset.cat === catId));
+            const cat = cats.find(x => x.id === catId);
+            renderCourses(cat);
+        }
+
+        function renderCourses(cat) {
+            // animate swap
+            coursesEl.innerHTML = '';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'content';
+            wrapper.dataset.cat = cat.id;
+            const heading = document.createElement('div');
+            heading.className = 'heading';
+            heading.textContent = cat.title;
+            wrapper.appendChild(heading);
+            cat.courses.forEach(name => {
+                const item = document.createElement('div');
+                item.className = 'course-item';
+                const a = document.createElement('a');
+                a.href = 'courses.html';
+                a.textContent = name;
+                a.addEventListener('click', () => { document.body.style.overflow = ''; });
+                item.appendChild(a);
+                wrapper.appendChild(item);
+            });
+            coursesEl.appendChild(wrapper);
+            // slight delay to allow transition
+            requestAnimationFrame(() => wrapper.classList.add('show'));
+        }
+
+        // initial render
+        if (cats.length) renderCourses(cats[0]);
+
+        // hover open/close logic
+        let hoverTimer = null;
+        let isOver = false;
+        function openMega() {
+            clearTimeout(hoverTimer);
+            mega.setAttribute('aria-hidden', 'false');
+            btn.setAttribute('aria-expanded', 'true');
+            // ensure visible
+        }
+        function closeMega() {
+            mega.setAttribute('aria-hidden', 'true');
+            btn.setAttribute('aria-expanded', 'false');
+        }
+
+        btn.addEventListener('mouseenter', openMega);
+        btn.addEventListener('focus', openMega);
+        btn.addEventListener('mouseleave', () => {
+            hoverTimer = setTimeout(() => { if (!isOver) closeMega(); }, 220);
+        });
+
+        mega.addEventListener('mouseenter', () => { isOver = true; clearTimeout(hoverTimer); });
+        mega.addEventListener('mouseleave', () => {
+            isOver = false; hoverTimer = setTimeout(() => { if (!btn.matches(':hover')) closeMega(); }, 220);
+        });
+
+        // keyboard close
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMega(); });
+
+        // mobile toggle
+        btn.addEventListener('click', (e) => {
+            if (window.innerWidth <= 900) {
+                const open = mega.getAttribute('aria-hidden') === 'false';
+                mega.setAttribute('aria-hidden', open ? 'true' : 'false');
+            }
+        });
+
+    }).catch(err => { console.warn('Could not load mega menu JSON', err); });
+}
+
+initMegaMenu();
+
 // Delegate clicks for dynamically rendered buttons (avoids inline onclick attributes)
 document.addEventListener('click', function(e) {
     const vd = e.target.closest && e.target.closest('.view-details-btn');
