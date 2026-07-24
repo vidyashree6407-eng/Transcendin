@@ -3,75 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>About Us - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/extracted-inline.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-    <style>
-        .about-hero {
-            background: var(--light-bg);
-            padding: 100px 0;
-            margin-top: 70px;
-            text-align: center;
-        }
-
-        .about-hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            padding: 80px 0;
-        }
-
-        .about-content .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.9;
-        }
-
-        .about-visual {
-            background: var(--gradient-blue-orange);
-            height: 400px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-white);
-            font-size: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .about-content .container {
-                grid-template-columns: 1fr;
-            }
-
-            .about-visual {
-                height: 300px;
-            }
-
-            .about-hero h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
+    <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
 </head>
 <body>
     <div class="top-bar">

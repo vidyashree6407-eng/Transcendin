@@ -12,8 +12,21 @@ import sys
 
 class CSPRequestHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
-        # Example policy: allow self framing, disallow everything else by default
-        self.send_header('Content-Security-Policy', "default-src 'self'; frame-ancestors 'self';")
+        # Security headers recommended for static sites (do not break UI):
+        # - Content-Security-Policy: restricts resource loading
+        # - X-Frame-Options: prevent clickjacking
+        # - X-Content-Type-Options: disable MIME sniffing
+        # - Referrer-Policy: limit referrer leakage
+        # - Permissions-Policy: disable dangerous powerful features
+        # - Strict-Transport-Security (HSTS): instruct browsers to use HTTPS (only effective over HTTPS)
+        csp = "default-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+        self.send_header('Content-Security-Policy', csp)
+        self.send_header('X-Frame-Options', 'DENY')
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
+        self.send_header('Permissions-Policy', "geolocation=(), microphone=(), camera=(), interest-cohort=()")
+        # HSTS - has no effect over plain HTTP but is safe to include if you switch to HTTPS in production
+        self.send_header('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload')
         super().end_headers()
 
 if __name__ == '__main__':

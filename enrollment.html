@@ -3,121 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>Enroll in Course - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/extracted-inline.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
-    <style>
-        .enrollment-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 60px 0;
-        }
-
-        .enrollment-form {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 82, 204, 0.1);
-        }
-
-        .form-section {
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .form-section:last-child {
-            border-bottom: none;
-        }
-
-        .form-section h3 {
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .enrollment-summary {
-            background: var(--light-bg);
-            padding: 30px;
-            border-radius: 12px;
-            border: 2px solid var(--border-color);
-            position: sticky;
-            top: 100px;
-        }
-
-        .summary-section {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .summary-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .summary-section h4 {
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .course-selected {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-orange);
-        }
-
-        .course-selected p {
-            margin: 5px 0;
-            font-size: 14px;
-        }
-
-        .course-selected strong {
-            color: var(--primary-blue);
+    <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
+    
         }
 
         .price-breakdown {
@@ -457,7 +350,7 @@
                     <i class="fas fa-check-circle"></i>
                     <h3>Enrollment Successful!</h3>
                     <p>Welcome to TranscendIN! Your course access has been activated. Check your email for login credentials and course materials.</p>
-                    <button class="btn-primary" onclick="window.location.href='dashboard.html'" style="margin-top: 20px;">Go to Dashboard</button>
+                    <button class="btn-primary go-dashboard" data-href="dashboard.html" style="margin-top: 20px;">Go to Dashboard</button>
                 </div>
 
                 <div id="summaryContent">
@@ -629,7 +522,8 @@
                 e.preventDefault();
                 
                 // Simulate form submission
-                document.getElementById('enrollmentForm').innerHTML = '';
+                const ef = document.getElementById('enrollmentForm');
+                if (ef) { while (ef.firstChild) ef.removeChild(ef.firstChild); }
                 document.getElementById('successMessage').classList.add('show');
             });
 

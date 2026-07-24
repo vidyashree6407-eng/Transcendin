@@ -279,7 +279,9 @@ window.addEventListener('load', () => {
 
 function createScrollToTopButton() {
     const button = document.createElement('button');
-    button.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-arrow-up';
+    button.appendChild(icon);
     button.className = 'scroll-to-top';
     button.style.cssText = `
         position: fixed;
@@ -467,14 +469,13 @@ document.querySelectorAll('.btn').forEach(btn => {
 // Console Easter Egg
 // ==========================================
 
-console.log('%cWelcome to TranscendIN! 🚀', 'font-size: 20px; color: #FF6B35; font-weight: bold;');
-console.log('%cLearning from the best instructors, one-on-one. 📚', 'font-size: 14px; color: #0052CC;');
+// Console Easter Egg removed for production
 
 // ==========================================
 // Document Ready Completion
 // ==========================================
 
-console.log('TranscendIN JavaScript loaded successfully!');
+// client-side debug logs removed
 
 // ==========================================
 // Interactive Courses Panel (Categories -> Courses)
@@ -512,7 +513,7 @@ function buildCoursesPanel() {
     const categoryKeys = Object.keys(groups).sort();
 
     // Render categories
-    categoriesList.innerHTML = '';
+    while (categoriesList.firstChild) categoriesList.removeChild(categoriesList.firstChild);
     categoryKeys.forEach((key, idx) => {
         const li = document.createElement('li');
         li.textContent = key.replace(/[-_]/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
@@ -528,9 +529,11 @@ function buildCoursesPanel() {
 
     function renderCoursesForCategory(catKey) {
         const items = groups[catKey] || [];
-        coursesList.innerHTML = '';
+        while (coursesList.firstChild) coursesList.removeChild(coursesList.firstChild);
         if (!items.length) {
-            coursesList.innerHTML = '<p>No courses available in this category.</p>';
+            const p = document.createElement('p');
+            p.textContent = 'No courses available in this category.';
+            coursesList.appendChild(p);
             return;
         }
         items.forEach(course => {
@@ -559,7 +562,7 @@ function buildCoursesPanel() {
 
     // initial render: render all categories and their courses in the right pane
     function renderAllCategories() {
-        coursesList.innerHTML = '';
+        while (coursesList.firstChild) coursesList.removeChild(coursesList.firstChild);
         categoryKeys.forEach(cat => {
             const section = document.createElement('section');
             section.className = 'category-section';
@@ -730,3 +733,71 @@ function initCoursesFromCSV() {
 
 // Start using CSV-first initialization (prevents requesting legacy courses_286.js)
 initCoursesFromCSV();
+
+// Delegate clicks for dynamically rendered buttons (avoids inline onclick attributes)
+document.addEventListener('click', function(e) {
+    const vd = e.target.closest && e.target.closest('.view-details-btn');
+    if (vd) {
+        const id = vd.dataset && vd.dataset.courseId;
+        if (id) {
+            // call existing page-defined handler if present
+            if (typeof window.openCourseDetails === 'function') {
+                window.openCourseDetails(Number(id));
+            } else {
+                // if handler not yet defined, queue a small retry
+                setTimeout(() => { if (typeof window.openCourseDetails === 'function') window.openCourseDetails(Number(id)); }, 50);
+            }
+            return;
+        }
+    }
+
+    const go = e.target.closest && e.target.closest('.go-dashboard');
+    if (go) {
+        const href = go.dataset && go.dataset.href;
+        if (href) {
+            window.location.href = href;
+            e.preventDefault();
+        }
+    }
+});
+
+// Basic client-side sanitization for enrollment and profile forms
+function sanitizeInput(value) {
+    return String(value || '').replace(/[<>]/g, '');
+}
+
+const enrollForm = document.getElementById('enrollForm');
+if (enrollForm) {
+    enrollForm.addEventListener('submit', function(e) {
+        if (!enrollForm.checkValidity()) {
+            enrollForm.reportValidity();
+            e.preventDefault();
+            return;
+        }
+        Array.from(enrollForm.elements).forEach(el => {
+            if (!el) return;
+            const tag = el.tagName && el.tagName.toLowerCase();
+            if (tag === 'input' || tag === 'textarea' || tag === 'select') {
+                if (el.value) el.value = sanitizeInput(el.value.trim());
+            }
+        });
+    });
+}
+
+const profileForm = document.querySelector('.profile-form');
+if (profileForm) {
+    profileForm.addEventListener('submit', (e) => {
+        if (!profileForm.checkValidity()) {
+            profileForm.reportValidity();
+            e.preventDefault();
+            return;
+        }
+        Array.from(profileForm.elements).forEach(el => {
+            if (!el) return;
+            const tag = el.tagName && el.tagName.toLowerCase();
+            if (tag === 'input' || tag === 'textarea' || tag === 'select') {
+                if (el.value) el.value = sanitizeInput(el.value.trim());
+            }
+        });
+    });
+}

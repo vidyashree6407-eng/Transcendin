@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>TranscendIN - Live, One-on-One Instructor-Led Courses</title>
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/extracted-inline.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-    <style>
-    /* Navbar dropdown for Courses */
-    .nav-menu .nav-item{position:relative}
-    .nav-menu .dropdown-toggle::after{content:" ▾";font-size:0.8rem;margin-left:6px}
-    .dropdown-menu{position:absolute;top:100%;left:0;background:#fff;border:1px solid rgba(11,102,214,0.06);border-radius:10px;box-shadow:0 12px 30px rgba(9,30,66,0.08);min-width:200px;display:none;padding:6px 0;z-index:60}
-    .nav-item.open .dropdown-menu,.nav-item:hover .dropdown-menu{display:block}
-    .dropdown-menu li a{display:block;padding:8px 14px;color:#072d5b;text-decoration:none}
-    .dropdown-menu li a:hover{background:#f1f6ff}
-    @media (max-width:800px){.dropdown-menu{position:static;box-shadow:none;border:none}}
-    </style>
+    <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
 </head>
 <body class="homepage">
     <!-- Navigation -->

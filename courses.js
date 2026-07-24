@@ -50,21 +50,40 @@ function createCard(course){
   const card = document.createElement('article');
   card.className = 'course-card fade-in';
   card.tabIndex = 0;
-  card.innerHTML = `
-    <div class="course-top">
-      <div class="course-meta">
-        <span class="badge"><i class="fas fa-folder-open"></i> ${escape(course.category)}</span>
-      </div>
-      <div class="course-duration"><i class="fas fa-clock"></i> ${escape(course.duration)} day${course.duration==='1'?'':'s'}</div>
-    </div>
-    <h3 class="course-title">${escape(course.name)}</h3>
-    <p class="course-desc">${escape(course.desc)}</p>
-    <div class="course-info"><span><i class="fas fa-signal"></i> ${capitalize(course.level)}</span></div>
-    <div class="card-actions">
-      <button class="btn-secondary" aria-label="Learn more about ${escape(course.name)}">Learn More</button>
-      <button class="btn-primary" aria-label="Enroll in ${escape(course.name)}">Enroll Now</button>
-    </div>
-  `;
+
+  const top = document.createElement('div'); top.className = 'course-top';
+  const meta = document.createElement('div'); meta.className = 'course-meta';
+  const badge = document.createElement('span'); badge.className = 'badge';
+  const badgeIcon = document.createElement('i'); badgeIcon.className = 'fas fa-folder-open';
+  badge.appendChild(badgeIcon);
+  badge.appendChild(document.createTextNode(' ' + escape(course.category)));
+  meta.appendChild(badge);
+  const duration = document.createElement('div'); duration.className = 'course-duration';
+  const durationIcon = document.createElement('i'); durationIcon.className = 'fas fa-clock';
+  duration.appendChild(durationIcon);
+  duration.appendChild(document.createTextNode(' ' + escape(course.duration) + ' day' + (course.duration==='1'?'':'s')));
+  top.appendChild(meta);
+  top.appendChild(duration);
+  card.appendChild(top);
+
+  const h3 = document.createElement('h3'); h3.className = 'course-title'; h3.textContent = escape(course.name);
+  const p = document.createElement('p'); p.className = 'course-desc'; p.textContent = escape(course.desc);
+  const info = document.createElement('div'); info.className = 'course-info';
+  const span = document.createElement('span');
+  const infoIcon = document.createElement('i'); infoIcon.className = 'fas fa-signal';
+  span.appendChild(infoIcon);
+  span.appendChild(document.createTextNode(' ' + capitalize(course.level)));
+  info.appendChild(span);
+
+  const actions = document.createElement('div'); actions.className = 'card-actions';
+  const btn1 = document.createElement('button'); btn1.className='btn-secondary'; btn1.setAttribute('aria-label', 'Learn more about ' + escape(course.name)); btn1.textContent='Learn More';
+  const btn2 = document.createElement('button'); btn2.className='btn-primary'; btn2.setAttribute('aria-label', 'Enroll in ' + escape(course.name)); btn2.textContent='Enroll Now';
+  actions.appendChild(btn1); actions.appendChild(btn2);
+
+  card.appendChild(h3);
+  card.appendChild(p);
+  card.appendChild(info);
+  card.appendChild(actions);
   return card;
 }
 
@@ -83,7 +102,7 @@ function applyFiltersAndRender(){
     }
     return true;
   });
-  coursesGrid.innerHTML='';
+  while (coursesGrid.firstChild) coursesGrid.removeChild(coursesGrid.firstChild);
   // render all matching courses (user requested all 160 visible)
   filtered.forEach(c=>coursesGrid.appendChild(createCard(c)));
 }
@@ -103,7 +122,10 @@ async function init(){
     renderFilters();
     applyFiltersAndRender();
   }catch(err){
-    coursesGrid.innerHTML = '<p style="padding:24px;background:#fff;border-radius:12px">Unable to load course data.</p>';
+    const p = document.createElement('p');
+    p.style.padding = '24px'; p.style.background = '#fff'; p.style.borderRadius = '12px';
+    p.textContent = 'Unable to load course data.';
+    coursesGrid.appendChild(p);
     console.error(err);
   }
 }

@@ -1,0 +1,14 @@
+User-agent: *
+# Disallow access to sensitive directories and files
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /.venv/
+Disallow: /*.env$
+Disallow: /tools/
+Disallow: /tmp_
+
+# Allow public site pages
+Allow: /
+
+# Crawl-delay to reduce load on small servers
+Crawl-delay: 5

@@ -3,122 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
     <title>Contact Us - TranscendIN</title>
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/extracted-inline.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-    <style>
-        .contact-hero {
-            background: var(--light-bg);
-            padding: 72px 0;
-            margin-top: 70px;
-            text-align: center;
-        }
-
-        .contact-hero h1 {
-            font-size: 2.35rem;
-            margin-bottom: 0.6rem;
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            padding: 48px 0;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.1rem;
-            background: var(--light-bg);
-            border-radius: 12px;
-            border: 1px solid #e4ecfa;
-            transition: var(--transition-ease);
-        }
-
-        .contact-item:hover {
-            background: var(--primary-white);
-            box-shadow: 0 10px 24px rgba(0, 82, 204, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .contact-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--gradient-blue-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-white);
-            font-size: 1.05rem;
-            flex-shrink: 0;
-        }
-
-        .contact-item h3 {
-            margin-bottom: 0.5rem;
-            color: var(--dark-text);
-        }
-
-        .contact-item p {
-            margin: 0;
-            color: var(--light-text);
-            font-size: 0.95rem;
-        }
-
-        .contact-item a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-item a:hover {
-            color: var(--primary-orange);
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-form h2 {
-            margin-bottom: 0.5rem;
-            color: var(--dark-text);
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-text);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 10px 12px;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: var(--transition-smooth);
-            background: var(--primary-white);
-            color: var(--dark-text);
-        }
-
+    <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
