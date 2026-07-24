@@ -1,18 +1,19 @@
 /* ==========================================
-   TranscendIN - Premium EdTech Website Styles
-   Brand Colors: Blue (#0052CC), Orange (#FF6B35), White (#FFFFFF)
-   ========================================== */
+    TranscendIN - Premium EdTech Website Styles
+    Brand Colors: #667EEA (primary), #764BA2 (accent), Orange (#FF6B35)
+    ========================================== */
 
 :root {
-    --primary-blue: #0052CC;
+    --primary-blue: #667EEA;
+    --brand-purple: #764BA2;
     --primary-orange: #FF6B35;
     --primary-white: #FFFFFF;
     --dark-text: #1a1a1a;
     --light-text: #666666;
     --light-bg: #f8f9fa;
     --border-color: #e8e8e8;
-    --gradient-blue-orange: linear-gradient(135deg, #0052CC 0%, #FF6B35 100%);
-    --gradient-blue: linear-gradient(135deg, #0052CC 0%, #0066FF 100%);
+    --gradient-blue-orange: linear-gradient(135deg, #667EEA 0%, #FF6B35 100%);
+    --gradient-blue: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
     --gradient-orange: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -678,14 +679,14 @@ body.homepage .top-bar marquee {
     cursor: pointer;
 }
 .courses-panel-left {
-    background: linear-gradient(180deg, rgba(0,82,204,0.06), rgba(255,107,53,0.03));
+    background: linear-gradient(180deg, rgba(102,126,234,0.06), rgba(255,107,53,0.03));
     padding: 28px 20px;
     border-right: 1px solid rgba(6,32,84,0.04);
 }
 .panel-title { font-size: 1rem; font-weight: 700; color: var(--dark-text); margin-bottom: 12px; }
 .categories-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .categories-list li { padding: 10px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; color: var(--dark-text); transition: var(--transition-smooth); }
-.categories-list li:hover, .categories-list li.active { background: rgba(0,82,204,0.06); color: var(--primary-blue); transform: translateX(4px); }
+.categories-list li:hover, .categories-list li.active { background: rgba(102,126,234,0.06); color: var(--primary-blue); transform: translateX(4px); }
 .courses-panel-right { padding: 22px; overflow: auto; }
 .courses-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
 .course-panel-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display:flex; flex-direction:column; gap:8px; min-height:84px; box-shadow: 0 8px 22px rgba(6,32,84,0.06); }
@@ -1822,3 +1823,9 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--primary-orange);
 }
+
+/* Brand-specific overrides to ensure consistent use of #667EEA and #764BA2 */
+.btn-enroll{background:linear-gradient(135deg,var(--primary-blue),var(--brand-purple)) !important}
+.btn-enroll:hover{box-shadow:0 10px 30px rgba(102,126,234,0.30) !important;transform:scale(1.05) !important}
+.view-details-btn{background:linear-gradient(135deg,var(--primary-blue),var(--brand-purple)) !important}
+.view-details-btn:hover{box-shadow:0 10px 30px rgba(102,126,234,0.30) !important}

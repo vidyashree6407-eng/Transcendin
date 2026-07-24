@@ -289,7 +289,7 @@ function createScrollToTopButton() {
         right: 30px;
         width: 50px;
         height: 50px;
-        background: linear-gradient(135deg, #0052CC 0%, #FF6B35 100%);
+        background: linear-gradient(135deg, #667EEA 0%, #764BA2 100%);
         color: white;
         border: none;
         border-radius: 50%;
@@ -298,7 +298,7 @@ function createScrollToTopButton() {
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
-        box-shadow: 0 4px 15px rgba(0, 82, 204, 0.3);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.30);
         z-index: 999;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     `;
@@ -746,66 +746,100 @@ function initMegaMenu() {
 
     fetch('data/courses-menu.json').then(r => r.json()).then(data => {
         const cats = data.categories || [];
-        // render left column
+        // render left column (categories)
         catsEl.innerHTML = '';
+        const list = document.createElement('div');
+        list.className = 'cat-list';
         cats.forEach((c, i) => {
-            const div = document.createElement('div');
+            const div = document.createElement('button');
             div.className = 'cat-item';
+            div.type = 'button';
             div.tabIndex = 0;
+            div.setAttribute('role', 'listitem');
             div.dataset.cat = c.id;
-            div.textContent = c.title;
+            // structure: title + chevron
+            const title = document.createElement('span');
+            title.className = 'cat-title';
+            title.textContent = c.title;
+            const chev = document.createElement('span');
+            chev.className = 'cat-chev';
+            chev.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
             if (i === 0) div.classList.add('active');
+            div.appendChild(title);
+            div.appendChild(chev);
             div.addEventListener('mouseenter', () => activateCategory(c.id));
             div.addEventListener('focus', () => activateCategory(c.id));
             div.addEventListener('click', (e) => {
-                // mobile: toggle
-                if (window.innerWidth <= 900) {
+                // mobile: toggle accordion
+                if (window.innerWidth <= 600) {
                     const currently = coursesEl.querySelector('.content[data-cat="'+c.id+'"]');
                     if (currently) {
                         currently.classList.toggle('show');
                     } else {
                         renderCourses(c);
-                        coursesEl.querySelector('.content').classList.add('show');
+                        const first = coursesEl.querySelector('.content'); if (first) first.classList.add('show');
                     }
                     return;
                 }
             });
-            catsEl.appendChild(div);
+            list.appendChild(div);
         });
+        catsEl.appendChild(list);
 
-        function activateCategory(catId) {
-            catsEl.querySelectorAll('.cat-item').forEach(x => x.classList.toggle('active', x.dataset.cat === catId));
+        function activateCategory(catId, focusCategory=false) {
+            const items = catsEl.querySelectorAll('.cat-item');
+            items.forEach(x => {
+                const isActive = x.dataset.cat === catId;
+                x.classList.toggle('active', isActive);
+                x.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
             const cat = cats.find(x => x.id === catId);
             renderCourses(cat);
+            if (focusCategory) {
+                const el = catsEl.querySelector('.cat-item.active'); if (el) el.focus();
+            }
         }
 
         function renderCourses(cat) {
-            // animate swap
+            // minimal list layout: heading + two-column list of sub-courses
             coursesEl.innerHTML = '';
             const wrapper = document.createElement('div');
             wrapper.className = 'content';
             wrapper.dataset.cat = cat.id;
+
             const heading = document.createElement('div');
             heading.className = 'heading';
             heading.textContent = cat.title;
             wrapper.appendChild(heading);
-            cat.courses.forEach(name => {
-                const item = document.createElement('div');
-                item.className = 'course-item';
+
+            // simple two-column grid of course links
+            const listWrap = document.createElement('div');
+            listWrap.className = 'courses-wrapper';
+            const grid = document.createElement('div'); grid.className = 'courses-grid';
+
+            cat.courses.forEach((item) => {
+                const courseName = (typeof item === 'string') ? item : (item.name || 'Untitled Course');
                 const a = document.createElement('a');
-                a.href = 'courses.html';
-                a.textContent = name;
-                a.addEventListener('click', () => { document.body.style.overflow = ''; });
-                item.appendChild(a);
-                wrapper.appendChild(item);
+                a.className = 'course-item';
+                a.href = 'courses.html?course=' + encodeURIComponent(courseName);
+                a.textContent = courseName;
+                a.tabIndex = 0;
+                a.setAttribute('role', 'link');
+                a.addEventListener('click', () => { /* allow default navigation */ });
+                a.addEventListener('keydown', (e) => { if (e.key === 'Enter') a.click(); });
+                grid.appendChild(a);
             });
+
+            listWrap.appendChild(grid);
+            wrapper.appendChild(listWrap);
             coursesEl.appendChild(wrapper);
-            // slight delay to allow transition
+
+            // animate
             requestAnimationFrame(() => wrapper.classList.add('show'));
         }
 
         // initial render
-        if (cats.length) renderCourses(cats[0]);
+        if (cats.length) activateCategory(cats[0].id);
 
         // hover open/close logic
         let hoverTimer = null;
@@ -815,6 +849,8 @@ function initMegaMenu() {
             mega.setAttribute('aria-hidden', 'false');
             btn.setAttribute('aria-expanded', 'true');
             // ensure visible
+            // focus first category for keyboard users
+            const first = catsEl.querySelector('.cat-item'); if (first) first.focus();
         }
         function closeMega() {
             mega.setAttribute('aria-hidden', 'true');
@@ -832,8 +868,37 @@ function initMegaMenu() {
             isOver = false; hoverTimer = setTimeout(() => { if (!btn.matches(':hover')) closeMega(); }, 220);
         });
 
-        // keyboard close
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMega(); });
+        // keyboard interactions: Escape + arrow navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') { closeMega(); btn.focus(); }
+            // only handle arrows when mega is open
+            if (mega.getAttribute('aria-hidden') === 'false') {
+                const activeCat = catsEl.querySelector('.cat-item.active');
+                const catItems = Array.from(catsEl.querySelectorAll('.cat-item'));
+                const contentItems = Array.from(coursesEl.querySelectorAll('.course-item'));
+
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (!activeCat) return;
+                    const idx = catItems.indexOf(activeCat);
+                    let next = idx;
+                    if (e.key === 'ArrowDown') next = Math.min(catItems.length - 1, idx + 1);
+                    else next = Math.max(0, idx - 1);
+                    const target = catItems[next];
+                    if (target) activateCategory(target.dataset.cat, true);
+                }
+
+                if (e.key === 'ArrowRight') {
+                    // move focus into first course item
+                    if (contentItems && contentItems.length) { contentItems[0].focus(); }
+                }
+
+                if (e.key === 'ArrowLeft') {
+                    // move focus back to category list
+                    const active = catsEl.querySelector('.cat-item.active'); if (active) active.focus();
+                }
+            }
+        });
 
         // mobile toggle
         btn.addEventListener('click', (e) => {
