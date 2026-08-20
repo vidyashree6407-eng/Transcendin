@@ -792,6 +792,7 @@ function initMegaMenu() {
                     }
                     return;
                 }
+                window.location.href = 'courses.html?category=' + encodeURIComponent(courseSlug(c.title));
             });
             list.appendChild(div);
         });
@@ -832,7 +833,7 @@ function initMegaMenu() {
                 const courseName = (typeof item === 'string') ? item : (item.name || 'Untitled Course');
                 const a = document.createElement('a');
                 a.className = 'course-item';
-                a.href = 'courses.html?course=' + encodeURIComponent(courseName);
+                a.href = 'courses.html?category=' + encodeURIComponent(courseSlug(cat.title)) + '&course=' + encodeURIComponent(courseSlug(courseName));
                 a.textContent = courseName;
                 a.tabIndex = 0;
                 a.setAttribute('role', 'link');

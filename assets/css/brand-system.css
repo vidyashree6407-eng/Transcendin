@@ -63,6 +63,9 @@ a { transition: color .2s var(--brand-ease), background .2s var(--brand-ease), b
 }
 .navbar-content { min-height: 76px; height: auto !important; padding: 0 !important; }
 .logo img, .nav-logo img, .navbar-logo img { max-height: 48px !important; filter: none !important; }
+body.homepage .navbar { min-height: 100px !important; }
+body.homepage .navbar-content { min-height: 100px; }
+body.homepage .navbar .logo img { max-height: 84px !important; }
 .nav-menu { gap: 6px !important; }
 .nav-menu a, #allCoursesBtn {
   min-height: 42px;
@@ -308,6 +311,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .container { width: min(100% - 32px, 600px); }
   .top-bar { display: none !important; }
   .navbar-content { min-height: 68px; }
+  body.homepage .navbar { min-height: 76px !important; }
+  body.homepage .navbar-content { min-height: 76px; }
+  body.homepage .navbar .logo img { max-height: 60px !important; }
   .nav-toggle { display: flex !important; width: 44px; height: 44px; align-items: center; justify-content: center; gap: 4px; border: 1px solid var(--brand-line); border-radius: var(--brand-radius-sm); background: #fff; }
   .nav-toggle span { width: 18px !important; height: 2px !important; margin: 0 !important; background: var(--brand-purple) !important; }
   .nav-menu { position: absolute; top: calc(100% + 8px); left: 16px; right: 16px; display: none !important; flex-direction: column; align-items: stretch !important; padding: 10px !important; border: 1px solid var(--brand-line); border-radius: var(--brand-radius-md); background: #fff; box-shadow: var(--brand-shadow); }

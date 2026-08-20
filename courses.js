@@ -6,6 +6,7 @@ const filterCategory = document.getElementById('filterCategory');
 const siteSearch = document.getElementById('siteSearch');
 
 let allCourses = [];
+let selectedCourseSlug = '';
 
 // CSV loader (small, robust parser)
 async function loadCSV(path){
@@ -63,6 +64,20 @@ function mapCourse(raw){
   return {name, duration, desc, category};
 }
 
+function reconcileMenuCategories(courses, menuData){
+  const categoryByCourse = new Map();
+  (menuData.categories || []).forEach(category => {
+    (category.courses || []).forEach(item => {
+      const name = typeof item === 'string' ? item : item.name;
+      if (name) categoryByCourse.set(courseSlug(name), category.title);
+    });
+  });
+  return courses.map(course => ({
+    ...course,
+    category: categoryByCourse.get(courseSlug(course.name)) || course.category
+  }));
+}
+
 function renderFilters(){
   const cats = Array.from(new Set(allCourses.map(c=>c.category).filter(Boolean))).sort();
   cats.forEach(cat=>{
@@ -73,6 +88,7 @@ function renderFilters(){
 function createCard(course){
   const card = document.createElement('article');
   card.className = 'course-card fade-in';
+  card.dataset.courseSlug = courseSlug(course.name);
   card.dataset.accent = String(allCourses.indexOf(course) % 4);
   card.setAttribute('role', 'listitem');
 
@@ -108,6 +124,7 @@ function applyFiltersAndRender(){
   const cat = filterCategory ? filterCategory.value : '';
   const filtered = allCourses.filter(c=>{
     if(cat && c.category !== cat) return false;
+    if(selectedCourseSlug && courseSlug(c.name) !== selectedCourseSlug) return false;
     if(q){
       return c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
     }
@@ -121,21 +138,78 @@ function applyFiltersAndRender(){
     coursesGrid.appendChild(emptyState);
   }else{
     filtered.forEach(c=>coursesGrid.appendChild(createCard(c)));
+    if(selectedCourseSlug){
+      requestAnimationFrame(() => {
+        const selectedCard = coursesGrid.querySelector('[data-course-slug="' + selectedCourseSlug + '"]');
+        if(selectedCard) selectedCard.scrollIntoView({behavior: 'smooth', block: 'center'});
+      });
+    }
   }
 }
 
 // wire events
-siteSearch && siteSearch.addEventListener('input', debounce(()=>applyFiltersAndRender(),250));
-filterCategory && filterCategory.addEventListener('change', ()=>applyFiltersAndRender());
+siteSearch && siteSearch.addEventListener('input', debounce(()=>{
+  if(selectedCourseSlug){
+    selectedCourseSlug = '';
+    updateUrlState(filterCategory.value, '', 'replace');
+  }
+  applyFiltersAndRender();
+},250));
+filterCategory && filterCategory.addEventListener('change', ()=>{
+  selectedCourseSlug = '';
+  updateUrlState(filterCategory.value, '', 'push');
+  applyFiltersAndRender();
+});
 
 function debounce(fn, wait){let t; return (...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),wait);};}
+
+function updateUrlState(category, course, historyMode){
+  const url = new URL(window.location.href);
+  if(category) url.searchParams.set('category', courseSlug(category));
+  else url.searchParams.delete('category');
+  if(course) url.searchParams.set('course', courseSlug(course));
+  else url.searchParams.delete('course');
+  window.history[historyMode + 'State']({}, '', url.pathname + (url.search ? url.search : '') + url.hash);
+}
+
+function initializeUrlState(){
+  const params = new URLSearchParams(window.location.search);
+  const requestedCategory = params.get('category') || '';
+  const requestedCourse = params.get('course') || '';
+  const category = requestedCategory
+    ? allCourses.find(course => courseSlug(course.category) === requestedCategory)?.category
+    : '';
+  const course = requestedCourse
+    ? allCourses.find(item => courseSlug(item.name) === requestedCourse && (!category || item.category === category))
+    : null;
+
+  if((requestedCategory && !category) || (requestedCourse && !course)){
+    selectedCourseSlug = '';
+    filterCategory.value = '';
+    updateUrlState('', '', 'replace');
+    return;
+  }
+
+  const resolvedCategory = category || (course && course.category) || '';
+  filterCategory.value = resolvedCategory;
+  selectedCourseSlug = course ? courseSlug(course.name) : '';
+}
+
+window.addEventListener('popstate', () => {
+  initializeUrlState();
+  applyFiltersAndRender();
+});
 
 // init
 async function init(){
   try{
-    const raw = await loadCSV('c_c.csv');
-    allCourses = raw.map(mapCourse);
+    const [raw, menuResponse] = await Promise.all([
+      loadCSV('c_c.csv'),
+      fetch('data/courses-menu.json').then(response => response.ok ? response.json() : {categories: []})
+    ]);
+    allCourses = reconcileMenuCategories(raw.map(mapCourse), menuResponse);
     renderFilters();
+    initializeUrlState();
     applyFiltersAndRender();
   }catch(err){
     const p = document.createElement('p');
