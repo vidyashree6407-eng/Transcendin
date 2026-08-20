@@ -1,11 +1,8 @@
-/* courses.js - Load CSV, render premium course cards, filtering & Load More
-   Vanilla JS, lightweight, accessible, no frameworks
-*/
+/* courses.js - Load CSV, render course cards, and filter the catalogue. */
 
 // Elements
 const coursesGrid = document.getElementById('coursesGrid');
 const filterCategory = document.getElementById('filterCategory');
-const filterLevel = document.getElementById('filterLevel');
 const siteSearch = document.getElementById('siteSearch');
 
 let allCourses = [];
@@ -19,28 +16,55 @@ async function loadCSV(path){
 }
 
 function parseCSV(text){
-  const lines = text.trim().split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-  const headers = lines.shift().split(',').map(h=>h.trim());
-  return lines.map(line=>{
-    const cols = line.split(',');
-    const obj = {};
-    headers.forEach((h,i)=>obj[h]=cols[i] ? cols[i].trim() : '');
-    return obj;
-  });
+  const rows = [];
+  let row = [];
+  let value = '';
+  let quoted = false;
+
+  for(let index = 0; index < text.length; index += 1){
+    const character = text[index];
+    const nextCharacter = text[index + 1];
+    if(character === '"' && quoted && nextCharacter === '"'){
+      value += '"';
+      index += 1;
+    }else if(character === '"'){
+      quoted = !quoted;
+    }else if(character === ',' && !quoted){
+      row.push(value.trim());
+      value = '';
+    }else if((character === '\n' || character === '\r') && !quoted){
+      if(character === '\r' && nextCharacter === '\n') index += 1;
+      row.push(value.trim());
+      if(row.some(cell => cell !== '')) rows.push(row);
+      row = [];
+      value = '';
+    }else{
+      value += character;
+    }
+  }
+
+  if(value || row.length){
+    row.push(value.trim());
+    if(row.some(cell => cell !== '')) rows.push(row);
+  }
+
+  const headers = rows.shift().map(header => header.trim());
+  return rows.map(columns => headers.reduce((course, header, index) => {
+    course[header] = columns[index] || '';
+    return course;
+  }, {}));
 }
 
 function mapCourse(raw){
   const name = raw['Course Name'] || raw['name'] || 'Untitled';
-  const duration = raw['Duration'] || '1';
-  const price = raw['Standard Fee'] || '';
-  const level = duration <= 1 ? 'beginner' : duration <=2 ? 'intermediate' : 'advanced';
-  const desc = raw['Short Description'] || raw['Course Name'] || 'High-impact training to level up fast.';
-  const category = raw['Category'] || 'General';
-  return {name, duration, price, level, desc, category};
+  const duration = raw['Duration'] || '';
+  const desc = raw['Short Description'] || '';
+  const category = raw['Category'] || '';
+  return {name, duration, desc, category};
 }
 
 function renderFilters(){
-  const cats = Array.from(new Set(allCourses.map(c=>c.category))).sort();
+  const cats = Array.from(new Set(allCourses.map(c=>c.category).filter(Boolean))).sort();
   cats.forEach(cat=>{
     const opt = document.createElement('option'); opt.value=cat; opt.textContent=cat; filterCategory.appendChild(opt);
   });
@@ -49,68 +73,60 @@ function renderFilters(){
 function createCard(course){
   const card = document.createElement('article');
   card.className = 'course-card fade-in';
-  card.tabIndex = 0;
+  card.dataset.accent = String(allCourses.indexOf(course) % 4);
+  card.setAttribute('role', 'listitem');
 
   const top = document.createElement('div'); top.className = 'course-top';
-  const meta = document.createElement('div'); meta.className = 'course-meta';
-  const badge = document.createElement('span'); badge.className = 'badge';
-  const badgeIcon = document.createElement('i'); badgeIcon.className = 'fas fa-folder-open';
-  badge.appendChild(badgeIcon);
-  badge.appendChild(document.createTextNode(' ' + escape(course.category)));
-  meta.appendChild(badge);
   const duration = document.createElement('div'); duration.className = 'course-duration';
   const durationIcon = document.createElement('i'); durationIcon.className = 'fas fa-clock';
   duration.appendChild(durationIcon);
-  duration.appendChild(document.createTextNode(' ' + escape(course.duration) + ' day' + (course.duration==='1'?'':'s')));
-  top.appendChild(meta);
+  if(course.duration){
+    duration.appendChild(document.createTextNode(' ' + course.duration + ' day' + (course.duration === '1' ? '' : 's')));
+  }
   top.appendChild(duration);
   card.appendChild(top);
 
-  const h3 = document.createElement('h3'); h3.className = 'course-title'; h3.textContent = escape(course.name);
-  const p = document.createElement('p'); p.className = 'course-desc'; p.textContent = escape(course.desc);
-  const info = document.createElement('div'); info.className = 'course-info';
-  const span = document.createElement('span');
-  const infoIcon = document.createElement('i'); infoIcon.className = 'fas fa-signal';
-  span.appendChild(infoIcon);
-  span.appendChild(document.createTextNode(' ' + capitalize(course.level)));
-  info.appendChild(span);
+  const h3 = document.createElement('h3'); h3.className = 'course-title'; h3.textContent = course.name;
+  const p = document.createElement('p'); p.className = 'course-desc'; p.textContent = course.desc;
 
   const actions = document.createElement('div'); actions.className = 'card-actions';
-  const btn1 = document.createElement('button'); btn1.className='btn-secondary'; btn1.setAttribute('aria-label', 'Learn more about ' + escape(course.name)); btn1.textContent='Learn More';
-  const btn2 = document.createElement('button'); btn2.className='btn-primary'; btn2.setAttribute('aria-label', 'Enroll in ' + escape(course.name)); btn2.textContent='Enroll Now';
-  actions.appendChild(btn1); actions.appendChild(btn2);
+  const enroll = document.createElement('a');
+  enroll.className = 'btn-primary';
+  enroll.href = 'enrollment-interactive.html';
+  enroll.setAttribute('aria-label', 'Enroll in ' + course.name);
+  enroll.textContent = 'Enroll Now';
+  actions.appendChild(enroll);
 
   card.appendChild(h3);
   card.appendChild(p);
-  card.appendChild(info);
   card.appendChild(actions);
   return card;
 }
 
-function escape(str){ return String(str||'').replace(/[&<>"']/g, s=>({ '&':'&amp;','<':'&lt;','>':'&gt;', '"':'&quot;',"'":'&#39;' })[s]); }
-function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
-
 function applyFiltersAndRender(){
-  const q = (siteSearch && siteSearch.value||'').toLowerCase();
+  const q = (siteSearch && siteSearch.value || '').trim().toLowerCase();
   const cat = filterCategory ? filterCategory.value : '';
-  const level = filterLevel ? filterLevel.value : '';
   const filtered = allCourses.filter(c=>{
     if(cat && c.category !== cat) return false;
-    if(level && c.level !== level) return false;
     if(q){
       return c.name.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q);
     }
     return true;
   });
   while (coursesGrid.firstChild) coursesGrid.removeChild(coursesGrid.firstChild);
-  // render all matching courses (user requested all 160 visible)
-  filtered.forEach(c=>coursesGrid.appendChild(createCard(c)));
+  if(!filtered.length){
+    const emptyState = document.createElement('div');
+    emptyState.className = 'empty-state';
+    emptyState.innerHTML = '<i class="fas fa-compass" aria-hidden="true"></i><h3>No courses found</h3><p>Try another search term or select All categories.</p>';
+    coursesGrid.appendChild(emptyState);
+  }else{
+    filtered.forEach(c=>coursesGrid.appendChild(createCard(c)));
+  }
 }
 
 // wire events
 siteSearch && siteSearch.addEventListener('input', debounce(()=>applyFiltersAndRender(),250));
 filterCategory && filterCategory.addEventListener('change', ()=>applyFiltersAndRender());
-filterLevel && filterLevel.addEventListener('change', ()=>applyFiltersAndRender());
 
 function debounce(fn, wait){let t; return (...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),wait);};}
 

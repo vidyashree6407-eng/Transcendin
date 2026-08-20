@@ -23,19 +23,24 @@ window.escapeHtml = escapeHtml;
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close menu when a link is clicked
-const navLinks = navMenu.querySelectorAll('a');
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
+if (navToggle && navMenu) {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('active');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
     });
-});
+
+    // Close menu when a link is clicked.
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+}
 
 // ==========================================
 // Smooth Scroll for Navigation Links
@@ -103,6 +108,7 @@ const navbar = document.querySelector('.navbar');
 let lastScrollTop = 0;
 
 window.addEventListener('scroll', () => {
+    if (!navbar) return;
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
     if (scrollTop > 50) {
@@ -341,16 +347,21 @@ createScrollToTopButton();
 document.addEventListener('keydown', (e) => {
     // Close mobile menu on Escape key
     if (e.key === 'Escape') {
-        navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
+        if (navToggle && navMenu) {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+        }
     }
     
     // Skip to content on Alt+S
     if (e.altKey && e.key === 's') {
         e.preventDefault();
         const mainContent = document.querySelector('.courses');
-        mainContent.focus();
-        mainContent.scrollIntoView({ behavior: 'smooth' });
+        if (mainContent) {
+            mainContent.focus();
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+        }
     }
 });
 

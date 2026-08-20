@@ -8,8 +8,10 @@
     <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/extracted-inline.css">
+    <link rel="stylesheet" href="assets/css/brand-system.css?v=2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
+    <style>
     
         }
 
@@ -473,62 +475,7 @@
         </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('enrollForm');
-            const courseSelect = document.getElementById('course');
-            const formatSelect = document.getElementById('courseFormat');
-            const dateSelect = document.getElementById('startDate');
-            const paymentMethods = document.querySelectorAll('.payment-method');
-
-            // Update summary when form changes
-            function updateSummary() {
-                document.getElementById('summaryCourseName').textContent = courseSelect.value || 'Select a course';
-                document.getElementById('summaryFormat').textContent = formatSelect.value ? formatSelect.options[formatSelect.selectedIndex].text : 'Select format';
-                document.getElementById('summaryDate').textContent = dateSelect.value || 'Not selected';
-                
-                // Calculate price
-                const priceMap = {
-                    'standard': 695,
-                    'early-bird': 545,
-                    'live-virtual': 545,
-                    'live-virtual-eb': 445
-                };
-                
-                const price = priceMap[formatSelect.value] || 0;
-                const tax = Math.round(price * 0.1);
-                const total = price + tax;
-                
-                document.getElementById('priceCourse').textContent = '$' + price.toFixed(2);
-                document.getElementById('priceTax').textContent = '$' + tax.toFixed(2);
-                document.getElementById('priceTotal').textContent = '$' + total.toFixed(2);
-            }
-
-            courseSelect.addEventListener('change', updateSummary);
-            formatSelect.addEventListener('change', updateSummary);
-            dateSelect.addEventListener('change', updateSummary);
-
-            // Payment method selection
-            paymentMethods.forEach(method => {
-                method.addEventListener('click', function() {
-                    paymentMethods.forEach(m => m.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Simulate form submission
-                const ef = document.getElementById('enrollmentForm');
-                if (ef) { while (ef.firstChild) ef.removeChild(ef.firstChild); }
-                document.getElementById('successMessage').classList.add('show');
-            });
-
-            updateSummary();
-        });
-    </script>
+    <script src="assets/js/script.js?v=2"></script>
+    <script src="enrollment-form.js?v=2"></script>
 </body>
 </html>
