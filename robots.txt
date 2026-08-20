@@ -12,3 +12,4 @@ Allow: /
 
 # Crawl-delay to reduce load on small servers
 Crawl-delay: 5
+Sitemap: https://transcendin.com/sitemap.xml
