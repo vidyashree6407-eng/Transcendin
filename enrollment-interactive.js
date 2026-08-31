@@ -72,10 +72,18 @@ function populateFilters() {
   });
 }
 
+// Use shared courseSlug if loaded, else simple slug
+function toSlug(str) {
+  if (typeof window.courseSlug === 'function') return window.courseSlug(str);
+  return String(str || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+
 function openCourse(course) {
   document.getElementById('modalTitle').textContent = course.name;
   document.getElementById('modalDescription').textContent = course.description || 'Course description is not provided in the catalogue.';
   document.getElementById('modalDuration').textContent = durationLabel(course.duration);
+  const enrollLink = courseModal.querySelector('a.btn-primary');
+  if (enrollLink) enrollLink.href = 'enrollment.html?course=' + toSlug(course.name);
   courseModal.classList.add('is-open');
   courseModal.setAttribute('aria-hidden', 'false');
   closeModal.focus();

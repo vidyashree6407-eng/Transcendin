@@ -594,12 +594,12 @@ body.homepage .top-bar marquee {
 .card {
     position: relative;
     width: 100%;
-    min-height: 172px;
-    padding: 1.25rem 1.2rem;
+    min-height: 70px;
+    padding: 0.45rem 0.6rem;
     background: var(--primary-white);
     border: 1px solid rgba(13, 63, 153, 0.12);
-    border-radius: 18px;
-    box-shadow: 0 12px 28px rgba(9, 32, 84, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(9, 32, 84, 0.06);
     cursor: pointer;
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     display: flex;
@@ -609,14 +609,14 @@ body.homepage .top-bar marquee {
 }
 
 .card-icon {
-    width: 44px;
-    height: 44px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: 1.1rem;
+    font-size: 0.58rem;
     color: #0d3f99;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
     background: rgba(13, 63, 153, 0.07);
     border: 1px solid rgba(13, 63, 153, 0.22);
     box-shadow: none;
@@ -717,16 +717,16 @@ body.homepage .top-bar marquee {
 
 .card h3 {
     color: var(--dark-text);
-    font-size: 1.04rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0;
-    line-height: 1.35;
-    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
 }
 
 .card-subtitle {
-    font-size: 0.82rem;
-    line-height: 1.5;
+    font-size: 0.58rem;
+    line-height: 1.35;
     color: #4e617b;
     max-width: 32ch;
 }

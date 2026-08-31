@@ -108,7 +108,7 @@ function createCard(course){
   const actions = document.createElement('div'); actions.className = 'card-actions';
   const enroll = document.createElement('a');
   enroll.className = 'btn-primary';
-  enroll.href = 'enrollment-interactive.html';
+  enroll.href = 'enrollment.html?course=' + courseSlug(course.name);
   enroll.setAttribute('aria-label', 'Enroll in ' + course.name);
   enroll.textContent = 'Enroll Now';
   actions.appendChild(enroll);
