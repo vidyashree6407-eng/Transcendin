@@ -3,366 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https:; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
-    <title>Enroll in Course - TranscendIN</title>
-    <link rel="icon" type="image/png" href="Logo%20without%20background%20%281%29.png">
+    <title>Course Enrollment – TranscendIN</title>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="stylesheet" href="assets/css/extracted-inline.css">
-    <link rel="stylesheet" href="assets/css/brand-system.css?v=2">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
-    <!-- extracted inline styles loaded from assets/css/extracted-inline.css -->
-    <style>
-    
-        }
-
-        .price-breakdown {
-            font-size: 14px;
-            line-height: 2;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .price-item.total {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            padding-top: 10px;
-            border-top: 2px solid var(--border-color);
-        }
-
-        .payment-methods {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .payment-method {
-            flex: 1;
-            min-width: 120px;
-            padding: 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .payment-method:hover {
-            border-color: var(--primary-blue);
-            background: rgba(0, 82, 204, 0.05);
-        }
-
-        .payment-method.active {
-            border-color: var(--primary-blue);
-            background: rgba(0, 82, 204, 0.1);
-        }
-
-        .payment-method i {
-            font-size: 24px;
-            color: var(--primary-blue);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .payment-method span {
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .guarantee-badge {
-            background: #e8f5e9;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #4caf50;
-            margin-top: 20px;
-            font-size: 13px;
-        }
-
-        .guarantee-badge i {
-            color: #4caf50;
-            margin-right: 8px;
-        }
-
-        .course-notice--error {
-            background: #fdecea;
-            border-left-color: #e53935;
-        }
-
-        .agreement-checkbox {
-            display: flex;
-            gap: 10px;
-            margin: 20px 0;
-            align-items: flex-start;
-        }
-
-        .agreement-checkbox input {
-            width: auto;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-
-        .agreement-checkbox label {
-            margin: 0;
-            cursor: pointer;
-            font-weight: normal;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-orange) 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.3);
-        }
-
-        .success-message {
-            display: none;
-            background: #e8f5e9;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            border: 2px solid #4caf50;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-message i {
-            font-size: 48px;
-            color: #4caf50;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        @media (max-width: 1024px) {
-            .enrollment-container {
-                grid-template-columns: 1fr;
-            }
-
-            .enrollment-summary {
-                position: static;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .form-row { grid-template-columns: 1fr; }
-            .enrollment-form { padding: 20px; }
-            .enrollment-summary { padding: 20px; }
-        }
-        /* ── New simplified flow styles ── */
-        .step-badge { display:inline-block; background:#eaf3ff; color:#0b66d6; padding:3px 12px; border-radius:20px; font-size:.75rem; font-weight:700; margin-bottom:10px; letter-spacing:.04em; }
-        .course-banner { display:flex; align-items:center; gap:10px; padding:12px 16px; background:#eaf3ff; border-left:4px solid #0b66d6; border-radius:0 8px 8px 0; margin-bottom:22px; font-size:.93rem; }
-        .pay-box { border:1px solid var(--border-color); border-radius:10px; overflow:hidden; margin:18px 0; }
-        .pay-row { display:flex; justify-content:space-between; align-items:center; padding:11px 16px; font-size:.9rem; border-bottom:1px solid var(--border-color); }
-        .pay-row:last-child { border-bottom:0; }
-        .pay-row.total { font-weight:700; color:#0052cc; background:#f5f8fc; }
-        .paypal-btn { display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:15px; background:#0070ba; color:#fff !important; border-radius:8px; text-decoration:none; font-size:1.05rem; font-weight:700; transition:background .2s; margin-top:4px; }
-        .paypal-btn:hover { background:#005ea6; }
-        .pay-notice { margin:12px 0; padding:10px 14px; background:#fff3cd; border-left:3px solid #e6a817; border-radius:0 6px 6px 0; font-size:.82rem; color:#4e617b; }
-        .btn-back { display:block; width:100%; margin-top:10px; padding:12px; background:transparent; border:1px solid var(--border-color); border-radius:8px; cursor:pointer; font-size:.9rem; color:#62748a; }
-        .btn-back:hover { background:#f5f8fc; }
-        .success-box { text-align:center; padding:24px 16px; }
-        .success-box i.big { font-size:60px; color:#27ae60; display:block; margin-bottom:14px; }
-        .success-rows { border:1px solid var(--border-color); border-radius:10px; overflow:hidden; margin:20px auto; max-width:380px; text-align:left; }
-        .success-row { display:flex; justify-content:space-between; padding:10px 16px; font-size:.9rem; border-bottom:1px solid var(--border-color); }
-        .success-row:last-child { border-bottom:0; }
-        .summary-perks { list-style:none; padding:0; margin:0; }
-        .summary-perks li { padding:6px 0; font-size:.87rem; color:#4e617b; border-bottom:1px solid rgba(0,0,0,.05); }
-        .summary-perks li:last-child { border-bottom:0; }
-        .summary-perks li::before { content:"✓ "; color:#27ae60; font-weight:700; }
-    </style>
+    <link rel="stylesheet" href="enrollment-styles.css">
 </head>
 <body>
-    <div class="top-bar">
-        <marquee behavior="scroll" direction="left" scrollamount="6"><i class="fas fa-phone" aria-hidden="true"></i>&nbsp;<a href="tel:+16466248608">+1 646-624-8608</a> | <i class="fas fa-envelope" aria-hidden="true"></i>&nbsp;<a href="mailto:info@transcendin.com">info@transcendin.com</a> | Transcending potential through learning</marquee>
-    </div>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <a href="index.html" aria-label="Go to homepage">
-                    <img src="assets/images/logo.png" alt="TranscendIN logo">
-                </a>
-            </div>
-            <div class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="courses.html" class="nav-link">Courses</a></li>
-                <li class="nav-item"><a href="enrollment-interactive.html" class="nav-link" style="color: #FF6B35; font-weight: 600;">Enroll Now</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand"><i class="fas fa-graduation-cap"></i> TranscendIN</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="courses.html">Courses</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-background">
-        <div class="hero-content">
-            <h1>Complete Your Enrollment</h1>
-            <p>Secure your spot and begin your learning journey with TranscendIN</p>
+    <!-- Main Enrollment Container -->
+    <main class="enrollment-main">
+        <div class="container enrollment-container">
+            <!-- Progress Indicator -->
+            <div class="enrollment-progress">
+                <div class="progress-steps">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Your Details</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Review</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Confirmation</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enrollment Form Container -->
+            <div class="enrollment-form-container">
+                <!-- STEP 1: Customer Details -->
+                <section id="step-1" class="enrollment-step active">
+                    <h2>Your Details</h2>
+                    <p class="step-description">Please fill in your information to enroll in this course.</p>
+                    
+                    <form id="detailsForm" class="enrollment-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentName">Full Name <span class="required">*</span></label>
+                                <input type="text" id="studentName" name="studentName" placeholder="Enter your full name" required>
+                                <span class="error-message" id="error-studentName"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                                <span class="error-message" id="error-email"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" required>
+                                <span class="error-message" id="error-phone"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country <span class="required">*</span></label>
+                                <select id="country" name="country" required>
+                                    <option value="">Select a country...</option>
+                                    <option value="United States">United States</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Australia">Australia</option>
+                                </select>
+                                <span class="error-message" id="error-country"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City <span class="required">*</span></label>
+                                <select id="city" name="city" required>
+                                    <option value="">Select a country first...</option>
+                                </select>
+                                <span class="error-message" id="error-city"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="pincode">Postal/ZIP Code <span class="required">*</span></label>
+                                <input type="text" id="pincode" name="pincode" placeholder="12345" required>
+                                <span class="error-message" id="error-pincode"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="state">State/Province <span class="required">*</span></label>
+                                <input type="text" id="state" name="state" placeholder="California" required>
+                                <span class="error-message" id="error-state"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message <span class="optional">(Optional)</span></label>
+                            <textarea id="message" name="message" placeholder="Tell us about yourself or your learning goals..." rows="4"></textarea>
+                            <span class="error-message" id="error-message"></span>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="goBack()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Continue to Review →</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- STEP 2: Review Details -->
+                <section id="step-2" class="enrollment-step">
+                    <h2>Review Your Details</h2>
+                    <p class="step-description">Please verify your information before proceeding to payment.</p>
+
+                    <div class="review-section">
+                        <div class="review-card">
+                            <h3>Personal Information</h3>
+                            <div class="review-field">
+                                <span class="label">Name:</span>
+                                <span class="value" id="review-name"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">Email:</span>
+                                <span class="value" id="review-email"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">Phone:</span>
+                                <span class="value" id="review-phone"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">Country:</span>
+                                <span class="value" id="review-country"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">City:</span>
+                                <span class="value" id="review-city"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">State/Province:</span>
+                                <span class="value" id="review-state"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">Postal/ZIP Code:</span>
+                                <span class="value" id="review-pincode"></span>
+                            </div>
+                            <div class="review-field" id="review-message-field" style="display: none;">
+                                <span class="label">Message:</span>
+                                <span class="value" id="review-message"></span>
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <h3>Course Details</h3>
+                            <div class="review-field">
+                                <span class="label">Course:</span>
+                                <span class="value" id="review-course"></span>
+                            </div>
+                            <div class="review-field">
+                                <span class="label">Course Fee:</span>
+                                <span class="value" id="review-fee"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                        <button type="button" class="btn btn-primary" onclick="proceedToPayment()">Proceed to Payment →</button>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Payment -->
+                <section id="step-3" class="enrollment-step">
+                    <h2>Payment Information</h2>
+                    <p class="step-description">Complete your payment using PayPal to confirm enrollment.</p>
+
+                    <div class="payment-summary">
+                        <div class="payment-row">
+                            <span>Course:</span>
+                            <span id="payment-course" class="font-bold"></span>
+                        </div>
+                        <div class="payment-row">
+                            <span>Amount:</span>
+                            <span id="payment-amount" class="font-bold"></span>
+                        </div>
+                        <div class="payment-row" style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px;">
+                            <span class="font-bold">Total Amount:</span>
+                            <span id="payment-total" class="font-bold text-lg text-primary"></span>
+                        </div>
+                    </div>
+
+                    <div class="payment-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Your payment is processed securely by <strong>PayPal</strong>. We do not store any card or payment details.</p>
+                    </div>
+
+                    <!-- PayPal Container -->
+                    <div id="paypal-button-container" style="margin: 20px 0;"></div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="previousStep()">← Back</button>
+                    </div>
+                </section>
+
+                <!-- STEP 4: Enrollment Success -->
+                <section id="step-4" class="enrollment-step">
+                    <div class="success-container">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>🎉 Enrollment Successful!</h2>
+                        <p class="success-message">Your enrollment has been confirmed and you're all set!</p>
+
+                        <div class="success-card">
+                            <h3>Enrollment Details</h3>
+                            <div class="detail-row">
+                                <span class="label">Student Name:</span>
+                                <span class="value" id="final-name"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Course Name:</span>
+                                <span class="value" id="final-course"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Enrollment ID:</span>
+                                <span class="value enrollment-id" id="final-enrollment-id"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Payment ID:</span>
+                                <span class="value" id="final-payment-id"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Amount Paid:</span>
+                                <span class="value" id="final-amount"></span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Payment Status:</span>
+                                <span class="value status-paid">✓ PAID</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Enrollment Date:</span>
+                                <span class="value" id="final-date"></span>
+                            </div>
+                        </div>
+
+                        <div class="success-message-box">
+                            <i class="fas fa-envelope"></i>
+                            <p><strong>A confirmation email has been sent to your registered email address.</strong></p>
+                            <p>You'll receive course access details, login credentials, and instructions to get started.</p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="window.location.href='dashboard.html'">
+                                <i class="fas fa-arrow-right"></i> Go to Dashboard
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="window.location.href='courses.html'">
+                                <i class="fas fa-book"></i> Browse More Courses
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-    </section>
-
-    <!-- Enrollment Section -->
-    <section class="container" style="margin-top:56px;margin-bottom:80px;">
-
-        <div id="courseNotice" class="course-notice" style="display:none;margin-bottom:20px;padding:14px 18px;border-radius:8px;background:#fff3cd;border-left:4px solid #e6a817;font-weight:600;">
-            No course selected — <a href="courses.html" style="color:inherit;text-decoration:underline;">Browse Courses</a>
-        </div>
-
-        <div class="enrollment-container">
-
-            <!-- ── STEP 1 : Your Details ── -->
-            <form class="enrollment-form" id="enrollForm">
-                <span class="step-badge">Step 1 of 3 — Your Details</span>
-
-                <div class="course-banner" id="courseBanner" style="display:none">
-                    <i class="fas fa-book" style="color:#0b66d6"></i>
-                    <span>Enrolling in: <strong id="bannerCourseName"></strong></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Your full name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email" placeholder="you@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number *</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+1 234 567 8900" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="state">State / Province</label>
-                        <input type="text" id="state" name="state" placeholder="Your state">
-                    </div>
-                    <div class="form-group">
-                        <label for="country">Country *</label>
-                        <select id="country" name="country" required>
-                            <option value="">Select Country</option>
-                            <option value="US">United States</option>
-                            <option value="UK">United Kingdom</option>
-                            <option value="IN">India</option>
-                            <option value="CA">Canada</option>
-                            <option value="AU">Australia</option>
-                            <option value="SG">Singapore</option>
-                            <option value="AE">UAE</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message (optional)</label>
-                    <textarea id="message" name="message" rows="3" placeholder="Any questions or special requirements?"></textarea>
-                </div>
-
-                <div class="agreement-checkbox">
-                    <input type="checkbox" id="terms" name="terms" required>
-                    <label for="terms">I agree to the <a href="terms-of-service.html">Terms of Service</a> and <a href="privacy-policy.html">Privacy Policy</a></label>
-                </div>
-
-                <button type="submit" class="submit-btn">Continue to Payment &rarr;</button>
-            </form>
-
-            <!-- ── STEP 2 : Payment ── -->
-            <div id="paymentPanel" class="enrollment-form" style="display:none">
-                <span class="step-badge">Step 2 of 3 — Payment</span>
-                <h2 style="margin:8px 0 4px;font-size:1.4rem">Complete Your Payment</h2>
-                <p style="margin:0 0 18px;color:#4e617b;font-size:.9rem">Review your order, then click the PayPal button to pay securely.</p>
-
-                <div class="pay-box">
-                    <div class="pay-row"><span>Course</span><strong id="payCourseName"></strong></div>
-                    <div class="pay-row"><span>Student</span><span id="payStudentName"></span></div>
-                    <div class="pay-row total"><span>Payment via</span><span><i class="fab fa-paypal"></i> PayPal</span></div>
-                </div>
-
-                <!-- ↓ Replace href with your actual PayPal.me or checkout link -->
-                <a id="paypalBtn" href="https://paypal.me/TranscendIN" target="_blank" rel="noopener" class="paypal-btn">
-                    <i class="fab fa-paypal" style="font-size:1.3rem"></i> Pay with PayPal
-                </a>
-
-                <div class="pay-notice">
-                    <i class="fas fa-info-circle"></i>
-                    After completing payment on PayPal, return to this page and click the button below.
-                </div>
-
-                <button type="button" id="paymentDoneBtn" class="submit-btn" style="background:linear-gradient(135deg,#219653,#27ae60);margin-top:14px">
-                    <i class="fas fa-check" style="margin-right:8px"></i>I've Completed Payment
-                </button>
-                <button type="button" id="backToFormBtn" class="btn-back">&larr; Back to Details</button>
-            </div>
-
-            <!-- ── STEP 3 : Success ── -->
-            <div id="successPanel" class="enrollment-form" style="display:none">
-                <div class="success-box">
-                    <i class="fas fa-check-circle big"></i>
-                    <h2 style="color:#102a43;margin:0 0 8px">Enrollment Successful!</h2>
-                    <p style="color:#4e617b;margin:0 0 4px">Welcome to TranscendIN! A confirmation email is on its way.</p>
-                    <div class="success-rows">
-                        <div class="success-row"><span>Course</span><strong id="successCourseName"></strong></div>
-                        <div class="success-row"><span>Student</span><span id="successStudentName"></span></div>
-                        <div class="success-row"><span>Email</span><span id="successEmail"></span></div>
-                    </div>
-                    <a href="courses.html" class="submit-btn" style="display:inline-block;text-decoration:none;width:auto;padding:14px 32px;margin-top:8px">Browse More Courses</a>
-                </div>
-            </div>
-
-            <!-- ── Right Sidebar ── -->
-            <div class="enrollment-summary">
-                <div class="summary-section">
-                    <h4><i class="fas fa-book"></i> Selected Course</h4>
-                    <p style="color:#4e617b;font-size:.9rem;margin:0"><strong id="summaryCourseName" style="color:#102a43">—</strong></p>
-                </div>
-                <div class="summary-section">
-                    <h4><i class="fas fa-star" style="color:#f5a623"></i> What You Get</h4>
-                    <ul class="summary-perks">
-                        <li>Live instructor-led training</li>
-                        <li>Course materials &amp; resources</li>
-                        <li>Certificate of completion</li>
-                        <li>30-day money-back guarantee</li>
-                        <li>24/7 support access</li>
-                    </ul>
-                </div>
-                <div class="summary-section">
-                    <h4><i class="fas fa-headset"></i> Need Help?</h4>
-                    <p style="font-size:.88rem;color:#4e617b;margin:0;line-height:1.8">
-                        <a href="tel:+16466248608">+1 (646) 624-8608</a><br>
-                        <a href="mailto:info@transcendin.com">info@transcendin.com</a>
-                    </p>
-                </div>
-                <div class="guarantee-badge">
-                    <i class="fas fa-shield-alt"></i>
-                    <strong>30-Day Money-Back Guarantee</strong><br>
-                    Not satisfied? Full refund within 30 days.
-                </div>
-            </div>
-
-        </div><!-- /.enrollment-container -->
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -373,35 +287,23 @@
                         <img src="assets/images/logo.png" alt="TranscendIN logo">
                     </a>
                     <h4><a href="index.html">TranscendIN</a></h4>
-<p>Transforming careers through expert-led professional training.</p>
-                                        <div class="social-links">
-                        <a aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    </div>
+                    <p>Transforming careers through expert-led professional training.</p>
                 </div>
-
                 <div class="footer-col">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html">&rarr; Home</a></li>
                         <li><a href="about.html">&rarr; About Us</a></li>
                         <li><a href="courses.html">&rarr; Courses</a></li>
                         <li><a href="contact.html">&rarr; Contact</a></li>
-                        <li><a href="enrollment.html">&rarr; Enrollment</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
-                    <h4>Popular Courses</h4>
+                    <h4>Company</h4>
                     <ul>
-                        <li><a href="courses.html#leadership">&rarr; Leadership</a></li>
-                        <li><a href="courses.html#soft-skills">&rarr; Soft Skills</a></li>
-                        <li><a href="courses.html#agile">&rarr; Agile</a></li>
-                        <li><a href="courses.html#cloud">&rarr; Cloud &amp; DevOps</a></li>
+                        <li><a href="privacy-policy.html">&rarr; Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">&rarr; Terms of Service</a></li>
                     </ul>
                 </div>
-
                 <div class="footer-col">
                     <h4>Get In Touch</h4>
                     <div class="footer-contact-item">
@@ -412,20 +314,22 @@
                         <h5>Phone</h5>
                         <p><a href="tel:+16466248608">+1 (646) 624-8608</a></p>
                     </div>
-                    <div class="footer-contact-item">
-                        <h5>Support</h5>
-                        <p>24/7 Available</p>
-                    </div>
                 </div>
             </div>
+            <hr class="footer-divider">
             <div class="footer-bottom">
-                <p>&copy; 2026 TranscendIN. All rights reserved. | Transcending potential through learning</p>
+                <p>&copy; 2026 TranscendIN. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="assets/js/script.js?v=2"></script>
-    <script src="assets/js/course-navigation.js?v=1"></script>
-    <script src="enrollment-form.js?v=5"></script>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing your enrollment...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="enrollment.js"></script>
 </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://localhost:3000 http://127.0.0.1:3000; script-src 'self'; style-src 'self';">
+  <title>Admin Enrollment Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section id="login-panel" class="panel login-panel">
+      <p class="eyebrow">TRANSCENDIN</p>
+      <h1>Admin dashboard</h1>
+      <p class="muted">Sign in to view customer enrollments and payment records.</p>
+      <form id="login-form">
+        <label>Username<input id="username" autocomplete="username" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Sign in</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="dashboard-panel" class="hidden">
+      <header class="dashboard-header">
+        <div><p class="eyebrow">TRANSCENDIN</p><h1>Enrollments</h1></div>
+        <div class="header-actions"><button id="refresh-button" class="secondary">Refresh</button><button id="export-button" class="secondary">Export CSV</button><button id="logout-button" class="secondary">Sign out</button></div>
+      </header>
+      <div class="toolbar panel">
+        <input id="search" placeholder="Search customer, email, course or ID">
+        <select id="status"><option value="">All statuses</option><option value="PAID">Paid</option><option value="PENDING_PAYMENT">Pending payment</option><option value="PAYMENT_FAILED">Payment failed</option></select>
+      </div>
+      <p id="dashboard-error" class="error" role="alert"></p>
+      <div class="table-wrap panel">
+        <table><thead><tr><th>Customer</th><th>Course</th><th>Amount</th><th>Payment</th><th>Created</th><th>Enrollment ID</th></tr></thead><tbody id="enrollment-rows"></tbody></table>
+        <p id="empty-state" class="muted hidden">No enrollments found.</p>
+      </div>
+    </section>
+  </main>
+  <script src="admin.js?v=20260907-2"></script>
+</body>
+</html>
