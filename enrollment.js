@@ -64,6 +64,28 @@ const cityData = {
 };
 
 // Get course info from URL or session
+function parseCourseCatalog(text) {
+    const rows = text.split(/\r?\n/).filter(row => row.trim()).map(row => {
+        const values = [];
+        let value = '';
+        let quoted = false;
+        for (const character of row) {
+            if (character === '"') quoted = !quoted;
+            else if (character === ',' && !quoted) {
+                values.push(value.trim());
+                value = '';
+            } else value += character;
+        }
+        values.push(value.trim());
+        return values;
+    });
+    const headers = rows.shift() || [];
+    return rows.map(row => headers.reduce((course, header, index) => {
+        course[header] = row[index] || '';
+        return course;
+    }, {}));
+}
+
 async function initializeCourse() {
     const params = new URLSearchParams(window.location.search);
     const courseSlug = params.get('course');
@@ -88,9 +110,29 @@ async function initializeCourse() {
             console.warn('Using default currency conversion rates:', error.message);
         }
     } else {
-        // Fallback - this shouldn't happen if user comes from courses page
-        alert('Please select a course first');
-        window.location.href = 'courses.html';
+        try {
+            const response = await fetch('c_c.csv');
+            const courses = parseCourseCatalog(await response.text());
+            const course = courses.find(item => item['Course Name']
+                && item['Course Name'].toLowerCase().replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '') === courseSlug.toLowerCase());
+            if (!course) throw new Error('Course not found');
+            enrollmentData.course_name = course['Course Name'];
+            enrollmentData.course_id = courseSlug;
+            enrollmentData.amount = Number(course.Price) || 5000;
+        } catch (error) {
+            alert('Please select a course first');
+            window.location.href = 'courses.html';
+            return;
+        }
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/api/paypal/config`);
+        const config = await response.json();
+        if (response.ok && config.ok) paymentConfig = config;
+    } catch (error) {
+        console.warn('Payment API unavailable until checkout:', error.message);
     }
 }
 
