@@ -61,7 +61,8 @@ function mapCourse(raw){
   const duration = raw['Duration'] || '';
   const desc = raw['Short Description'] || '';
   const category = raw['Category'] || '';
-  return {name, duration, desc, category};
+  const price = raw['Price'] ? parseInt(raw['Price']) : 5000;
+  return {name, duration, desc, category, price};
 }
 
 function reconcileMenuCategories(courses, menuData){
@@ -106,12 +107,25 @@ function createCard(course){
   const p = document.createElement('p'); p.className = 'course-desc'; p.textContent = course.desc;
 
   const actions = document.createElement('div'); actions.className = 'card-actions';
-  const enroll = document.createElement('a');
-  enroll.className = 'btn-primary';
-  enroll.href = 'enrollment.html?course=' + courseSlug(course.name);
-  enroll.setAttribute('aria-label', 'Enroll in ' + course.name);
-  enroll.textContent = 'Enroll Now';
-  actions.appendChild(enroll);
+  
+  // Add Enroll button
+  const enrollBtn = document.createElement('a');
+  enrollBtn.href = '#';
+  enrollBtn.className = 'btn-primary';
+  enrollBtn.setAttribute('aria-label', 'Enroll in ' + course.name);
+  enrollBtn.textContent = 'Enroll Now';
+  enrollBtn.onclick = function(e) {
+    e.preventDefault();
+    // Store course info in session storage
+    sessionStorage.setItem('selectedCourse', JSON.stringify({
+      name: course.name,
+      id: courseSlug(course.name),
+      price: course.price || 5000
+    }));
+    // Navigate to enrollment page
+    window.location.href = 'enrollment.html?course=' + courseSlug(course.name);
+  };
+  actions.appendChild(enrollBtn);
 
   card.appendChild(h3);
   card.appendChild(p);
